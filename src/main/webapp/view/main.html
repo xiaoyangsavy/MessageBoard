@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Layout - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
+
+    <script type="text/javascript">
+        var data = [{
+            text: '财务管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '总览'
+            },{
+                text: '投资'
+            },{
+                text: '固定资产'
+            },{
+                text: '负债'
+            },{
+                text: '贡献度'
+        }]
+
+        },{
+            text: '历史记录',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '现金'
+            },{
+                text: '投资'
+            },{
+                text: '负债'
+            },{
+                text: '贡献度'
+            },{
+                text: '开销'
+            }]
+        },{
+            text: '维护管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '借贷人管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '权限管理'
+            }]
+        }];
+    </script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">north region</div>
+<div data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:10px;">
+
+    <div id="sm" class="easyui-sidemenu" data-options="data:data"></div>
+
+</div>
+<div data-options="region:'center',title:''"></div>
+</body>
+</html>
