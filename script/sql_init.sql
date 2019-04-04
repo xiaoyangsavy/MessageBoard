@@ -48,7 +48,7 @@ create table role
 create table permission
 (
    permission_id	int		not null			COMMENT '权限编号',
-   permission_name	varchar(45)			default NULL	COMMENT '权限名',
+   permission_name	varchar(45)	default NULL			COMMENT '权限名',
    description		varchar(255)					COMMENT '描述' ,
    primary key (permission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '权限表';
@@ -64,9 +64,23 @@ create table role_permission
    primary key (role_id, permission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '角色-权限中间表';
 
+/*==============================================================*/
+/* Table: message       消息内容表                           */
+/*==============================================================*/
+create table message
+(
+   message_id		int		not null	AUTO_INCREMENT	COMMENT '消息编号',
+   super_message_id	int		default NULL	        	COMMENT '父消息编号',
+   message_content	text						COMMENT '消息内容',
+   message_date		datetime					COMMENT '消息发布时间',
+   image_url		varchar(255)					COMMENT '图片地址',
+   video_url		varchar(255)					COMMENT '视频地址',
+   user_id		int		not null	default 0	COMMENT '用户编号',
+   primary key (message_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '角色-权限中间表';
   
 
-
+/*插入正式数据==============================================================*/
 
 INSERT INTO user (user_id,user_name,password,role_id,name,sex,phone,email,last_login_date)  
 VALUES (1,'admin','admin','1','超级管理员','男','15111111111','admin@qq.com','2006-08-10 17:32:50');
@@ -81,6 +95,10 @@ INSERT INTO permission (permission_id,permission_name,description)  VALUES (3,'�
 
 INSERT INTO role_permission (role_id,permission_id) 
 VALUES (1,1),(1,2),(1,3),(2,1),(2,2),(3,1);
+
+
+/*插入测试数据==============================================================*/
+ 
 
 
  

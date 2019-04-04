@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Basic Layout - jQuery EasyUI Demo</title>
+    <title>留言板</title>
     <link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../../themes/icon.css">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -10,57 +10,71 @@
 
     <script type="text/javascript">
         var data = [{
-            text: '财务管理',
+            text: '分类一',
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '总览'
+                text: '小项1'
             },{
-                text: '投资'
+                text: '小项2'
             },{
-                text: '固定资产'
+                text: '小项3'
             },{
-                text: '负债'
+                text: '小项4'
             },{
-                text: '贡献度'
+                text: '小项5'
         }]
 
         },{
-            text: '历史记录',
+            text: '分类二',
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '现金'
+                text: '小项1'
             },{
-                text: '投资'
+                text: '小项2'
             },{
-                text: '负债'
+                text: '小项3'
             },{
-                text: '贡献度'
+                text: '小项4'
             },{
-                text: '开销'
+                text: '小项5'
             }]
         },{
-            text: '维护管理',
+            text: '分类三',
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '借贷人管理'
+                text: '小项1'
             },{
-                text: '用户管理'
+                text: '小项2'
             },{
-                text: '权限管理'
+                text: '小项3'
             }]
         }];
     </script>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">north region</div>
-<div data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:10px;">
+<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">浏览版</div>
+<div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
     <div id="sm" class="easyui-sidemenu" data-options="data:data"></div>
 
 </div>
-<div data-options="region:'center',title:''"></div>
+<div data-options="region:'center',title:''">
+
+    <table class="easyui-datagrid" title="问题列表" style=""
+           data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'" fit="true"  pagination="true" fitColumns="true" rownumbers="true">
+        <thead>
+        <tr>
+            <th data-options="field:'itemid',width:80,align:'center'">用户</th>
+            <th data-options="field:'productid',width:500,align:'center'">内容</th>
+            <th data-options="field:'listprice',width:150,align:'center'">发表时间</th>
+            <th data-options="field:'unitcost',width:100,align:'center'">操作</th>
+        </tr>
+        </thead>
+    </table>
+
+</div>
 </body>
 </html>
