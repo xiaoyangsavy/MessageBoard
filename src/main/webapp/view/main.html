@@ -59,8 +59,8 @@
 
     <h3 align="center">留言板</h3>
     <label style="width:120px;height:20px;position:absolute;bottom:0;right: 80px"  >登录用户：管理员</label>
-    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="alert('你好，世界!')" >发布问题</button>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="alert('你好，世界!')" >退出</button>
+    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
+    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
 
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
@@ -143,12 +143,32 @@
     $(function(){
         $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
     });
+
+    function addMessage() {
+        window.location.href="message.html";
+    }
+
+    function logout() {
+        window.location.href="message.html";
+    }
+
+    function replayMessage(object) {
+        window.location.href="message.html";
+    }
+
+    function showMessage(object) {
+        window.location.href="message.html";
+    }
+
+    function deleteMessage(object) {
+        window.location.href="message.html";
+    }
 </script>
 <script type="text/javascript">
     function formatOper(val,row,index){
-        return '<a href="javascript:void(0)" onclick="showUser(' + index
-            + ')">回复</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="editTeacher(' + index
-            + ')">查看</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="dele()">删除</a>&nbsp;&nbsp;';
+        return '<a href="javascript:void(0)" onclick="replayMessage(' + index
+            + ')">回复</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="showMessage(' + index
+            + ')">查看</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="deleteMessage(' + index+')">删除</a>&nbsp;&nbsp;';
 
     }
 
