@@ -10,11 +10,21 @@ public class TestController {
 
     @RequestMapping(value = "/test/get")
     @ResponseBody
-    public Test testFreemarker() {
+    public Test testGet() {
         System.out.println("call /test/get");
         Test test = new Test();
         test.setValue("test");
 
+        return test;
+    }
+
+
+    @RequestMapping(value = "/test/submit")
+    @ResponseBody
+    public Test testSubmit() {
+        System.out.println("call /test/submit");
+        Test test = new Test();
+        test.setValue("success");
         return test;
     }
 

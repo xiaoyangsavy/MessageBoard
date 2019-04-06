@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
 
+
     <script type="text/javascript">
         var data = [{
             text: '分类一',
@@ -153,15 +154,25 @@
     }
 
     function replayMessage(object) {
-        window.location.href="message.html";
+        window.location.href="replay.html";
     }
 
     function showMessage(object) {
-        window.location.href="message.html";
+        window.location.href="showMessage.html";
     }
 
     function deleteMessage(object) {
-        window.location.href="message.html";
+        $.messager.confirm("", "确认删除吗？", function (r) {
+            if (r) {
+                $.messager.show({
+                    title:'提示',
+                    msg:'内容已删除',
+                    timeout:500,
+                    showType:'fade'
+                });
+            }
+        });
+
     }
 </script>
 <script type="text/javascript">
@@ -187,6 +198,9 @@
         showContent=showContent+'<br/>';
         return showContent;
     }
+
+
+
 </script>
 </body>
 </html>
