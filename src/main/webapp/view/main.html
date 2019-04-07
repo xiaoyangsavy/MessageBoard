@@ -23,7 +23,7 @@
                 text: '小项4'
             },{
                 text: '小项5'
-        }]
+            }]
 
         },{
             text: '分类二',
@@ -52,13 +52,32 @@
                 text: '小项3'
             }]
         }];
+        var storage=window.sessionStorage;
+        //alert(storage.getItem('u_name'))
+        var name=storage.getItem('u_name');
+        //alert(name);
+        //document.getElementById("denglu").value=name;
+		//alert(1);
+      // $("#deng_lu").text("asds");
+		//alert(document.getElementById("deng_lu").text);
+        //$("#denglu").html("修改");
+        //var d=document.getElementById("deng_lu");
+        //$("#denglu").text("content")
+		//d.innerHTML="asdasd";
+		//function()
+		//{
+	   // $('#deng_lu').html("span的文本");
+       // document.getElementById('deng_lu').innerText="span的文本";
+		//}
+		$('#deng_lu').text('span的文本');
+
     </script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
 
     <h3 align="center">留言板</h3>
-    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 80px"  >登录用户：管理员</label>
+    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
     <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
     <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
 
@@ -149,7 +168,9 @@
     }
 
     function logout() {
-        window.location.href="message.html";
+		alert(1);
+		$('#deng_lu').text('span的文本');
+        //window.location.href="index.html";
     }
 
     function replayMessage(object) {
