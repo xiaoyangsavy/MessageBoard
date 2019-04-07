@@ -53,23 +53,9 @@
                 text: '小项3'
             }]
         }];
-        var storage=window.sessionStorage;
+        var storage=window.localStorage;
         //alert(storage.getItem('u_name'))
         var name=storage.getItem('u_name');
-        //alert(name);
-        //document.getElementById("denglu").value=name;
-		//alert(1);
-      // $("#deng_lu").text("asds");
-		//alert(document.getElementById("deng_lu").text);
-        //$("#denglu").html("修改");
-        //var d=document.getElementById("deng_lu");
-        //$("#denglu").text("content")
-		//d.innerHTML="asdasd";
-		//function()
-		//{
-	   // $('#deng_lu').html("span的文本");
-       // document.getElementById('deng_lu').innerText="span的文本";
-		//}
         $(function(){
             $('#deng_lu').text(name);
         });

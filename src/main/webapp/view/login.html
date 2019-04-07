@@ -44,6 +44,7 @@
 <script src="../js/particles.min.js"></script>
 <script src="../js/app.js"></script>
 <script type="text/javascript">
+
 	function hasClass(elem, cls) {
 	  cls = cls || '';
 	  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
@@ -69,7 +70,7 @@
 			    var name=document.getElementById('u_name').value;
 				var pass=document.getElementById('u_pass').value;
 				//alert(a)
-				var storage=window.sessionStorage;
+				var storage=window.localStorage;;
 				if(u_name)
 				{
 					storage.setItem('u_name',name);
