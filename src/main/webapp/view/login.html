@@ -69,7 +69,7 @@
 		document.querySelector(".login-button").onclick = function(){
 			    var name=document.getElementById('u_name').value;
 				var pass=document.getElementById('u_pass').value;
-				var storage=window.localStorage;;
+				//var storage=window.localStorage;;
 				if(name!=''&&name!=null)
 				{
 
@@ -79,7 +79,9 @@
 				}
 				else
 				{
-					window.location.href='login.html';
+					Setcookie("u_name","admin");
+					window.location.href='main.html';
+					//window.location.href='login.html';
 				}
 		}
 		document.querySelector(".register").onclick = function()
