@@ -69,27 +69,16 @@
 		document.querySelector(".login-button").onclick = function(){
 			    var name=document.getElementById('u_name').value;
 				var pass=document.getElementById('u_pass').value;
-				//alert(a)
 				var storage=window.localStorage;;
-				if(u_name)
+				if(name!=''&&name!=null)
 				{
 					storage.setItem('u_name',name);
+					window.location.href='main.html';
 				}
-				//alert(storage.getItem('u_name'))
-				//addClass(document.querySelector(".login"), "active")
-				//setTimeout(function(){
-				//	addClass(document.querySelector(".sk-rotating-plane"), "active")
-				//	document.querySelector(".login").style.display = "none"
-				//},300)
-				window.location.href='main.html';
-				//setTimeout(function(){
-					//removeClass(document.querySelector(".login"), "active")
-					//removeClass(document.querySelector(".sk-rotating-plane"), "active")
-					//document.querySelector(".login").style.display = "block"
-					//alert("登录成功")
-					//window.location.href='main.html';
-					
-				//},2000)
+				else
+				{
+					window.location.href='login.html';
+				}
 		}
 		document.querySelector(".register").onclick = function()
 		{

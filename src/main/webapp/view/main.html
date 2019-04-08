@@ -160,7 +160,9 @@
     function logout() {
 		//alert(1);
 		//$('#deng_lu').text('span的文本');
-        window.location.href="index.html";
+		var storage=window.localStorage;
+		storage.removeItem('u_name');
+        window.location.href="login.html";
     }
 
     function replayMessage(object) {
