@@ -33,7 +33,17 @@
 
             //首页加载数据
             $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
-        }      );
+
+            //显示未读消息
+            $.messager.show({
+                title:'提示',
+                msg:'你的留言有新的回复，请查看',
+                timeout:1000,
+                showType:'fade'
+            });
+
+        });
+
 
     </script>
 </head>
@@ -51,7 +61,13 @@
 
 </div>
 <div id="panel-center" data-options="region:'center',title:''">
-
+    <!--
+    <div id="tb">
+        名称<input type="text" name="standard.name"  id="qName" /> 
+        最小重量<input type="text" name="standard.minWeight" id="qMinWeight"/> 
+        最小长度<input type="text" name="standard.minLength" id="qMinLength"/> 
+        <a id="standardQueryBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">搜索</a>
+    </div>  -->
     <table id="dg" class="easyui-datagrid" title="问题列表" style=""
            data-options="singleSelect:true" fit="true"  pagination="true" fitColumns="true"    data-options="
 				rownumbers:true,
@@ -70,6 +86,7 @@
         </tr>
         </thead>
     </table>
+
 
 </div>
 
