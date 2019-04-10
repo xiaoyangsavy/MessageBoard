@@ -15,7 +15,9 @@
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '教务教学'
+                text: '所有类别'
+            },{
+				text: '教务教学'
             },{
                 text: '后勤服务'
             },{
@@ -88,20 +90,51 @@ break;
 }
 }
 
+//改变左侧菜单选中样式
+    function changeMenuStyle(menuItem, opts, selectId) {
+        menuItem.find("div.tree-node-selected").removeClass("tree-node-selected");
+        var node = menuItem.tree("find", selectId);
+        if (node) {
+            $(node.target).addClass("tree-node-selected");
+            opts.selectedItemId = node.id;
+            menuItem.trigger("mouseleave.sidemenu");
+        }
+
+        changeMenuSelect(menuItem);
+    }
+	
+	function changeMenuSelect(menus, opts, selectId) {
+        var menutrees = menus.find(".sidemenu-tree");
+        menutrees.each(function () {
+            var menuItem = $(this);
+            changeMenuStyle(menuItem, opts, selectId);
+        });
+
+        var tooltips = menus.find(".tooltip-f");
+        tooltips.each(function () {
+            var menuItem = $(this);
+            var tip = menuItem.tooltip("tip");
+            if (tip) {
+                tip.find(".sidemenu-tree").each(function () {
+                    changeMenuStyle($(this), opts, selectId);
+                });
+                menuItem.tooltip("reposition");
+            }
+        });
+    }
+
     </script>
 </head>
 <body id="mypannel" class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
+<div id="head" data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
 
-    <h3 align="center">留言板</h3>
-    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
-    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
-
+    <script>
+       $("#head").load("../view/head.html");
+   </script>
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
-    <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
+    <div id="left-sidemenu" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
 
 </div>
 <div id="panel-center" data-options="region:'center',title:''">
@@ -178,6 +211,11 @@ break;
 
     $(function(){
         $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+		
+		//默认选中第一个
+		var menus = $('#left-sidemenu');
+		 var opts = menus.sidemenu("options");
+		changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
     });
 
     function addMessage() {
