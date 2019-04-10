@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>留言板</title>
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+ 
 
 
     <script type="text/javascript">
@@ -98,52 +90,14 @@ case '系统管理':
 $('#panel-center').panel('refresh','tabs_href_test.html');
 break;
 default:
-$('#panel-center').panel('refresh','fragment-main.html');
 break;
 }
 }
 
     </script>
-</head>
-<body id="mypannel" class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
-
-    <h3 align="center">留言板</h3>
-    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
-    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
-
-</div>
-<div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
-
-    <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
-
-</div>
-<div id="panel-center" data-options="region:'center',title:''">
-
-    <table id="dg" class="easyui-datagrid" title="问题列表" style=""
-           data-options="singleSelect:true" fit="true"  pagination="true" fitColumns="true"    data-options="
-				rownumbers:true,
-				singleSelect:true,
-				autoRowHeight:false,
-				pagination:true,
-				pageSize:10">
-        <thead>
-        <tr>
-            <!--<th data-options="field:'ck',checkbox:true"></th> -->
-            <th data-options="field:'userName',width:80,align:'center'">用户</th>
-            <th data-options="field:'content',width:500,align:'left',formatter:showContent">内容</th>
-            <th data-options="field:'state',width:50,align:'center'">状态</th>
-            <th data-options="field:'date',width:100,align:'center'">发表时间</th>
-            <th data-options="field:'operation',width:100,align:'center',formatter:formatOper">操作</th>
-        </tr>
-        </thead>
-    </table>
-
-</div>
 
 
-<script>
+	<script>
     function getData(){
         var rows = [];
         for(var i=1; i<=800; i++){
@@ -258,5 +212,30 @@ var expdate = new Date();   //初始化时间
 
 
 </script>
-</body>
-</html>
+
+
+ 
+
+    <table id="dg" class="easyui-datagrid" title="问题列表" style=""
+           data-options="singleSelect:true" fit="true"  pagination="true" fitColumns="true"    data-options="
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				pagination:true,
+				pageSize:10">
+        <thead>
+        <tr>
+            <!--<th data-options="field:'ck',checkbox:true"></th> -->
+            <th data-options="field:'userName',width:80,align:'center'">用户</th>
+            <th data-options="field:'content',width:500,align:'left',formatter:showContent">内容</th>
+            <th data-options="field:'state',width:50,align:'center'">状态</th>
+            <th data-options="field:'date',width:100,align:'center'">发表时间</th>
+            <th data-options="field:'operation',width:100,align:'center',formatter:formatOper">操作</th>
+        </tr>
+        </thead>
+    </table>
+ 
+
+
+
+ 

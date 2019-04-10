@@ -86,12 +86,26 @@ return ""
 
 function selectItem(item){
 console.log(item);
-alert('点击了'+item.text);
+//alert('点击了'+item.text);
+switch(item.text){
+case '类型管理':
+$('#panel-center').panel('refresh','tabs_href_test.html');
+break;
+case '用户管理':
+$('#panel-center').panel('refresh','tabs_href_test.html');
+break;
+case '系统管理':
+$('#panel-center').panel('refresh','tabs_href_test.html');
+break;
+default:
+$('#panel-center').panel('refresh','fragment-main.html');
+break;
+}
 }
 
     </script>
 </head>
-<body class="easyui-layout">
+<body id="mypannel" class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
 
     <h3 align="center">留言板</h3>
@@ -105,7 +119,7 @@ alert('点击了'+item.text);
     <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
 
 </div>
-<div data-options="region:'center',title:''">
+<div id="panel-center" data-options="region:'center',title:''">
 
     <table id="dg" class="easyui-datagrid" title="问题列表" style=""
            data-options="singleSelect:true" fit="true"  pagination="true" fitColumns="true"    data-options="
