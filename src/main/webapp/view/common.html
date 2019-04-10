@@ -1,36 +1,36 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ÁôÑÔ°å</title>
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">  <!-- ×é¼şÏÔÊ¾ÑùÊ½ -->
+    <title>ç•™è¨€æ¿</title>
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">  <!-- ç»„ä»¶æ˜¾ç¤ºæ ·å¼ -->
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>    <!--×é¼ş½»»¥Âß¼­ -->
-    <script type="text/javascript" src="../js/esayui-extend.js"></script>   <!-- ×é¼şÀ©Õ¹¹¦ÄÜ -->
-    <script type="text/javascript" src="../js/common.js"></script>           <!-- ¹«¹²Âß¼­ -->
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>    <!--ç»„ä»¶äº¤äº’é€»è¾‘ -->
+    <script type="text/javascript" src="../js/esayui-extend.js"></script>   <!-- ç»„ä»¶æ‰©å±•åŠŸèƒ½ -->
+    <script type="text/javascript" src="../js/common.js"></script>           <!-- å…¬å…±é€»è¾‘ -->
 
 
     <script type="text/javascript">
 
-        //ÎÄµµ
+        //æ–‡æ¡£
         $(function() {
             var name = getCookie("u_name");
             $('#deng_lu').text(name);
 
             function Setcookie(name, value) {
-                //ÉèÖÃÃû³ÆÎªname,ÖµÎªvalueµÄCookie
-                var expdate = new Date();   //³õÊ¼»¯Ê±¼ä
-                expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //Ê±¼ä
+                //è®¾ç½®åç§°ä¸ºname,å€¼ä¸ºvalueçš„Cookie
+                var expdate = new Date();   //åˆå§‹åŒ–æ—¶é—´
+                expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //æ—¶é—´
                 document.cookie = name + "=" + value + ";expires=" + expdate.toGMTString() + ";path=/";
-                //¼´document.cookie= name+"="+value+";path=/";   Ê±¼ä¿ÉÒÔ²»Òª£¬µ«Â·¾¶(path)±ØĞëÒªÌîĞ´£¬ÒòÎªJSµÄÄ¬ÈÏÂ·¾¶ÊÇµ±Ç°Ò³£¬Èç¹û²»Ìî£¬´ËcookieÖ»ÔÚµ±Ç°Ò³ÃæÉúĞ§£¡~
+                //å³document.cookie= name+"="+value+";path=/";   æ—¶é—´å¯ä»¥ä¸è¦ï¼Œä½†è·¯å¾„(path)å¿…é¡»è¦å¡«å†™ï¼Œå› ä¸ºJSçš„é»˜è®¤è·¯å¾„æ˜¯å½“å‰é¡µï¼Œå¦‚æœä¸å¡«ï¼Œæ­¤cookieåªåœ¨å½“å‰é¡µé¢ç”Ÿæ•ˆï¼~
             }
 
-            //×ó²à²Ëµ¥À¸Ä¬ÈÏÑ¡ÖĞµÚÒ»¸ö
+            //å·¦ä¾§èœå•æ é»˜è®¤é€‰ä¸­ç¬¬ä¸€ä¸ª
             var menus = $('#left-sidemenu');
             var opts = menus.sidemenu("options");
             changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
 
-            //Ê×Ò³¼ÓÔØÊı¾İ
+            //é¦–é¡µåŠ è½½æ•°æ®
             $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
         }      );
 
@@ -43,9 +43,9 @@
     <script>
        $("#head").load("../view/head.html");
    </script>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >ÍË³ö</button>
+    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >é€€å‡º</button>
 </div>
-<div data-options="region:'west',split:true,title:'ÎÊÌâÀàĞÍ'" style="width:150px;padding:10px;">
+<div data-options="region:'west',split:true,title:'é—®é¢˜ç±»å‹'" style="width:150px;padding:10px;">
 
     <div id="left-sidemenu" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
 
@@ -54,7 +54,7 @@
 
 
 
-<!--  ±¾Ò³ÃæÒªÏÔÊ¾µÄÄÚÈİ -->
+<!--  æœ¬é¡µé¢è¦æ˜¾ç¤ºçš„å†…å®¹ -->
 
 
 
