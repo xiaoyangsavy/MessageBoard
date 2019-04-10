@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>留言板</title>
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">  <!-- 组件显示样式 -->
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>    <!--组件交互逻辑 -->
+    <script type="text/javascript" src="../js/esayui-extend.js"></script>   <!-- 组件扩展功能 -->
+    <script type="text/javascript" src="../js/common.js"></script>           <!-- 公共逻辑 -->
 
 
     <script type="text/javascript">
+
+        //文档
+        $(function() {
+            var name = getCookie("u_name");
+            $('#deng_lu').text(name);
+
+            function Setcookie(name, value) {
+                //设置名称为name,值为value的Cookie
+                var expdate = new Date();   //初始化时间
+                expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+                document.cookie = name + "=" + value + ";expires=" + expdate.toGMTString() + ";path=/";
+                //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
+            }
+
+            //左侧菜单栏默认选中第一个
+            var menus = $('#left-sidemenu');
+            var opts = menus.sidemenu("options");
+            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
+
+
+            //首页加载数据
+            $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+        }      );
+
+
         var data = [{
             text: '类别',
             iconCls: 'icon-more',
@@ -42,86 +69,29 @@
         var storage=window.localStorage;
         //alert(storage.getItem('u_name'))
         //var name=storage.getItem('u_name');
-        $(function(){
-			name=getCookie("u_name");
-            $('#deng_lu').text(name);
-function Setcookie (name, value)
-{ 
-    //设置名称为name,值为value的Cookie
-    var expdate = new Date();   //初始化时间
-    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
-    document.cookie = name+"="+value+";expires="+expdate.toGMTString()+";path=/";
-   //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
-}
-function getCookie(c_name)
-{
-if (document.cookie.length>0)
-  {
-  c_start=document.cookie.indexOf(c_name + "=")
-  if (c_start!=-1)
-    { 
-    c_start=c_start + c_name.length+1 
-    c_end=document.cookie.indexOf(";",c_start)
-    if (c_end==-1) c_end=document.cookie.length
-    return unescape(document.cookie.substring(c_start,c_end))
-    } 
-  }
-return ""
-}
-        });
+		
+		
 
-function selectItem(item){
-console.log(item);
+
+function selectItem(item) {
+    console.log(item);
 //alert('点击了'+item.text);
-switch(item.text){
-case '类型管理':
- 
-break;
-case '用户管理':
- 
-break;
-case '系统管理':
- 
-break;
-default:
- 
- 
-break;
-}
-}
+    switch (item.text) {
+        case '类型管理':
+        //页面跳转
+            break;
+        case '用户管理':
 
-//改变左侧菜单选中样式
-    function changeMenuStyle(menuItem, opts, selectId) {
-        menuItem.find("div.tree-node-selected").removeClass("tree-node-selected");
-        var node = menuItem.tree("find", selectId);
-        if (node) {
-            $(node.target).addClass("tree-node-selected");
-            opts.selectedItemId = node.id;
-            menuItem.trigger("mouseleave.sidemenu");
-        }
+            break;
+        case '系统管理':
 
-        changeMenuSelect(menuItem);
+            break;
+        default:
+
+
+            break;
     }
-	
-	function changeMenuSelect(menus, opts, selectId) {
-        var menutrees = menus.find(".sidemenu-tree");
-        menutrees.each(function () {
-            var menuItem = $(this);
-            changeMenuStyle(menuItem, opts, selectId);
-        });
-
-        var tooltips = menus.find(".tooltip-f");
-        tooltips.each(function () {
-            var menuItem = $(this);
-            var tip = menuItem.tooltip("tip");
-            if (tip) {
-                tip.find(".sidemenu-tree").each(function () {
-                    changeMenuStyle($(this), opts, selectId);
-                });
-                menuItem.tooltip("reposition");
-            }
-        });
-    }
+}
 
     </script>
 </head>
@@ -131,6 +101,7 @@ break;
     <script>
        $("#head").load("../view/head.html");
    </script>
+    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
@@ -209,14 +180,6 @@ break;
         return data;
     }
 
-    $(function(){
-        $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
-		
-		//默认选中第一个
-		var menus = $('#left-sidemenu');
-		 var opts = menus.sidemenu("options");
-		changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
-    });
 
     function addMessage() {
         window.location.href="message.html";

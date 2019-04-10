@@ -1,4 +1,4 @@
- <h3 align="center">ÁôÑÔ°å</h3>
-    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >µÇÂ¼ÓÃ»§£º<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
-    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >·¢²¼ÎÊÌâ</button>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >ÍË³ö</button>
+ <h3 align="center">ç•™è¨€æ¿</h3>
+    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >ç™»å½•ç”¨æˆ·ï¼š<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
+    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >å‘å¸ƒé—®é¢˜</button>
+    
