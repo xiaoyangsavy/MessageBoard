@@ -73,16 +73,17 @@ console.log(item);
 //alert('点击了'+item.text);
 switch(item.text){
 case '类型管理':
-$('#panel-center').panel('refresh','tabs_href_test.html');
+ 
 break;
 case '用户管理':
-$('#panel-center').panel('refresh','tabs_href_test.html');
+ 
 break;
 case '系统管理':
-$('#panel-center').panel('refresh','tabs_href_test.html');
+ 
 break;
 default:
-$('#panel-center').panel('refresh','fragment-main.html');
+ 
+ 
 break;
 }
 }
@@ -105,24 +106,9 @@ break;
 </div>
 <div id="panel-center" data-options="region:'center',title:''">
 
-    <table id="dg" class="easyui-datagrid" title="问题列表" style=""
-           data-options="singleSelect:true" fit="true"  pagination="true" fitColumns="true"    data-options="
-				rownumbers:true,
-				singleSelect:true,
-				autoRowHeight:false,
-				pagination:true,
-				pageSize:10">
-        <thead>
-        <tr>
-            <!--<th data-options="field:'ck',checkbox:true"></th> -->
-            <th data-options="field:'userName',width:80,align:'center'">用户</th>
-            <th data-options="field:'content',width:500,align:'left',formatter:showContent">内容</th>
-            <th data-options="field:'state',width:50,align:'center'">状态</th>
-            <th data-options="field:'date',width:100,align:'center'">发表时间</th>
-            <th data-options="field:'operation',width:100,align:'center',formatter:formatOper">操作</th>
-        </tr>
-        </thead>
-    </table>
+    <script>
+       $("#panel-center").load("fragment-main.html");
+   </script>
 
 </div>
 
