@@ -42,15 +42,15 @@
                 text: '小项5'
             }]
         },{
-            text: '分类三',
+            text: '数据管理',
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '小项1'
+                text: '类型管理'
             },{
-                text: '小项2'
+                text: '用户管理'
             },{
-                text: '小项3'
+                text: '系统管理'
             }]
         }];
         var storage=window.localStorage;
@@ -84,6 +84,10 @@ return ""
 }
         });
 
+function selectItem(item){
+console.log(item);
+alert('点击了'+item.text);
+}
 
     </script>
 </head>
@@ -98,7 +102,7 @@ return ""
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
-    <div id="sm" class="easyui-sidemenu" data-options="data:data"></div>
+    <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
 
 </div>
 <div data-options="region:'center',title:''">
