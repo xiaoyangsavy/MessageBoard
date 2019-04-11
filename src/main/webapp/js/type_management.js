@@ -54,11 +54,10 @@ function selectItem(item) {
 //alert('点击了'+item.text);
     switch (item.text) {
         case '类型管理':
-        //页面跳转
-		 window.location.href='./type_management.html';
+        window.location.href='./type_management.html';
             break;
         case '用户管理':
-         window.location.href='./user_management.html';  
+              
             break;
         case '系统管理':
 
