@@ -12,9 +12,13 @@
 
 
     <script type="text/javascript">
-
-        //文档
-        $(function() {
+//获取用户权限
+	var permission= getUrlParams("permission");
+    console.log("permission="+permission);
+	
+	
+//文档
+ $(function() {
             var name = getCookie("u_name");
             $('#deng_lu').text(name);
 
@@ -42,18 +46,183 @@
                 showType:'fade'
             });
 
+
+switch(permission){
+	case '0':
+ 	 $("#username-div").css('display','none');
+	break;
+	case '1':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '2':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '3':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '4':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '5':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '6':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '7':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '8':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '9':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '99':
+	break;
+	default:
+	break;
+	}
+	
         });
 
+
+//左侧菜单栏数据
+  var data = [];
+
+	
+switch(permission){
+	case '0':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        }];
+	break;
+	case '1':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '教务教学'
+            }]
+        }];
+	break;
+	case '2':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '后勤服务'
+            }]
+        }];
+	break;
+	case '3':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '学生管理'
+            }]
+        }];
+	break;
+	case '4':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '书记信箱'
+            }]
+        }];
+	break;
+	case '5':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '校长信箱'
+            }]
+        }];
+	break;
+	case '6':
+	break;
+	case '7':
+	break;
+	case '8':
+	break;
+	case '9':
+	break;
+	case '99':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '系统管理'
+            }]
+        }];
+	break;
+	default:
+	break;
+	}
 
     </script>
 </head>
 <body id="mypannel" class="easyui-layout">
 <div id="head" data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
 
-    <script>
-       $("#head").load("../view/head.html");
-   </script>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
+    <h3 align="center">留言板</h3>
+    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
+	 <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
+      <button id="addMessageButton" style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
@@ -90,6 +259,7 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		时间从: <input class="easyui-datebox" style="width:110px" data-options="formatter:myformatter,parser:myparser">
 		到: <input class="easyui-datebox" style="width:110px" data-options="formatter:myformatter,parser:myparser">
+        <div id="type" style="display:inline-block">
 		&nbsp;&nbsp;&nbsp;&nbsp;
         类别: 
 		<select class="easyui-combobox" panelHeight="auto" style="width:100px">
@@ -100,6 +270,7 @@
 			<option value="4">书记信箱</option>
 			<option value="5">校长信箱</option>
 		</select>
+         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;
         状态: 
 		<select class="easyui-combobox" panelHeight="auto" style="width:100px">
@@ -109,8 +280,10 @@
 			<option value="3">已评价</option>
 		</select>
         &nbsp;&nbsp;&nbsp;&nbsp;
+        <div id="username-div" style="display:inline-block;">
         用户名：<input class="easyui-textbox" type="text" style="width:110px">
         &nbsp;&nbsp;&nbsp;&nbsp;
+         </div>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 	</div>
 	 
