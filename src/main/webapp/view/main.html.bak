@@ -3,19 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <title>留言板</title>
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">  <!-- 组件显示样式 -->
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>    <!--组件交互逻辑 -->
+    <script type="text/javascript" src="../js/esayui-extend.js"></script>   <!-- 组件扩展功能 -->
+    <script type="text/javascript" src="../js/common.js"></script>           <!-- 公共逻辑 -->
 
 
     <script type="text/javascript">
-        var data = [{
+//获取用户权限
+	permission= getUrlParams("permission");
+    console.log("permission="+permission);
+	
+	
+//文档
+ $(function() {
+            var name = getCookie("u_name");
+            $('#deng_lu').text(name);
+            function Setcookie(name, value) {
+                //设置名称为name,值为value的Cookie
+                var expdate = new Date();   //初始化时间
+                expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+                document.cookie = name + "=" + value + ";expires=" + expdate.toGMTString() + ";path=/";
+                //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
+            }
+
+            //左侧菜单栏默认选中第一个
+            var menus = $('#left-sidemenu');
+            var opts = menus.sidemenu("options");
+            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
+
+            //首页加载数据
+            $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+
+            //显示未读消息
+            $.messager.show({
+                title:'提示',
+                msg:'你的留言有新的回复，请查看',
+                timeout:1000,
+                showType:'fade'
+            });
+
+
+switch(permission){
+	case '0':	//用户
+ 	 $("#username-div").css('display','none');
+	 $("#replayButton").css('display','none');
+	 $("#replayButton").each(function(){
+	 $(this).css('display','none'); //隐藏所有控件
+	});
+	break;
+	case '1':	//管理员
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '2':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '3':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '4':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '5':
+ 	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '6':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '7':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '8':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '9':
+	$("#type").css('display','none');
+	$("#addMessageButton").css('display','none');
+	break;
+	case '99':	//超级管理员
+	break;
+	default:
+	break;
+	}
+	
+        });
+
+
+//左侧菜单栏数据
+  var data = [{
             text: '类别',
             iconCls: 'icon-more',
             state: 'open',
             children: [{
-                text: '教务教学'
+                text: '所有类别'
+            },{
+				text: '教务教学'
             },{
                 text: '后勤服务'
             },{
@@ -33,83 +125,195 @@
                 text: '类型管理'
             },{
                 text: '用户管理'
-            },{
-                text: '系统管理'
             }]
         }];
-        var storage=window.localStorage;
-        //alert(storage.getItem('u_name'))
-        //var name=storage.getItem('u_name');
-        $(function(){
-			name=getCookie("u_name");
-            $('#deng_lu').text(name);
-function Setcookie (name, value)
-{ 
-    //设置名称为name,值为value的Cookie
-    var expdate = new Date();   //初始化时间
-    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
-    document.cookie = name+"="+value+";expires="+expdate.toGMTString()+";path=/";
-   //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
-}
-function getCookie(c_name)
-{
-if (document.cookie.length>0)
-  {
-  c_start=document.cookie.indexOf(c_name + "=")
-  if (c_start!=-1)
-    { 
-    c_start=c_start + c_name.length+1 
-    c_end=document.cookie.indexOf(";",c_start)
-    if (c_end==-1) c_end=document.cookie.length
-    return unescape(document.cookie.substring(c_start,c_end))
-    } 
-  }
-return ""
-}
-        });
 
-function selectItem(item){
-console.log(item);
-//alert('点击了'+item.text);
-switch(item.text){
-case '类型管理':
- 
-break;
-case '用户管理':
- 
-break;
-case '系统管理':
- 
-break;
-default:
- 
- 
-break;
-}
-}
+	
+switch(permission){
+	case '0':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        }];
+	break;
+	case '1':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '教务教学'
+            }]
+        }];
+	break;
+	case '2':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '后勤服务'
+            }]
+        }];
+	break;
+	case '3':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '学生管理'
+            }]
+        }];
+	break;
+	case '4':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '书记信箱'
+            }]
+        }];
+	break;
+	case '5':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '校长信箱'
+            }]
+        }];
+	break;
+	case '6':
+	break;
+	case '7':
+	break;
+	case '8':
+	break;
+	case '9':
+	break;
+	case '99':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            }]
+        }];
+	break;
+	default:
+	break;
+	}
 
     </script>
 </head>
 <body id="mypannel" class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
+<div id="head" data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
 
     <h3 align="center">留言板</h3>
     <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
-    <button style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
-
+	 <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
+      <button id="addMessageButton" style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
-    <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
+    <div id="left-sidemenu" class="easyui-sidemenu" data-options="data:data,onSelect:selectItem"></div>
 
 </div>
 <div id="panel-center" data-options="region:'center',title:''">
+    <!--
+    <div id="tb">
+        名称<input type="text" name="standard.name"  id="qName" /> 
+        最小重量<input type="text" name="standard.minWeight" id="qMinWeight"/> 
+        最小长度<input type="text" name="standard.minLength" id="qMinLength"/> 
+        <a id="standardQueryBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">搜索</a>
+    </div>  -->
+  <table id="dg" class="easyui-datagrid" title="问题列表" style=""
+             fit="true"  pagination="true" fitColumns="true"    data-options="
+				singleSelect:true,
+				pagination:true,
+				pageSize:10,
+                toolbar:'#tb'">
+        <thead>
+        <tr>
+            <!--<th data-options="field:'ck',checkbox:true"></th> -->
+            <th data-options="field:'userName',width:80,align:'center'">用户</th>
+            <th data-options="field:'content',width:500,align:'left',formatter:showContent">内容</th>
+            <th data-options="field:'state',width:50,align:'center'">状态</th>
+            <th data-options="field:'date',width:100,align:'center'">发表时间</th>
+            <th data-options="field:'operation',width:100,align:'center',formatter:formatOper">操作</th>
+        </tr>
+        </thead>
+    </table>
 
-    <script>
-       $("#panel-center").load("fragment-main.html");
-   </script>
-
+<div id="tb" style="padding:2px 5px;">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		时间从: <input class="easyui-datebox" style="width:110px" data-options="formatter:myformatter,parser:myparser">
+		到: <input class="easyui-datebox" style="width:110px" data-options="formatter:myformatter,parser:myparser">
+        <div id="type" style="display:inline-block">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+        类别: 
+		<select class="easyui-combobox" panelHeight="auto" style="width:100px">
+        	<option value="0">全部类别</option>
+			<option value="1">教务教学</option>
+			<option value="2">后勤服务</option>
+			<option value="3">学生管理</option>
+			<option value="4">书记信箱</option>
+			<option value="5">校长信箱</option>
+		</select>
+         </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        状态: 
+		<select class="easyui-combobox" panelHeight="auto" style="width:100px">
+        	<option value="0">全部状态</option>
+			<option value="1">未回复</option>
+			<option value="2">已回复</option>
+			<option value="3">已评价</option>
+		</select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div id="username-div" style="display:inline-block;">
+        用户名：<input class="easyui-textbox" type="text" style="width:110px">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         </div>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+	</div>
+	 
 </div>
 
 
@@ -121,9 +325,9 @@ break;
             var price = Math.floor(Math.random()*1000);
             rows.push({
                 id: 'id '+i,
-                userName: '名称 '+i,
-                title: '标题 '+i+"： 辽宁大学信息学院",
-                content: '内容 '+i+'： 辽宁大学信息学院座落于古朴厚重的崇山校区，现有用房总建筑面积8000余平方米，使用面积所属总计约5417平方米。学院前身为计算机科学系，于1984年在数学系计算数学专业基础上成立，设有计算机应用技术和计算机软件2个专业；1986年，计算机科学系与物理系计算机应用研究所合并成立计算机科学与技术系；1999年10月18日，学校以计算机科学与技术系、电子科学与工程系为主体，整合工商管理学院信息管理与信息技术专业组建信息科学与技术学院，时任国家领导人王文元同志亲笔题写院名；2007年更名为辽宁大学信息学院。多年来，学院秉承“明德精学 笃行致强”校训精神，以学科建设为龙头，以提高教学质量为核心，以社会化需求为导向，以人才培养为宗旨，不断调整课程结构、完善教学体系，为社会输出大量专业技术人才，获得了很好的社会效应。',
+                userName: '学生 '+i,
+                title: '辽宁大学信息学院',
+                content: '辽宁大学信息学院座落于古朴厚重的崇山校区，现有用房总建筑面积8000余平方米，使用面积所属总计约5417平方米。学院前身为计算机科学系，于1984年在数学系计算数学专业基础上成立，设有计算机应用技术和计算机软件2个专业；1986年，计算机科学系与物理系计算机应用研究所合并成立计算机科学与技术系；1999年10月18日，学校以计算机科学与技术系、电子科学与工程系为主体，整合工商管理学院信息管理与信息技术专业组建信息科学与技术学院，时任国家领导人王文元同志亲笔题写院名；2007年更名为辽宁大学信息学院。多年来，学院秉承“明德精学 笃行致强”校训精神，以学科建设为龙头，以提高教学质量为核心，以社会化需求为导向，以人才培养为宗旨，不断调整课程结构、完善教学体系，为社会输出大量专业技术人才，获得了很好的社会效应。',
                 state: '未回复',
                 date: '2016-01-01 11:11'
             });
@@ -161,9 +365,6 @@ break;
         return data;
     }
 
-    $(function(){
-        $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
-    });
 
     function addMessage() {
         window.location.href="message.html";
@@ -199,7 +400,7 @@ break;
 <script type="text/javascript"> 
     function formatOper(val,row,index){ 
         return '<a href="javascript:void(0)" onclick="showMessage(' + index
-            + ')">查看</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="replayMessage(' + index
+            + ')">查看</a>&nbsp;&nbsp;<a id="replayButton" href="javascript:void(0)" onclick="replayMessage(' + index
             + ')">回复</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="deleteMessage(' + index+')">删除</a>&nbsp;&nbsp;';
 
     }
