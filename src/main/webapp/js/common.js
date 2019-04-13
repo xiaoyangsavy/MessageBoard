@@ -1,4 +1,6 @@
 
+var permission = '0';
+var itemId = '';
 
 
 //获取网页缓存
@@ -22,24 +24,24 @@ return ""
 
         
 
+
+
 //左侧菜单栏选中方法
 function selectItem(item) {
-    console.log(item);
+    console.log("selectItem:");
+	console.log(item.id);
+	console.log("permission="+permission);
 //alert('点击了'+item.text);
     switch (item.text) {
         case '类型管理':
         //页面跳转
-		 window.location.href='./type_management.html';
+		 window.location.href='./type_management.html?permission='+permission;
             break;
         case '用户管理':
-         window.location.href='./user_management.html';  
-            break;
-        case '系统管理':
-
+         window.location.href='./user_management.html?permission='+permission;  
             break;
         default:
-
-
+		 window.location.href='./main.html?permission='+permission+'&itemId='+item.id; 
             break;
     }
 }

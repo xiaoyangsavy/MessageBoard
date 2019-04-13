@@ -13,8 +13,12 @@
 
     <script type="text/javascript">
 //获取用户权限
-	var permission= getUrlParams("permission");
+	permission= getUrlParams("permission");
     console.log("permission="+permission);
+	
+	//获取默认显示的菜单项
+	itemId= getUrlParams("itemId");
+    console.log("itemId="+itemId);
 	
 	
 //文档
@@ -32,7 +36,11 @@
             //左侧菜单栏默认选中第一个
             var menus = $('#left-sidemenu');
             var opts = menus.sidemenu("options");
-            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
+			if(itemId==null||itemId==undefined||itemId==""){
+				console.log("itemId:"+itemId);
+				itemId = '_easyui_sidemenu_2';
+				}
+            changeMenuSelect(menus, opts, itemId);
 
             //首页加载数据
             $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
@@ -47,10 +55,14 @@
 
 
 switch(permission){
-	case '0':
+	case '0':	//用户
  	 $("#username-div").css('display','none');
+	 $("#replayButton").css('display','none');
+	 $("#replayButton").each(function(){
+	 $(this).css('display','none'); //隐藏所有控件
+	});
 	break;
-	case '1':
+	case '1':	//管理员
  	$("#type").css('display','none');
 	$("#addMessageButton").css('display','none');
 	break;
@@ -86,7 +98,7 @@ switch(permission){
 	$("#type").css('display','none');
 	$("#addMessageButton").css('display','none');
 	break;
-	case '99':
+	case '99':	//超级管理员
 	break;
 	default:
 	break;
@@ -96,7 +108,33 @@ switch(permission){
 
 
 //左侧菜单栏数据
-  var data = [];
+  var data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            }]
+        }];
 
 	
 switch(permission){
@@ -204,8 +242,6 @@ switch(permission){
                 text: '类型管理'
             },{
                 text: '用户管理'
-            },{
-                text: '系统管理'
             }]
         }];
 	break;
@@ -372,7 +408,7 @@ switch(permission){
 <script type="text/javascript"> 
     function formatOper(val,row,index){ 
         return '<a href="javascript:void(0)" onclick="showMessage(' + index
-            + ')">查看</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="replayMessage(' + index
+            + ')">查看</a>&nbsp;&nbsp;<a id="replayButton" href="javascript:void(0)" onclick="replayMessage(' + index
             + ')">回复</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="deleteMessage(' + index+')">删除</a>&nbsp;&nbsp;';
 
     }

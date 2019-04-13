@@ -28,7 +28,7 @@
             //左侧菜单栏默认选中第一个
             var menus = $('#left-sidemenu');
             var opts = menus.sidemenu("options");
-            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
+            changeMenuSelect(menus, opts, '_easyui_sidemenu_9');
 
             
         }      );
@@ -62,8 +62,6 @@
                 text: '类型管理'
             },{
                 text: '用户管理'
-            },{
-                text: '系统管理'
             }]
         }];
 
@@ -173,8 +171,6 @@ switch(permission){
                 text: '类型管理'
             },{
                 text: '用户管理'
-            },{
-                text: '系统管理'
             }]
         }];
 	break;
@@ -260,9 +256,9 @@ switch(permission){
       </tr>
 	</table>
 <div id="tb" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onClick="append()">添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onClick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onClick="accept()">保存</a>
 		<!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>-->
 	</div>
