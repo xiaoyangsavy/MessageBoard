@@ -30,9 +30,158 @@
             var opts = menus.sidemenu("options");
             changeMenuSelect(menus, opts, '_easyui_sidemenu_10');
 
-            //首页加载数据
-            $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+            
         }      );
+		
+		
+		//获取用户权限
+	var permission= getUrlParams("permission");
+    console.log("permission="+permission);
+//左侧菜单栏数据
+  var data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '系统管理'
+            }]
+        }];
+
+	
+switch(permission){
+	case '0':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        }];
+	break;
+	case '1':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '教务教学'
+            }]
+        }];
+	break;
+	case '2':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '后勤服务'
+            }]
+        }];
+	break;
+	case '3':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '学生管理'
+            }]
+        }];
+	break;
+	case '4':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '书记信箱'
+            }]
+        }];
+	break;
+	case '5':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '校长信箱'
+            }]
+        }];
+	break;
+	case '6':
+	break;
+	case '7':
+	break;
+	case '8':
+	break;
+	case '9':
+	break;
+	case '99':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '系统管理'
+            }]
+        }];
+	break;
+	default:
+	break;
+	}
 
     </script>
 
@@ -43,7 +192,7 @@
     <script>
        $("#head").load("../view/head.html");
    </script>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
+    
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 

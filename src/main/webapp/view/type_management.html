@@ -28,11 +28,159 @@
             //左侧菜单栏默认选中第一个
             var menus = $('#left-sidemenu');
             var opts = menus.sidemenu("options");
-            changeMenuSelect(menus, opts, '_easyui_sidemenu_9');
+            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
 
-            //首页加载数据
-            $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+            
         }      );
+
+//获取用户权限
+	var permission= getUrlParams("permission");
+    console.log("permission="+permission);
+//左侧菜单栏数据
+  var data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '系统管理'
+            }]
+        }];
+
+	
+switch(permission){
+	case '0':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        }];
+	break;
+	case '1':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '教务教学'
+            }]
+        }];
+	break;
+	case '2':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '后勤服务'
+            }]
+        }];
+	break;
+	case '3':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '学生管理'
+            }]
+        }];
+	break;
+	case '4':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '书记信箱'
+            }]
+        }];
+	break;
+	case '5':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+				text: '校长信箱'
+            }]
+        }];
+	break;
+	case '6':
+	break;
+	case '7':
+	break;
+	case '8':
+	break;
+	case '9':
+	break;
+	case '99':
+	data = [{
+            text: '类别',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '所有类别'
+            },{
+				text: '教务教学'
+            },{
+                text: '后勤服务'
+            },{
+                text: '学生管理'
+            },{
+                text: '书记信箱'
+            },{
+                text: '校长信箱'
+            }]
+        },{
+            text: '数据管理',
+            iconCls: 'icon-more',
+            state: 'open',
+            children: [{
+                text: '类型管理'
+            },{
+                text: '用户管理'
+            },{
+                text: '系统管理'
+            }]
+        }];
+	break;
+	default:
+	break;
+	}
 
     </script>
 
@@ -43,7 +191,7 @@
     <script>
        $("#head").load("../view/head.html");
    </script>
-    <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
+     
 </div>
 <div data-options="region:'west',split:true,title:'问题类型'" style="width:150px;padding:10px;">
 
@@ -53,9 +201,10 @@
 <div id="panel-center" data-options="region:'center',title:''">
 
 
-<div style="margin:20px 0;"></div>
-<div style="margin:70px 0 0 200px;">
-	<table id="dg" class="easyui-datagrid" title="类型管理" style="width:850px;height:auto"
+
+<!--  本页面要显示的内容 -->
+
+<table id="dg" class="easyui-datagrid" title="类型管理" style="width:300px;height:auto"
 			data-options="
 				iconCls: 'icon-edit',
 				singleSelect: true,
@@ -66,10 +215,9 @@
 			">
 		<thead>
 			<tr>
-            <th data-options="field:'status',width:50,align:'center',editor:{type:'checkbox',options:{on:'',off:''}}" style="text-align:center">Status</th>
 				<!--  <th data-options="field:'itemid',width:80">ID</th>  -->
-                <th 3 data-options="field:'itemid',width:400,editor:'textbox',align:'center'"  >编号</th>
-                <th data-options="field:'type',width:400,editor:'textbox',align:'center'">类型名</th>
+                <th data-options="field:'itemid',width:80,editor:'textbox'">编号</th>
+                <th data-options="field:'type',width:80,editor:'textbox'">类型名</th>
 				<!--	<th data-options="field:'productid',width:100,
 						formatter:function(value,row){
 							return row.productname;
@@ -87,51 +235,40 @@
 			<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">List Price</th>
 				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">Unit Cost</th>
 				<th data-options="field:'attr1',width:250,editor:'textbox'">Attribute</th>-->
-				
+				<th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'P',off:''}}">Status</th>
 			</tr>
 		</thead>
        <tr>
-       <td></td>
          <td>001</td>
          <td>教务教学</td>
-         
       </tr>
       <tr>
-      <td></td>
          <td>002</td>
          <td>后勤服务</td>
       </tr>
       <tr>
-      <td></td>
          <td>003</td>
          <td>学生管理</td>
       </tr>
       <tr>
-      <td></td>
          <td>004</td>
          <td>书记信箱</td>
       </tr>
       <tr>
-      <td></td>
          <td>005</td>
          <td>校长信箱</td>
       </tr>
 	</table>
-    </div>
- <table>
-      
- </table>
-	<div id="tb" style="height:auto;text-align:right">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onClick="append()">添加</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onClick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onClick="accept()">保存</a>
+<div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
 		<!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>-->
 	</div>
-
-
-
 </div>
+
+
 <script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
