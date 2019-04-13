@@ -36,6 +36,10 @@
             <div class="register">
                 注册
              </div>
+             <div style="text-align:center; size:50px; padding-top:20px">以下按钮仅在测试中出现使用!!!</div>
+             <div class="normal">普通用户登录</div>
+             <div class="administor">管理员登录</div>
+             <div class="super_administor">超级管理员登录</div>
 		</div>
 		<div class="sk-rotating-plane"></div>
 </div>
@@ -66,6 +70,7 @@
 	    ele.className = newClass.replace(/^\s+|\s+$/g, '');
 	  }
 	}
+	var permission; 
 		document.querySelector(".login-button").onclick = function(){
 			    var name=document.getElementById('u_name').value;
 				var pass=document.getElementById('u_pass').value;
@@ -75,18 +80,42 @@
 
 					//storage.setItem('u_name',name);
 					Setcookie("u_name",name);
-					window.location.href='main.html';
+					window.location.href=permission;
 				}
 				else
 				{
 					Setcookie("u_name","admin");
-					window.location.href='main.html';
-					//window.location.href='login.html';
+					//window.location.href=permission;
+					window.location.href='login.html';
 				}
 		}
 		document.querySelector(".register").onclick = function()
 		{
 			window.location.href='register.html';
+		}
+		document.querySelector(".normal").onclick = function()
+		{
+			document.getElementById('u_name').value="normal_user";
+			document.getElementById('u_pass').value="123456"
+			permission='main.html?permission=0';
+			//Setcookie("u_name","normal_user");
+			//window.location.href='main.html?permission=0';
+		}
+		document.querySelector(".administor").onclick = function()
+		{
+			document.getElementById('u_name').value="administor_user";
+			document.getElementById('u_pass').value="123456"
+			permission="main.html?permission=1";
+			//Setcookie("u_name","administor_user");
+			//window.location.href='main.html?permission=1';
+		}
+		document.querySelector(".super_administor").onclick = function()
+		{
+			document.getElementById('u_name').value="Super_administor";
+			document.getElementById('u_pass').value="123456"
+			permission="main.html?permission=99";
+			//Setcookie("u_name","Super_administor");
+			//window.location.href='main.html?permission=99';
 		}
 			function Setcookie (name, value)
 { 

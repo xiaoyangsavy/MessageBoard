@@ -103,7 +103,7 @@ canvas{
 	position: absolute;
 	width: 400px;
 	border-radius: 5px;
-	height: 450px;
+	height: 650px;
 	background: white;
 	box-shadow: 0px 0px 5px #333333;
 	top: 30%;
@@ -172,6 +172,51 @@ canvas{
 	border-radius: 5px;
 	cursor: pointer;
 }
+.normal {
+	background-color: #1E90FF;
+	text-align: center;
+	line-height: 40px;
+	color: #FFF;
+	height: 40px;
+	width: 250px;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.administor {
+	background-color: #1E90FF;
+	text-align: center;
+	line-height: 40px;
+	color: #FFF;
+	height: 40px;
+	width: 250px;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.super_administor {
+	background-color: #1E90FF;
+	text-align: center;
+	line-height: 40px;
+	color: #FFF;
+	height: 40px;
+	width: 250px;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+
+
 .register_r {
 	background-color: #1E90FF;
 	text-align: center;
