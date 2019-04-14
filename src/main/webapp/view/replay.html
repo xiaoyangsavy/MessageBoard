@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+     <script type="text/javascript" src="../js/common.js"></script>           <!-- 公共逻辑 -->
 </head>
 
 
@@ -32,7 +33,7 @@
                 </tr>
                 <tr>
                     <td>图片:</td>
-                    <td><input class="easyui-filebox"   labelPosition="top" style="width:100%" multiple="true"></td><td><label  >(可多选)</label></td>
+                    <td><input class="easyui-filebox"   labelPosition="top" style="width:100%" multiple></td><td><label  >(可多选)</label></td>
                 </tr>
                 <tr>
                     <td>小视频:</td>
@@ -67,7 +68,8 @@
             }
         });
         //$('#ff').submit();
-        window.location.href="main.html";
+		//var permission = getPermission();	//获取用户权限
+        window.location.href='main.html';
     }
     function clearForm(){
         $('#ff').form('clear');

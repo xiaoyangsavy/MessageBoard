@@ -13,7 +13,7 @@
 
     <script type="text/javascript">
 //获取用户权限
-	permission= getUrlParams("permission");
+	var permission = getPermission();	 
     console.log("permission="+permission);
 	
 	//获取默认显示的菜单项
@@ -378,17 +378,14 @@ switch(permission){
         window.location.href="message.html";
     }
 
-    function logout() {
-		delCookie("u_name")
-        window.location.href="login.html";
-    }
+   
 
     function replayMessage(object) {
         window.location.href="replay.html";
     }
 
     function showMessage(object) {
-        window.location.href="messageDetail.html";
+        window.location.href='messageDetail.html';  
     }
 
     function deleteMessage(object) {
@@ -428,12 +425,7 @@ switch(permission){
         showContent=showContent+'<br/>';
         return showContent;
     }
-function delCookie(name)
-{
-var expdate = new Date();   //初始化时间
-    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
-    document.cookie = name+"="+""+";expires="+expdate.toGMTString()+";path=/";
-}
+
 
 
 </script>

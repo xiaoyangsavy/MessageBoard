@@ -5,8 +5,10 @@
     <title>查看信息详细信息</title>
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../css/grade.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>           <!-- 公共逻辑 -->
 </head>
 <body>
 
@@ -27,7 +29,7 @@
     </label>
     <br/><img src="../images/test01.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test02.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test03.jpg" width="400px" >
     <br/><img src="../images/test04.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test05.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test06.jpg" width="400px" >
-    <br/><video src="../images/test.mp4" align="center" controls="controls" autoplay></video>
+    <br/><video src="../images/test.mp4" align="center" controls autoplay></video>
 </div>
 <br/>
 <div id="p" class="easyui-panel" title="管理员回复" style="padding:10px;">
@@ -38,15 +40,96 @@
         注重国际交流活动，近期与日本鸟取大学建立了联系，开展了学术交流活动。
     </label>
 </div>
-<div style="text-align:center;padding:5px">
+<div id="replayDiv" style="text-align:center;padding:5px">
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="replayMessage()">回复</a>
+</div>
+<div id="commentDiv" style="text-align:center;padding:5px;display:none">
+  <div id="starRating">
+    <p class="photo">
+        <span><i class="high"></i><i class="nohigh"></i></span>
+        <span><i class="high"></i><i class="nohigh"></i></span>
+        <span><i class="high"></i><i class="nohigh"></i></span>
+        <span><i class="high"></i><i class="nohigh"></i></span>
+        <span><i class="high"></i><i class="nohigh"></i></span>
+    </p>
+    <p class="starNum">0.0分</p>
+    <div class="bottoms">
+        <a class="garyBtn cancleStar">取消评分</a><a class="blueBtn sureStar">确认</a>
+    </div>
+</div>
 </div>
 </body>
 
 <script type="text/javascript">
+//获取用户权限
+	var permission = getPermission();	 
+    console.log("permission="+permission);
+//文档
+ $(function() {
+
+if(permission=='0'){
+	 $("#replayDiv").css('display','none');
+	 $("#commentDiv").css('display','');
+}
+	 
+});
+
+
 function replayMessage() {
 window.location.href="replay.html";
 }
 
+ 
+
+
+
 </script>
+<script>
+    $(function () {
+        //评分
+        var starRating = 0;
+        $('.photo span').on('mouseenter',function () {
+            var index = $(this).index()+1;
+            $(this).prevAll().find('.high').css('z-index',1)
+            $(this).find('.high').css('z-index',1)
+            $(this).nextAll().find('.high').css('z-index',0)
+            $('.starNum').html((index*2).toFixed(1)+'分')
+        })
+        $('.photo').on('mouseleave',function () {
+            $(this).find('.high').css('z-index',0);
+            var count = starRating / 2
+            if(count == 5) {
+                $('.photo span').find('.high').css('z-index',1);
+            } else {
+                $('.photo span').eq(count).prevAll().find('.high').css('z-index',1);
+            }
+            $('.starNum').html(starRating.toFixed(1)+'分')
+        })
+        $('.photo span').on('click',function () {
+            var index = $(this).index()+1;
+            $(this).prevAll().find('.high').css('z-index',1)
+            $(this).find('.high').css('z-index',1)
+            starRating = index*2;
+            $('.starNum').html(starRating.toFixed(1)+'分');
+            //alert('评分：'+(starRating.toFixed(1)+'分'))
+        })
+        //取消评分
+        $('.cancleStar').on('click',function () {
+            starRating = 0;
+            $('.photo span').find('.high').css('z-index',0);
+            $('.starNum').html(starRating.toFixed(1)+'分');
+        })
+        //确定评分
+        $('.sureStar').on('click',function () {
+            if(starRating===0) {
+                alert('最低一颗星！');
+            } else {
+               //alert('评分：'+(starRating.toFixed(1)+'分'))
+			    window.location.href='main.html';
+            }
+        })
+	 
+    })
+</script>
+
 </html>

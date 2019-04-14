@@ -20,7 +20,19 @@ if (document.cookie.length>0)
 return ""
 }
  
+//删除用户缓存
+ function delCookie(name)
+{
+var expdate = new Date();   //初始化时间
+    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+    document.cookie = name+"="+""+";expires="+expdate.toGMTString()+";path=/";
+}
 
+//获取用户权限
+function getPermission(){
+var permission = getCookie("permission");
+return permission;
+}
 
         
 
