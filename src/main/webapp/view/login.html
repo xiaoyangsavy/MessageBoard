@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="login-button">
-				登陆
+				登录
 			</div>
             <div class="register">
                 注册
@@ -80,7 +80,7 @@
 
 					//storage.setItem('u_name',name);
 					Setcookie("u_name",name);
-					window.location.href=permission;
+					window.location.href='main.html'+permission;
 				}
 				else
 				{
@@ -97,15 +97,16 @@
 		{
 			document.getElementById('u_name').value="normal_user";
 			document.getElementById('u_pass').value="123456"
-			permission='main.html?permission=0';
-			//Setcookie("u_name","normal_user");
+			permission='?permission=0';
+			Setcookie("permission","0");
 			//window.location.href='main.html?permission=0';
 		}
 		document.querySelector(".administor").onclick = function()
 		{
 			document.getElementById('u_name').value="administor_user";
 			document.getElementById('u_pass').value="123456"
-			permission="main.html?permission=1";
+			permission="?permission=1";
+			Setcookie("permission","1");
 			//Setcookie("u_name","administor_user");
 			//window.location.href='main.html?permission=1';
 		}
@@ -113,7 +114,8 @@
 		{
 			document.getElementById('u_name').value="Super_administor";
 			document.getElementById('u_pass').value="123456"
-			permission="main.html?permission=99";
+			permission="?permission=99";
+			Setcookie("permission","99");
 			//Setcookie("u_name","Super_administor");
 			//window.location.href='main.html?permission=99';
 		}
