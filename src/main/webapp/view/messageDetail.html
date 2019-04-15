@@ -9,6 +9,9 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>           <!-- 公共逻辑 -->
+	<!-- 音频播放 -->
+	<link rel="stylesheet" type="text/css" href="../css/audio.css">
+	<script type="text/javascript" src="../js/weixinAudio.js"></script>
 </head>
 <body>
 
@@ -27,9 +30,31 @@
 
         学院注重国际交流，开拓学术视野，提高学术水平和影响力。近年来，学院多次向国外学术机构和高校派出访问学者，聘请国外知名专家来院讲座。先后与英国德蒙福特大学、韩国大邱大学、日本鸟取大学建立了联系，开展了学术交流活动。积极推进同澳洲国立大学交流项目，已有多名在校学生顺利赴澳洲国立开展学习。
     </label>
+	 <!--  图片显示 -->
     <br/><img src="../images/test01.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test02.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test03.jpg" width="400px" >
     <br/><img src="../images/test04.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test05.jpg" width="400px" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test06.jpg" width="400px" >
-    <br/><video src="../images/test.mp4" align="center" controls autoplay></video>
+    <!--  视频播放 -->
+	<br/><video src="../images/test.mp4" align="center" controls autoplay></video>
+	<!--  音频播放 -->
+	 <br/><div id="audio-div">
+	<p class="weixinAudio">
+	<audio src="" id="media" width="1" height="1" preload></audio>
+	<span id="audio_area" class="db audio_area">
+	<span class="audio_wrp db">
+	<span class="audio_play_area">
+		<i class="icon_audio_default"></i>
+		<i class="icon_audio_playing"></i>
+	</span>
+	<span id="audio_length" class="audio_length tips_global">3:07</span>
+	<span class="db audio_info_area">
+		<strong class="db audio_title">语音</strong>
+		<span class="audio_source tips_global">点击播放</span>
+	</span>
+	<span id="audio_progress" class="progress_bar" style="width: 0%;"></span>
+	</span>
+	</span>
+</p>
+</div>
 </div>
 <br/>
 <div id="p" class="easyui-panel" title="管理员回复" style="padding:10px;">
@@ -130,6 +155,14 @@ window.location.href="replay.html";
         })
 	 
     })
+</script>
+
+//音频播放
+<script type="text/javascript">
+$('.weixinAudio').weixinAudio({
+	autoplay:false,
+	src:'../files/sound.mp3',
+});
 </script>
 
 </html>

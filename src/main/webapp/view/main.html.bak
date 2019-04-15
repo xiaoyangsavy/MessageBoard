@@ -13,8 +13,12 @@
 
     <script type="text/javascript">
 //获取用户权限
-	permission= getUrlParams("permission");
+	var permission = getPermission();	 
     console.log("permission="+permission);
+	
+	//获取默认显示的菜单项
+	itemId= getUrlParams("itemId");
+    console.log("itemId="+itemId);
 	
 	
 //文档
@@ -32,7 +36,11 @@
             //左侧菜单栏默认选中第一个
             var menus = $('#left-sidemenu');
             var opts = menus.sidemenu("options");
-            changeMenuSelect(menus, opts, '_easyui_sidemenu_2');
+			if(itemId==null||itemId==undefined||itemId==""){
+				console.log("itemId:"+itemId);
+				itemId = '_easyui_sidemenu_2';
+				}
+            changeMenuSelect(menus, opts, itemId);
 
             //首页加载数据
             $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
@@ -49,8 +57,8 @@
 switch(permission){
 	case '0':	//用户
  	 $("#username-div").css('display','none');
-	 $("#replayButton").css('display','none');
-	 $("#replayButton").each(function(){
+	 //$("#replayButton").css('display','none');
+	 $(".replayButton").each(function(){
 	 $(this).css('display','none'); //隐藏所有控件
 	});
 	break;
@@ -244,10 +252,10 @@ switch(permission){
     </script>
 </head>
 <body id="mypannel" class="easyui-layout">
-<div id="head" data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;position:relative;">
+<div id="head" data-options="region:'north',border:false" style="height:80px;background:#C8E6F5;padding:10px;position:relative;">
 
     <h3 align="center">留言板</h3>
-    <label style="width:120px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:40px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
+    <label style="width:200px;height:20px;position:absolute;bottom:0;right: 120px"  >登录用户：<label id="deng_lu" style="width:100px;height:20px;position:absolute;bottom:0;right: 0px" >111</label></label>
 	 <button style="width:80px;height:20px;position:absolute;bottom:0;right: 0;background-color:#f6ab00;color:#ffffff;font-weight:bold"  onclick="logout()" >退出</button>
       <button id="addMessageButton" style="width:100px;height:40px;position:absolute;bottom:0;left: 0;background-color:#e60027;color:#ffffff;font-weight:bold"  onclick="addMessage()" >发布问题</button>
 </div>
@@ -328,7 +336,7 @@ switch(permission){
                 userName: '学生 '+i,
                 title: '辽宁大学信息学院',
                 content: '辽宁大学信息学院座落于古朴厚重的崇山校区，现有用房总建筑面积8000余平方米，使用面积所属总计约5417平方米。学院前身为计算机科学系，于1984年在数学系计算数学专业基础上成立，设有计算机应用技术和计算机软件2个专业；1986年，计算机科学系与物理系计算机应用研究所合并成立计算机科学与技术系；1999年10月18日，学校以计算机科学与技术系、电子科学与工程系为主体，整合工商管理学院信息管理与信息技术专业组建信息科学与技术学院，时任国家领导人王文元同志亲笔题写院名；2007年更名为辽宁大学信息学院。多年来，学院秉承“明德精学 笃行致强”校训精神，以学科建设为龙头，以提高教学质量为核心，以社会化需求为导向，以人才培养为宗旨，不断调整课程结构、完善教学体系，为社会输出大量专业技术人才，获得了很好的社会效应。',
-                state: '未回复',
+                state: '已回复',
                 date: '2016-01-01 11:11'
             });
         }
@@ -370,17 +378,14 @@ switch(permission){
         window.location.href="message.html";
     }
 
-    function logout() {
-		delCookie("u_name")
-        window.location.href="login.html";
-    }
+   
 
     function replayMessage(object) {
         window.location.href="replay.html";
     }
 
     function showMessage(object) {
-        window.location.href="messageDetail.html";
+        window.location.href='messageDetail.html';  
     }
 
     function deleteMessage(object) {
@@ -400,7 +405,7 @@ switch(permission){
 <script type="text/javascript"> 
     function formatOper(val,row,index){ 
         return '<a href="javascript:void(0)" onclick="showMessage(' + index
-            + ')">查看</a>&nbsp;&nbsp;<a id="replayButton" href="javascript:void(0)" onclick="replayMessage(' + index
+            + ')">查看</a>&nbsp;&nbsp;<a class="replayButton" href="javascript:void(0)" onclick="replayMessage(' + index
             + ')">回复</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="deleteMessage(' + index+')">删除</a>&nbsp;&nbsp;';
 
     }
@@ -420,12 +425,7 @@ switch(permission){
         showContent=showContent+'<br/>';
         return showContent;
     }
-function delCookie(name)
-{
-var expdate = new Date();   //初始化时间
-    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
-    document.cookie = name+"="+""+";expires="+expdate.toGMTString()+";path=/";
-}
+
 
 
 </script>

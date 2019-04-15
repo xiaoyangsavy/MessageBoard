@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+</head>
+<body>
+
+<div id="particles-js">
+		<div class="login">
+			<div class="login-top">
+				登录
+			</div>
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="../images/name.png"/></div>
+				<div class="login-center-input">
+					<input type="text" name="" value="" id="u_name" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
+					<div class="login-center-input-text">用户名</div>
+				</div>
+			</div>
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="../images/password.png"/></div>
+				<div class="login-center-input">
+					<input type="password" name=""value="" id="u_pass" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
+					<div class="login-center-input-text">密码</div>
+				</div>
+			</div>
+			<div class="login-button">
+				登录
+			</div>
+            <div class="register">
+                注册
+             </div>
+             <br/>
+             <div style="text-align:center; size:50px; padding-top:20px">快捷填充账号信息，仅限测试使用!</div>
+             <div class="normal">普通用户账号</div>
+             <div class="administor">管理员账号</div>
+             <div class="super_administor">超级管理员账号</div>
+		</div>
+		<div class="sk-rotating-plane"></div>
+</div>
+
+<!-- scripts -->
+<script src="../js/particles.min.js"></script>
+<script src="../js/app.js"></script>
+<script type="text/javascript">
+
+	function hasClass(elem, cls) {
+	  cls = cls || '';
+	  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+	  return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+	}
+	 
+	function addClass(ele, cls) {
+	  if (!hasClass(ele, cls)) {
+	    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+	  }
+	}
+	 
+	function removeClass(ele, cls) {
+	  if (hasClass(ele, cls)) {
+	    var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+	    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+	      newClass = newClass.replace(' ' + cls + ' ', ' ');
+	    }
+	    ele.className = newClass.replace(/^\s+|\s+$/g, '');
+	  }
+	}
+	var permission=""; 
+		document.querySelector(".login-button").onclick = function(){
+			    var name=document.getElementById('u_name').value;
+				var pass=document.getElementById('u_pass').value;
+				//var storage=window.localStorage;;
+				if(name!=''&&name!=null)
+				{
+
+					//storage.setItem('u_name',name);
+					Setcookie("u_name",name);
+					window.location.href='main.html';
+				}
+				else
+				{
+					Setcookie("u_name","admin");
+					//window.location.href=permission;
+					window.location.href='login.html';
+				}
+		}
+		document.querySelector(".register").onclick = function()
+		{
+			window.location.href='register.html';
+		}
+		document.querySelector(".normal").onclick = function()
+		{
+			document.getElementById('u_name').value="normal_user";
+			document.getElementById('u_pass').value="123456"
+			//permission='?permission=0';
+			Setcookie("permission","0");
+			//window.location.href='main.html?permission=0';
+		}
+		document.querySelector(".administor").onclick = function()
+		{
+			document.getElementById('u_name').value="administor_user";
+			document.getElementById('u_pass').value="123456"
+			//permission="?permission=1";
+			Setcookie("permission","1");
+			//Setcookie("u_name","administor_user");
+			//window.location.href='main.html?permission=1';
+		}
+		document.querySelector(".super_administor").onclick = function()
+		{
+			document.getElementById('u_name').value="Super_administor";
+			document.getElementById('u_pass').value="123456"
+			//permission="?permission=99";
+			Setcookie("permission","99");
+			//Setcookie("u_name","Super_administor");
+			//window.location.href='main.html?permission=99';
+		}
+			function Setcookie (name, value)
+{ 
+    //设置名称为name,值为value的Cookie
+    var expdate = new Date();   //初始化时间
+    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+    document.cookie = name+"="+value+";expires="+expdate.toGMTString()+";path=/";
+   //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
+}
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+</script>
+</body>
+</html>
