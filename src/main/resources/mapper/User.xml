@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.savy.dao.UserMapper">
+
+    <select id="getUserId" resultType="Integer">
+        select
+          user_id
+        from user
+        where user_name = #{userName}
+        and
+        password = #{password}
+    </select>
+
+    <select id="getUserById" resultType="User">
+        select
+          user_id,
+          permission_id,
+          name,
+          sex,
+          phone,
+          email,
+          last_login_date
+        from user
+        where user_id = #{userId}
+    </select>
+
+
+</mapper>
