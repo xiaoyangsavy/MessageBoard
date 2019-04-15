@@ -19,11 +19,13 @@
 <body>
 <div data-role="page"> 
  
+  <div data-role="header">
+    <h1>登录</h1>
+  </div>
+
  <div data-role="content" class="login-wrap ui-content" role="main">
         <div class="login-input-box">
-            <div class="logo">
-                <p>留言板</p>
-            </div>
+            
             <div class="line1">
                 <img src="../images/user.png">
                 <input type="text" class="user" value="用户名" onfocus="if(value=='用户名') {value=''}" onblur="if (value=='') {value='用户名'}" data-role="none">
@@ -33,7 +35,7 @@
                 <input type="text" class="lock" value="密码" onfocus="if(value=='密码') {value=''}" onblur="if (value=='') {value='密码'}" data-role="none">
             </div>
             <div class="chose">
-                <a href="register.html" data-ajax="false" class="register" data-role="none" data-transition="slide">注册</a>
+                <a href="regist.html" data-ajax="false" class="register" data-role="none" data-transition="slide">注册</a>
                <!-- <a href="forget.html" data-ajax="false" class="forgive" data-role="none">忘记密码</a> -->
                 <a class="login" href="index.html" data-ajax="false" data-role="none" data-transition="slide">登陆</a>
             </div>
