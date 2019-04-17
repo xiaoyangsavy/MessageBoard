@@ -2,6 +2,8 @@ package com.savy.controller;
 
 import com.savy.model.User;
 import com.savy.service.UserService;
+import com.savy.util.Result;
+import com.savy.util.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,11 +39,16 @@ public class UserController {
     }
     @RequestMapping(value = "/register",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer register(@RequestParam  String userName,@RequestParam String password,@RequestParam String sex,@RequestParam String phone,@RequestParam String email){
+    public Result<Integer> register(@RequestParam  String userName,@RequestParam String password,@RequestParam String sex,@RequestParam String phone,@RequestParam String email){
         System.out.println("call /user/register");
+        Result<Integer> result=new Result<Integer>();
         Integer r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
-        return r;
+        if (r!=0){
+            result.setResultStatus(ResultStatus.SUCCESS);
+        }
+
+       // Integer r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
+        return result;
     }
-   // @RequestMapping(value = "/")
 
 }

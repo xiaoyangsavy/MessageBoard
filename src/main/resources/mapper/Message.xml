@@ -4,7 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.savy.dao.MessageMapper">
     <insert id="insertMessage">
-        insert into message(message_content,message_date,image_url,voice_url,video_url)
-        values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl})
+        insert into message(super_message_id,message_content,message_date,image_url,voice_url,video_url)
+        values (#{superMessageId},#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl})
     </insert>
+    <select id="selectMessage" resultType="Message">
+        select *
+        from message,message_type
+        <where>
+            <if test="messageDate!=''and messageDate!=null">
+                and message_date >= #{messageDate}
+            </if>
+            <if test="superMessageId!=''and superMessageId!=null">
+                and super_message_id = #{superMessageId}
+            </if>
+            <if test="isReplay!='' and isReplay!=null">
+                and is_replay = #{isReplay}
+            </if>
+            <if test="userId!='' and userId!=null">
+                and user_id = #{userId}
+            </if>
+            and message.super_message_id=message_type.type_id=#{superMessageId}
+        </where>
+    </select>
 </mapper>
