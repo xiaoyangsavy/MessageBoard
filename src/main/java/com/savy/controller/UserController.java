@@ -42,5 +42,6 @@ public class UserController {
         Integer r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
         return r;
     }
+   // @RequestMapping(value = "/")
 
 }

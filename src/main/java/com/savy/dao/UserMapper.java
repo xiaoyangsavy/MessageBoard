@@ -12,4 +12,5 @@ public interface UserMapper {
     User getUserById(@Param("userId") int userId);
     //注册用户
     Integer insertUser(@Param("userName") String userName,@Param("password") String password,@Param("permissionId") Integer permissionid,@Param("name") String name,@Param("sex") String sex,@Param("phone") String phone,@Param("email") String email);
+
 }

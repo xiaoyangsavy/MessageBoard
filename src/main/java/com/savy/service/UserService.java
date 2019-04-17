@@ -26,4 +26,5 @@ public class UserService {
         Integer insert_user=userMapper.insertUser(userName,password,permissionId,name,sex,phone,email);
         return insert_user;
     }
+
 }

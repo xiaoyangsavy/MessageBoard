@@ -30,6 +30,4 @@
         values (#{userName},#{password},#{permissionId},#{name},#{sex},#{phone},#{email})
 
     </insert>
-
-
 </mapper>

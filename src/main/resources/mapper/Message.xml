@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.savy.dao.MessageMapper">
+    <insert id="insertMessage">
+        insert into message(message_content,message_date,image_url,voice_url,video_url)
+        values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl})
+    </insert>
+</mapper>
