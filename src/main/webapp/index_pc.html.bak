@@ -19,10 +19,10 @@
 			var name=getCookie("u_name");
            if(name==null||name=='')
             {					
-                window.location.href='view_pc/login.html';
+                window.location.href='view/login.html';
             }
             else{
-                window.location.href='view_pc/main.html';
+                window.location.href='view/main.html';
             }
 
 function getCookie(c_name)
