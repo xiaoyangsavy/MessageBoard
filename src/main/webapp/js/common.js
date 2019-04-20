@@ -1,10 +1,11 @@
 
 var permission = '0';	//权限
-var isLogin = 1;	//是否已登录标记
+var isLogin = 1;	//是否已登录
+var loginFlag = "isLogin";	//登录标记
  
 
 //设置网页缓存
-function Setcookie (name, value)
+function setCookie (name, value)
 { 
     //设置名称为name,值为value的Cookie
     var expdate = new Date();   //初始化时间
@@ -14,17 +15,17 @@ function Setcookie (name, value)
 }
 
 //获取网页缓存
-function getCookie(c_name)
+function getCookie(cookieName)
 {
 if (document.cookie.length>0)
   {
-  c_start=document.cookie.indexOf(c_name + "=")
-  if (c_start!=-1)
+  cookieStart=document.cookie.indexOf(cookieName + "=")
+  if (cookieStart!=-1)
     { 
-    c_start=c_start + c_name.length+1 
-    c_end=document.cookie.indexOf(";",c_start)
-    if (c_end==-1) c_end=document.cookie.length
-    return unescape(document.cookie.substring(c_start,c_end))
+    cookieStart=cookieStart + cookieName.length+1 
+    cookieEnd=document.cookie.indexOf(";",cookieStart)
+    if (cookieEnd==-1) cookieEnd=document.cookie.length
+    return unescape(document.cookie.substring(cookieStart,cookieEnd))
     } 
   }
 return ""
@@ -43,14 +44,6 @@ function getPermission(){
 var permission = getCookie("permission");
 return permission;
 }
-
-//退出
-function logout() {
-	delCookie("isLogin")
-	window.location.href="login.html";
-} 
-
-
  
  
  //获取页面跳转时传递的值
@@ -67,3 +60,7 @@ function logout() {
 function sleep(numberMillis) { var now = new Date(); var exitTime = now.getTime() + numberMillis; while (true) { now = new Date(); if (now.getTime() > exitTime) return true; } }
 
  
+//跳转到指定网页
+function goWebpage(url){
+ window.location.href=url;
+}

@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
+<meta charset="UTF-8">
+<!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- 引入 jQuery Mobile 样式 -->
+<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<!-- 引入 jQuery 库 -->
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- 引入 jQuery Mobile 库 -->
+ <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+ <!-- 引入项目公共逻辑库 -->
+ <script type="text/javascript" src="../js/common.js"></script>
 </head>
 <body>
 
@@ -50,7 +57,7 @@
    <div data-role="navbar">
       <ul>
         <li><a href="#" data-icon="home" class="ui-btn-active ui-state-persist "></a></li>
-        <li><a href="setting.html" data-icon="gear" ></a></li>
+        <li><a onclick="goWebpage('setting.html')" href="setting.html" data-icon="gear" ></a></li>
       </ul>
     </div>
   </div>
