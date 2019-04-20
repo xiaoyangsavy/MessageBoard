@@ -1,7 +1,6 @@
 
-var permission = '0';	//权限
-var isLogin = 1;	//是否已登录标记
- 
+var permission = '0';
+var itemId = '';
 
 //设置网页缓存
 function Setcookie (name, value)
@@ -45,14 +44,38 @@ return permission;
 }
 
 //退出
-function logout() {
-	delCookie("isLogin")
-	window.location.href="login.html";
+ function logout() {
+	delCookie("u_name")
+	 window.location.href="login.html";
 } 
 
 
  
- 
+//左侧菜单栏选中方法
+function selectItem(item) {
+    console.log("selectItem:");
+	console.log(item.id);
+	console.log("permission="+permission);
+//alert('点击了'+item.text);
+    switch (item.text) {
+        case '类型管理':
+        //页面跳转
+		 window.location.href='./type_management.html?permission='+permission;
+            break;
+        case '用户管理':
+         window.location.href='./user_management.html?permission='+permission;  
+            break;
+        default:
+		 window.location.href='./main.html?permission='+permission+'&itemId='+item.id; 
+            break;
+    }
+}
+
+
+
+
+
+
  //获取页面跳转时传递的值
  function getUrlParams(key) {
         var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
@@ -66,4 +89,21 @@ function logout() {
 //线程休眠
 function sleep(numberMillis) { var now = new Date(); var exitTime = now.getTime() + numberMillis; while (true) { now = new Date(); if (now.getTime() > exitTime) return true; } }
 
- 
+
+//获取本地存储token
+function getToken(){
+	var token = "";
+	if (!window.localStorage) {	
+		alert("浏览器不支持localstorage，请更换浏览器！");
+	} else {// 支持，继续操作
+		var storage = window.localStorage;
+		token = storage["token"];
+		console.log("get location token:"+token);
+		if (token == null || token == undefined || token == '') {
+			 console.log("token get error！");
+		}else{
+			token = "token:"+token;
+		}
+	}
+	return token;
+}
