@@ -41,14 +41,19 @@ public class UserController {
     @ResponseBody
     public Result<Integer> register(@RequestParam  String userName,@RequestParam String password,@RequestParam String sex,@RequestParam String phone,@RequestParam String email){
         System.out.println("call /user/register");
+        Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        Integer r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
-        if (r!=0){
+        if (userName!=""&&userName!=null){
+            r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
             result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("添加成功！");
+            result.setData(r);
         }
-
-       // Integer r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
+        else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加失败！");
+            result.setData(r);
+        }
         return result;
     }
-
 }
