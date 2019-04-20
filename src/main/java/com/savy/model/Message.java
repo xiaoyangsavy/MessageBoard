@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Message {
     private int messageId;//消息编号
-    private String type_name;
+    private String typeName;
     private int superMessageId;//父消息编号
     private String messageContent;//消息内容
     private Date messageDate;//消息发布时间
@@ -14,6 +14,7 @@ public class Message {
     private int userId;//用户编号
     private double messageGrade;//用户评分
     private int isReplay;//管理员是否回复
+    private int typeId;
 
     public int getMessageId() {
         return messageId;
@@ -95,19 +96,27 @@ public class Message {
         this.isReplay = isReplay;
     }
 
-    public String getType_name() {
-        return type_name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType_name(String type_name) {
-        this.type_name = type_name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "messageId=" + messageId +
-                ", type_name='" + type_name + '\'' +
+                ", typeName='" + typeName + '\'' +
                 ", superMessageId=" + superMessageId +
                 ", messageContent='" + messageContent + '\'' +
                 ", messageDate=" + messageDate +
@@ -117,6 +126,7 @@ public class Message {
                 ", userId=" + userId +
                 ", messageGrade=" + messageGrade +
                 ", isReplay=" + isReplay +
+                ", typeId=" + typeId +
                 '}';
     }
 }

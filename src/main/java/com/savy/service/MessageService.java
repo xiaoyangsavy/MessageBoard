@@ -5,21 +5,32 @@ import com.savy.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageService {
     @Autowired
     MessageMapper messageMapper;
 
-    public Integer insertMessage(int superMessageId,String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl){
-        Integer insert_Message=messageMapper.insertMessage(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl);
+    public Integer insertMessage(String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int typeId){
+        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
         return insert_Message;
     }
-    public Message selectMessage(String messageDate, String superMessageId,String isReplay, String userId){
+    public List<Message> selectMessage(String messageDate, int typeId, String isReplay, String userId){
         /*System.out.println("selectMessage");
         System.out.println(messageDate!=null?messageDate:"null");
         System.out.printf("%s;%s;%s;%s;",messageDate, superMessageId,isReplay, userId);*/
-        Message select_Message=messageMapper.selectMessage(messageDate,superMessageId,isReplay,userId);
+        //System.out.println("------------------------------"+superMessageId);
+        List<Message> select_Message=messageMapper.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message);
         return select_Message;
+    }
+    public String selectProblem(int superMessageId){
+        String select_Content=messageMapper.selectProblem(superMessageId);
+        return select_Content;
+    }
+    public Integer updateReply(String messageContent,int messageId){
+        Integer update_Reply=messageMapper.updateReply(messageContent,messageId);
+        return update_Reply;
     }
 }
