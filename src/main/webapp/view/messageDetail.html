@@ -13,6 +13,9 @@
  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="../js/common.js"></script>
+ <!-- 音频播放 -->
+	<link rel="stylesheet" type="text/css" href="../css/audio.css">
+	<script type="text/javascript" src="../js-pc/weixinAudio.js"></script>
 </head>
 <body>
 
@@ -20,6 +23,7 @@
   <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>内容详情</h1>
+    <a href="addMessage.html" class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
   </div>
 
   <div data-role="main" class="ui-content">
@@ -40,8 +44,19 @@
     </label>
     
     
-
- 
+ <!--  图片显示 -->
+    <br/><img src="../images/test01.jpg" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test02.jpg" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test03.jpg" width="100%" >
+    <br/><img src="../images/test04.jpg" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test05.jpg" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/test06.jpg" width="100%" >
+    <!--  视频播放 -->
+    <p>视频:</p>
+	<br/><video src="../images/test.mp4" width="100%"  align="center" controls autoplay></video>
+	<!--  音频播放
+	<audio src="../files/sound.mp3" id="audio" width="100%"  align="center" controls autoplay></audio> -->
+    <p>音频:</p>
+ <audio controls>
+  <source src="../files/sound.mp3" type="audio/mpeg">
+您的浏览器不支持 audio 元素。
+</audio>
 
 
 

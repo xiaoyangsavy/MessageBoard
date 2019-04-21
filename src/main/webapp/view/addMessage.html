@@ -40,7 +40,7 @@
         </select>
      </div>
 
- <div class="ui-field-contain">
+ 	<div class="ui-field-contain">
         <label for="info">内容:</label>
         <textarea name="addinfo" id="info"></textarea>
       </div>
@@ -61,6 +61,17 @@
 	</div>
 
 
+   <!-- 使按钮居中显示  -->
+    <table style="margin: 0 auto">
+    <tr><td align="center">
+     <input type="submit" data-inline="true" value="确定" onclick="goWebpage('message.html')" >
+    <!-- <a onclick="goWebpage('message.html')"  style="background-color: #32CD32;color: #FFFFFF"  class="ui-btn ui-corner-all ui-shadow">确定</a> -->
+	  </td> <td align="center">
+     <input type="reset" data-inline="true" value="取消" onclick="goWebpage('message.html')">
+      <!--<a onclick="goWebpage('message.html')"  style="background-color: #FF0000;color: #FFFFFF"  class="ui-btn   ui-corner-all ui-shadow">取消</a> -->
+	   </td></tr>
+     </table>
+ 
 
   </div>
 
