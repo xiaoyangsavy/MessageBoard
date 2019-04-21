@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> </title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+    $(function(){
+			var isLogin=getCookie(loginFlag);
+           if(isLogin==1)
+            {					
+				window.location.href='view/message.html'; 
+            }
+            else{
+				 window.location.href='view/login.html';
+            }
+          });
+    </script>
+</head>
+<body>
+</body>
+</html>
