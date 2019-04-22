@@ -7,4 +7,19 @@
         insert into message(message_content,message_date,image_url,voice_url,video_url)
         values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl})
     </insert>
+
+    <insert id="insertMessage">
+        insert into message_type
+        values (#{typeName})
+    </insert>
+    <delete id="deleteMessage">
+        delete
+        from  message_type
+        where  type_id =#{typeId}
+    </delete>
+
+
+
+
+
 </mapper>

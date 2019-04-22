@@ -18,4 +18,21 @@ public class MessageController {
         Integer integer_message=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl);
         return integer_message;
     }
+    @RequestMapping(value = "/insertMessage_type",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer insertMessage_type(@RequestParam String type_Name) {
+        System.out.println("call /message/insertMessage_type");
+        Integer integer_message_type = messageService.insertMessage_type(type_name);
+        return integer_message_type;
+    }
+    @RequestMapping(value = "/deleteMessage_type",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer deleteMessage_type(@RequestParam String type_Name) {
+        System.out.println("call /message/deleteMessage_type");
+        Integer delete_message_type = messageService.deteleMessage_type(typeID);
+        return integer_message_type;
+    }
 }
+
+
+
