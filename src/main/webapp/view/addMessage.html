@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
+<meta charset="UTF-8">
+<!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- 引入 jQuery Mobile 样式 -->
+<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<!-- 引入 jQuery 库 -->
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- 引入 jQuery Mobile 库 -->
+ <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+ <!-- 引入项目公共逻辑库 -->
+ <script type="text/javascript" src="../js/common.js"></script>
 </head>
 <body>
 
 <div data-role="page">
-  <div data-role="header">
+  <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>发布内容</h1>
   </div>
@@ -33,7 +40,7 @@
         </select>
      </div>
 
- <div class="ui-field-contain">
+ 	<div class="ui-field-contain">
         <label for="info">内容:</label>
         <textarea name="addinfo" id="info"></textarea>
       </div>
@@ -54,18 +61,22 @@
 	</div>
 
 
+   <!-- 使按钮居中显示  -->
+    <table style="margin: 0 auto">
+    <tr><td align="center">
+     <input type="submit" data-inline="true" value="确定" onclick="goWebpage('message.html')" >
+    <!-- <a onclick="goWebpage('message.html')"  style="background-color: #32CD32;color: #FFFFFF"  class="ui-btn ui-corner-all ui-shadow">确定</a> -->
+	  </td> <td align="center">
+     <input type="reset" data-inline="true" value="取消" onclick="goWebpage('message.html')">
+      <!--<a onclick="goWebpage('message.html')"  style="background-color: #FF0000;color: #FFFFFF"  class="ui-btn   ui-corner-all ui-shadow">取消</a> -->
+	   </td></tr>
+     </table>
+ 
 
   </div>
 
   
-  <div data-role="footer" data-position="fixed">
-   <div data-role="navbar">
-      <ul>
-        <li><a href="message.html" data-icon="home"></a></li>
-        <li><a href="#" data-icon="gear" class="ui-btn-active ui-state-persist"></a></li>
-      </ul>
-    </div>
-  </div>
+ 
 </div> 
 
 
