@@ -12,24 +12,38 @@
         from message,message_type
         <where>
             <if test="messageDate!=''and messageDate!=null">
-                and message_date >= #{messageDate}
+                and message_date >= ${messageDate}
             </if>
             <if test="typeId!=''and typeId!=null">
-                and message.type_id=message_type.type_id = #{typeId}
+                and message.type_id=message_type.type_id = ${typeId}
             </if>
             <if test="isReplay!='' and isReplay!=null">
-                and is_replay = #{isReplay}
+                and is_replay = ${isReplay}
             </if>
             <if test="userId!='' and userId!=null">
-                and user_id = #{userId}
+                and user_id = ${userId}
             </if>
         </where>
     </select>
-    <select id="selectProblem" resultType="String">
-        select message_content
+    <insert id="addReply">
+        insert into message (super_message_id,message_content,message_date,image_url,voice_url,video_url,user_id)
+        values (#{superMessageId},#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{userId})
+    </insert>
+    <select id="viewProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
+        select *
         from message
-        where super_message_id=#{superMessageId}
+        where super_message_id= ${superMessageId}
     </select>
+    <delete id="deleteProblem" parameterType="com.savy.model.Message">
+        delete
+        from message
+        where message_id=${messageId}
+    </delete>
+    <delete id="deleteReply" parameterType="com.savy.model.Message">
+        delete
+        from message
+        where super_message_id= ${superMessageId}
+    </delete>
     <update id="updateReply">
         update message
         set message_content = #{messageContent}

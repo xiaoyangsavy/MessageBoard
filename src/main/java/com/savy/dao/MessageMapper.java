@@ -10,8 +10,14 @@ public interface MessageMapper {
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId );
     //查询问题
     List<Message> selectMessage(@Param("messageDate") String messageData, @Param("typeId") int typeId, @Param("isReplay") String isReplay, @Param("userId") String userId);
-    //查询问题
-    String selectProblem(@Param("superMessageId") int superMessageId);
     //回复问题
+    Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId);
+    //查看问题
+    List<Message> viewProblem(@Param("superMessageId") int superMessageId);
+    //删除问题
+    Integer deleteProblem(@Param("messageId") int messageId);
+    //删除回复
+    Integer deleteReply(@Param("superMessageId") int superMessageId);
+    //---回复问题
     Integer updateReply(@Param("messageContent") String messageContent,@Param("messageId") int messageId);
 }

@@ -46,13 +46,72 @@ public class MessageController {
         System.out.println(select_Message.toString());
         return select_Message;
     }
-    @RequestMapping(value = "/selectProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-   public String selectProblem(@RequestParam int superMessageId){
-        System.out.println("call /message/selectProblem");
-        String select_Problem=messageService.selectProblem(superMessageId);
-        System.out.println(select_Problem);
-        return select_Problem;
+    public Result<Integer> addReply(@RequestParam int superMessageId,@RequestParam  String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl,@RequestParam String videoUrl,@RequestParam int userId)
+    {
+        System.out.println("call /message/addReply");
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if(messageContent!=""&&messageContent!=null)
+        {
+            r=messageService.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("回复成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("回复失败！");
+            result.setData(r);
+        }
+        return result;
+
+    }
+    @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Message> viewProblem(@RequestParam int superMessageId){
+        System.out.println("call /message/viewProblem");
+        List<Message> view_Problem=messageService.viewProblem(superMessageId);
+        System.out.println(view_Problem.toString());
+        return view_Problem;
+    }
+    @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> deleteProblem(@RequestParam int messageId){
+        System.out.println("call /message/deleteProblem");
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if(messageId > 0)
+        {
+            r=messageService.deleteProblem(messageId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("删除问题成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("删除问题失败！");
+            result.setData(r);
+        }
+        return  result;
+    }
+    @RequestMapping(value = "/deleteReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> deleteReply(@RequestParam int superMessageId){
+        System.out.println("call /message/deleteReply");
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if (superMessageId>0)
+        {
+            r=messageService.deleteReply(superMessageId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("删除回复成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("删除回复失败！");
+            result.setData(r);
+        }
+        return  result;
     }
 
 }
