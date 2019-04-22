@@ -88,12 +88,12 @@ public class UserController {
     }
     @RequestMapping(value = "/updateUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> updateUser(@RequestParam String userName,@RequestParam int userId,@RequestParam  String password,@RequestParam int permissionId){
+    public Result<Integer> updateUser(@RequestParam String userName,@RequestParam int userId,@RequestParam  String password,@RequestParam Integer permissionId){
         System.out.println("call /user/updateUser");
-        System.out.println("");
+        System.out.println("%s"+userName+" "+userId+" "+password+" "+permissionId);
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        if (userName!=""&&userName!=null){
+        if (userId>0){
             r=userService.updateUser(userName,userId,password,permissionId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("修改用户成功！");

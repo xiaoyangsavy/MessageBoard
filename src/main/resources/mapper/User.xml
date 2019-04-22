@@ -48,7 +48,7 @@
                 password = #{password},
             </if>
             <if test="permissionId!=''and permissionId!=null">
-                permission_id = #{permissionId}
+                permission_id = #{permissionId},
             </if>
         </set>
         where user_id = #{userId}

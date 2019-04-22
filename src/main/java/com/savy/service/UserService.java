@@ -37,7 +37,7 @@ public class UserService {
         List<User> select_User=userMapper.selectUser();
         return select_User;
     }
-    public Integer updateUser(String userName,int userId,String password,int permissionId){
+    public Integer updateUser(String userName,int userId,String password,Integer permissionId){
         Integer update_User=userMapper.updateUser(userName,userId,password,permissionId);
         return update_User;
     }

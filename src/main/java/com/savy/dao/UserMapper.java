@@ -19,7 +19,7 @@ public interface UserMapper {
     //用户管理——查询用户
     List<User> selectUser();
     //用户管理——修改用户
-    Integer updateUser(@Param("userName") String userName,@Param("userId") int userId,@Param("password") String password,@Param("permissionId") int permissionId);
+    Integer updateUser(@Param("userName") String userName,@Param("userId") int userId,@Param("password") String password,@Param("permissionId") Integer permissionId);
     //用户管理——删除用户
     Integer deleteUser(@Param("userId") int userId);
 
