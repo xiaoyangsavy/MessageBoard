@@ -75,4 +75,9 @@
  <mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
   <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
     <mvc:resources location="/view/" mapping="/view/*.html"></mvc:resources>
+
+    <!-- 解决跨域问题-->
+    <mvc:cors>
+        <mvc:mapping path="/**" />
+    </mvc:cors>
 </beans>

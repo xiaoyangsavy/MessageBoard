@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 引入 jQuery Mobile 样式 -->
@@ -70,18 +71,23 @@
 $(function(){
  //查找用户权限
  //管理员
+ 
    $.ajax({
         type: "GET",
-        url:  serverUrl+"getPermission",
+        url:  serverUrl+"user/searchPermission?userName="+getUsername(),
         contentType: "application/json",
         success: function (data) {
 			console.log("getPermission:");
 			console.log(data);
-	 
+	 		if(data.status==200){	//调用成功
+			alert(data.data);
+			}else{
+				openPopup("权限获取失败，请重新登录！");
+			}
         },
         error: function (e) {
-		console.log(e);
-            //alert('error：' + e.status);
+			console.log(e);
+            openPopup("权限获取失败，请重新登录！");
         }
     });	 
  
