@@ -38,7 +38,7 @@ public class MessageController {
         return result;
     }
 
-    @RequestMapping(value = "/selectMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Message> selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
         System.out.println("call /message/selectMessage");
@@ -67,7 +67,7 @@ public class MessageController {
         return result;
 
     }
-    @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Message> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");

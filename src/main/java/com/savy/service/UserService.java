@@ -46,5 +46,9 @@ public class UserService {
         Integer delete_User=userMapper.deleteUser(userId);
         return  delete_User;
     }
+    public Integer searchPermission(String userName){
+        Integer search_Permission=userMapper.searchPermission(userName);
+        return search_Permission;
+    }
 
 }

@@ -58,4 +58,9 @@
         from user
         where user_id=#{userId}
     </delete>
+    <select id="searchPermission" resultType="Integer">
+        select permission_id
+        from user
+        where user_name=#{userName}
+    </select>
 </mapper>

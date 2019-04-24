@@ -78,7 +78,7 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping(value = "/selectUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/selectUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<User> selectUser(){
         System.out.println("call /user/selectUser");
@@ -109,7 +109,7 @@ public class UserController {
     @RequestMapping(value = "/deleteUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> deleteUser(@RequestParam int userId){
-        System.out.println("call /user/updateUser");
+        System.out.println("call /user/deleteUser");
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(userId>0){
@@ -123,5 +123,14 @@ public class UserController {
             result.setData(r);
         }
         return result;
+    }
+    @RequestMapping(value = "/searchPermission",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer searchPermission(@RequestParam String userName){
+        System.out.println("call /user/searchPermission");
+        Integer Permission=userService.searchPermission(userName);
+        System.out.println("------------------"+Permission);
+        return Permission;
+
     }
 }
