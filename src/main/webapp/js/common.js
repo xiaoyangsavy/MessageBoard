@@ -1,7 +1,9 @@
 
 var permission = '0';	//权限
-var isLogin = 1;	//是否已登录
+var isLoginFlag = 'isLogin';	//是否已登录
+var usernameFlag = 'username';	//用户名
 var loginFlag = "isLogin";	//登录标记
+var serverUrl = "http://127.0.0.1:8080/message/"
  
 
 //设置网页缓存
@@ -64,3 +66,23 @@ function sleep(numberMillis) { var now = new Date(); var exitTime = now.getTime(
 function goWebpage(url){
  window.location.href=url;
 }
+
+
+//显示提示框
+function openPopup(content){
+	var popupWrp = '';	//弹框对象
+	popupWrp = $('<div id="popupDiv" data-role="popup" data-theme="e" data-overlay-theme="a" data-dismissible="true" class="ui-popup-container ui-popup-active ui-popup ui-corner-all"><p>'+content+'</p></div>');
+	popupWrp.append('<a class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right" onclick="closePopup()" href="#">Close</a>');
+	popupWrp.appendTo($.mobile.pageContainer);
+	popupWrp.trigger('create');			//创建弹窗
+	popupWrp.popup().enhanceWithin();	//初始化弹窗
+	popupWrp.popup("open");
+	return popupWrp;
+}
+
+//关闭提示框
+ function closePopup(){ 
+ var popupWrp = $("#popupDiv"); 
+ popupWrp.popup().enhanceWithin(); 
+ popupWrp.popup("close"); 
+ }
