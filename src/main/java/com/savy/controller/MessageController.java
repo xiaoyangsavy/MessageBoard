@@ -113,5 +113,24 @@ public class MessageController {
         }
         return  result;
     }
+    @RequestMapping(value = "/addMessageGrade",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> addMessageGrade(@RequestParam double messageGrade,@RequestParam int messageId){
+        System.out.println("call /message/addMessageGrade");
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if(messageId>0)
+        {
+            r=messageService.addMessageGrade(messageGrade,messageId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("评分成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("评分失败！");
+            result.setData(r);
+        }
+        return result;
+    }
 
 }

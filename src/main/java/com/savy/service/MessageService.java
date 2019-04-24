@@ -39,8 +39,8 @@ public class MessageService {
         Integer deleteReply=messageMapper.deleteReply(superMessageId);
         return deleteReply;
     }
-    public Integer updateReply(String messageContent,int messageId){
-        Integer update_Reply=messageMapper.updateReply(messageContent,messageId);
-        return update_Reply;
+    public Integer addMessageGrade(double messageGrade,int messageId){
+        Integer add_MessageGrade=messageMapper.addMessageGrade(messageGrade,messageId);
+        return add_MessageGrade;
     }
 }

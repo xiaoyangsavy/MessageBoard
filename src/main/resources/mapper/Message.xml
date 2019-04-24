@@ -44,10 +44,10 @@
         from message
         where super_message_id= ${superMessageId}
     </delete>
-    <update id="updateReply">
+    <update id="addMessageGrade">
         update message
-        set message_content = #{messageContent}
-        where message_id = #{messageId}
+        set message_grade=#{messageGrade}
+        where message_id=#{messageId}
     </update>
 
 </mapper>
