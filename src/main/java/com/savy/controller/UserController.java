@@ -8,14 +8,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.util.List;
 
+//@CrossOrigin(origins = "*", maxAge = 3600)  //解决跨域
 @RequestMapping(value = "/user")
 @Controller
 public class UserController {
@@ -135,7 +135,6 @@ public class UserController {
         System.out.println("call /user/searchPermission");
         Integer Permission=userService.searchPermission(userName);
         return Permission;
-
     }
     @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody

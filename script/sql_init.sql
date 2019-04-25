@@ -20,7 +20,7 @@ create table user
    user_id		int		not null	AUTO_INCREMENT	COMMENT '用户编号',
    user_name		varchar(45)     not null			COMMENT '用户名',
    password		varchar(45)     not null			COMMENT '密码',
-   permission_id		int             not null		COMMENT '权限编号：0为普通用户，-1为超级管理员，1+为普通管理员',
+   permission_id		int             not null		COMMENT '权限编号：0为普通用户，-1为超级管理员，1+为普通管理员，数字一一对应消息类别',
    name			varchar(45)	default NULL			COMMENT '姓名',
    sex			VARCHAR(2)	default '男'			COMMENT '性别',
    phone		varchar(11)	default NULL			COMMENT '手机号',
@@ -67,14 +67,14 @@ create table message
 
 
 /*==============================================================*/
-/* Table: message_type       消息类型表                           */
+/* Table: message_type       消息类别表                           */
 /*==============================================================*/
 create table message_type
 (
    type_id		int		not null	AUTO_INCREMENT	COMMENT '消息类型编号，数字递增',
    type_name		varchar(255)		not null	        	COMMENT '消息类型名称',
    primary key (type_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '消息类型表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '消息类别表';
   
 
 /*插入正式数据==============================================================*/
