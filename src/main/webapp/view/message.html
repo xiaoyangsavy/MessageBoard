@@ -19,7 +19,7 @@
 
 <div data-role="page">
   <div data-role="header" data-position="fixed">
-    <a onclick="goWebpage('addMessage.html')" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-left">发布</a>
+    <a id="addmessage-button" onclick="goWebpage('addMessage.html')" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-left">发布</a>
     <h1>留言板</h1>
     <a onclick="goWebpage('select.html')" class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">搜索</a>
     
@@ -66,21 +66,23 @@
 
 
  <script type="text/javascript">
-
-
 $(function(){
  //查找用户权限
- //管理员
- 
    $.ajax({
         type: "GET",
         url:  serverUrl+"user/searchPermission?userName="+getUsername(),
         contentType: "application/json",
         success: function (data) {
-			console.log("getPermission:");
+			console.log("call user/searchPermission");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
-			alert(data.data);
+			console.log("getPermission:");
+			console.log(data.data);
+			if(data.data==0){	//用户
+				$("#addmessage-button").show();//显示发布按钮
+			}else{
+				$("#addmessage-button").hide();//隐藏发布按钮
+			}
 			}else{
 				openPopup("权限获取失败，请重新登录！");
 			}
@@ -92,12 +94,7 @@ $(function(){
     });	 
  
  
- 
- 
- 
 });
-
-
   </script>
 
 </body>

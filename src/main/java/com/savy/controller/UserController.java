@@ -131,10 +131,14 @@ public class UserController {
     }
     @RequestMapping(value = "/searchPermission",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer searchPermission(@RequestParam String userName){
+    public Result<Integer> searchPermission(@RequestParam String userName){
+        Result<Integer> result=new Result<>();
         System.out.println("call /user/searchPermission");
-        Integer Permission=userService.searchPermission(userName);
-        return Permission;
+        Integer permission=userService.searchPermission(userName);
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询成功！");
+        result.setData(permission);
+        return result;
     }
     @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
