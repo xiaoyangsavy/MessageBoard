@@ -20,9 +20,10 @@ public class MessageService {
         Integer insert_TypeName=messageMapper.insertTypeName(typeName);
         return insert_TypeName;
     }
-    public Integer deleteTypeName(int  typeID){
-        Integer delete_TypeName=messageMapper.deleteTypeName(typeID);
+    public Integer deleteTypeName(int  typeID) {
+        Integer delete_TypeName = messageMapper.deleteTypeName(typeID);
         return delete_TypeName;
+    }
     public List<Message> selectMessage(String messageDate, int typeId, String isReplay, String userId){
         List<Message> select_Message=messageMapper.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message);

@@ -24,7 +24,6 @@
                 and message_date >= ${messageDate}
             </if>
             <if test="typeId!=''and typeId!=null">
-                and message.type_id=${typeId}
                 and message.type_id=message_type.type_id = ${typeId}
             </if>
             <if test="isReplay!='' and isReplay!=null">

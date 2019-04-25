@@ -23,13 +23,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /*@RequestMapping(value = "/login")
+    @RequestMapping(value = "/login")
     @ResponseBody
     public String login() {
         System.out.println("call /user/login");
         Integer userId = userService.getUserId("admin","admin");
         return String.valueOf(userId);
-    }*/
+    }
 
     @RequestMapping(value = "/getUser")
     @ResponseBody
@@ -45,8 +45,7 @@ public class UserController {
         System.out.println("call /user/register");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        Integer user_id=userService.selectID(userName);
-        if (userName!=""&&userName!=null&&user_id==null){
+        if (userName!=""&&userName!=null){
             r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
@@ -66,8 +65,7 @@ public class UserController {
         System.out.println("call /user/register");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        Integer user_id=userService.selectID(userName);
-        if (userName!=""&&userName!=null&&user_id==null){
+        if (userName!=""&&userName!=null){
             r=userService.addUser(userName,password,permissionId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
@@ -82,14 +80,11 @@ public class UserController {
     }
     @RequestMapping(value = "/selectUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List> selectUser(){
+    public List<User> selectUser(){
         System.out.println("call /user/selectUser");
         List<User> select_User=userService.selectUser();
-        Result<List> result=new Result<>();
-        result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("查询所有用户成功！");
-        result.setData(select_User);
-        return result;
+        System.out.println(select_User.toString());
+        return select_User;
     }
     @RequestMapping(value = "/updateUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -138,23 +133,6 @@ public class UserController {
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("查询成功！");
         result.setData(permission);
-        return result;
-    }
-    @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Result<String> login(@RequestParam String userName,@RequestParam String password){
-        System.out.println("call /user/login");
-        Result<String> result=new Result<>();
-        String pass=userService.login(userName);
-        if(pass.equals(password)){
-            result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("用户登录成功！");
-            result.setData(pass);
-        }else {
-            result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("用户登录失败！");
-            result.setData("0");
-        }
         return result;
 
     }

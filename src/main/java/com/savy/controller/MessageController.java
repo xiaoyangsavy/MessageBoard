@@ -38,14 +38,11 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List>selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
+    public List<Message> selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
         System.out.println("call /message/selectMessage");
         List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
-        Result<List> result=new Result<>();
-        result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("查询消息成功！");
-        result.setData(select_Message);
-        return result;
+        System.out.println(select_Message.toString());
+        return select_Message;
     }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -79,22 +76,19 @@ public class MessageController {
     }
     @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer deleteMessage_type(@RequestParam String type_Name) {
+    public Integer deleteMessage_type(@RequestParam Integer typeId) {
         System.out.println("call /message/deleteTypeName");
-        Integer delete_message_type = messageService.deleteTypeName(typeID);
-        return integer_message_type;
+        Integer delete_message_type = messageService.deleteTypeName(typeId);
+        return delete_message_type;
     }
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
  
     @ResponseBody
-    public Result<List> viewProblem(@RequestParam int superMessageId) {
+    public List<Message> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
-        List<Message> view_Problem = messageService.viewProblem(superMessageId);
-        Result<List> result=new Result<>();
-        result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("查看问题详情成功！");
-        result.setData(view_Problem);
-        return result;
+        List<Message> view_Problem=messageService.viewProblem(superMessageId);
+        System.out.println(view_Problem.toString());
+        return view_Problem;
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
