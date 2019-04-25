@@ -16,6 +16,13 @@ public class MessageService {
         Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
         return insert_Message;
     }
+    public Integer insertTypeName(String typeName){
+        Integer insert_TypeName=messageMapper.insertTypeName(typeName);
+        return insert_TypeName;
+    }
+    public Integer deleteTypeName(int  typeID){
+        Integer delete_TypeName=messageMapper.deleteTypeName(typeID);
+        return delete_TypeName;
     public List<Message> selectMessage(String messageDate, int typeId, String isReplay, String userId){
         List<Message> select_Message=messageMapper.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message);
@@ -44,3 +51,7 @@ public class MessageService {
         return add_MessageGrade;
     }
 }
+
+
+
+

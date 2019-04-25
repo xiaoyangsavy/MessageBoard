@@ -1,5 +1,4 @@
 package com.savy.controller;
-
 import com.savy.model.Message;
 import com.savy.service.MessageService;
 import com.savy.util.Result;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequestMapping(value = "/message")
@@ -70,7 +68,24 @@ public class MessageController {
         return result;
 
     }
-    @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+ 
+    @RequestMapping(value = "/insertTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer insertTypeName(@RequestParam String typeName) {
+        System.out.println("call /message/insertTypeName");
+        Integer integer_message_type = messageService.insertTypeName(typeName);
+        System.out.println(integer_message_type);
+        return integer_message_type;
+    }
+    @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer deleteMessage_type(@RequestParam String type_Name) {
+        System.out.println("call /message/deleteTypeName");
+        Integer delete_message_type = messageService.deleteTypeName(typeID);
+        return integer_message_type;
+    }
+    @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+ 
     @ResponseBody
     public Result<List> viewProblem(@RequestParam int superMessageId) {
         System.out.println("call /message/viewProblem");
@@ -139,4 +154,8 @@ public class MessageController {
         return result;
     }
 
+ 
 }
+
+
+
