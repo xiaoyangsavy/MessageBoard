@@ -26,11 +26,11 @@
             
             <div class="line1">
                 <img src="../images/user.png">
-                <input type="text" class="user" value="用户名" onfocus="if(value=='用户名') {value=''}" onblur="if (value=='') {value='用户名'}" data-role="none">
+                <input id="username" type="text" class="user" value="用户名" onfocus="if(value=='用户名') {value=''}" onblur="if (value=='') {value='用户名'}" data-role="none">
             </div>
             <div class="line2">
                 <img src="../images/lock.png">
-                <input type="text" class="lock" value="密码" onfocus="if(value=='密码') {value=''}" onblur="if (value=='') {value='密码'}" data-role="none">
+                <input id="password" type="text" class="lock" value="密码" onfocus="if(value=='密码') {value=''}" onblur="if (value=='') {value='密码'}" data-role="none">
             </div>
             <div class="chose">
                 <a onclick="goWebpage('regist.html')" data-ajax="false" class="register" data-role="none" data-transition="slide">注册</a>
@@ -38,7 +38,9 @@
                 <a class="login"  onclick="login()"   data-ajax="false" data-role="none" data-transition="slide">登录</a>
             </div>
         </div>
-    
+    <div data-role="popup" id="myPopup" class="ui-content">
+      <p>这是一个简单的弹窗。</p>
+    </div>
  </div>
  </div>
  
@@ -46,8 +48,19 @@
   <script type="text/javascript">
   //登录
 function login(){
-setCookie(loginFlag,1);
- window.location.href='message.html';
+	
+var username = $("#username").val(); 
+var password = $("#password").val(); 
+console.log("username="+username+";password="+password);	
+if(username == null || username == undefined || username == ''|| username == '用户名'){
+	openPopup("用户名不能为空！");
+}else if(password == null || password == undefined || password == ''|| password == '密码'){
+	openPopup("密码不能为空！");
+}else{
+setCookie(isLoginFlag,1);	//已登录
+setCookie(usernameFlag,username);	//用户名
+window.location.href='message.html';
+}
 }
  
   </script>

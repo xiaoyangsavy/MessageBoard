@@ -24,8 +24,8 @@ public interface MessageMapper {
     Integer deleteProblem(@Param("messageId") int messageId);
     //删除回复
     Integer deleteReply(@Param("superMessageId") int superMessageId);
-    //---回复问题
-    Integer updateReply(@Param("messageContent") String messageContent,@Param("messageId") int messageId);
+    //添加评论
+    Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
 }
 
 

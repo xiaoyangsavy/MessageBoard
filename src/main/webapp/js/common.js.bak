@@ -50,7 +50,7 @@ return permission;
 //获取用户名
 function getUsername(){
 var username = getCookie(usernameFlag);
-return username;
+return permission;
 }
  
  

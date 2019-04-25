@@ -8,14 +8,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.util.List;
 
+//@CrossOrigin(origins = "*", maxAge = 3600)  //解决跨域
 @RequestMapping(value = "/user")
 @Controller
 public class UserController {
@@ -23,13 +23,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/login")
+    /*@RequestMapping(value = "/login")
     @ResponseBody
     public String login() {
         System.out.println("call /user/login");
         Integer userId = userService.getUserId("admin","admin");
         return String.valueOf(userId);
-    }
+    }*/
 
     @RequestMapping(value = "/getUser")
     @ResponseBody
@@ -45,7 +45,8 @@ public class UserController {
         System.out.println("call /user/register");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        if (userName!=""&&userName!=null){
+        Integer user_id=userService.selectID(userName);
+        if (userName!=""&&userName!=null&&user_id==null){
             r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
@@ -65,7 +66,8 @@ public class UserController {
         System.out.println("call /user/register");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
-        if (userName!=""&&userName!=null){
+        Integer user_id=userService.selectID(userName);
+        if (userName!=""&&userName!=null&&user_id==null){
             r=userService.addUser(userName,password,permissionId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
@@ -78,13 +80,16 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping(value = "/selectUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/selectUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<User> selectUser(){
+    public Result<List> selectUser(){
         System.out.println("call /user/selectUser");
         List<User> select_User=userService.selectUser();
-        System.out.println(select_User.toString());
-        return select_User;
+        Result<List> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询所有用户成功！");
+        result.setData(select_User);
+        return result;
     }
     @RequestMapping(value = "/updateUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -109,7 +114,7 @@ public class UserController {
     @RequestMapping(value = "/deleteUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> deleteUser(@RequestParam int userId){
-        System.out.println("call /user/updateUser");
+        System.out.println("call /user/deleteUser");
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(userId>0){
@@ -123,5 +128,30 @@ public class UserController {
             result.setData(r);
         }
         return result;
+    }
+    @RequestMapping(value = "/searchPermission",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Integer searchPermission(@RequestParam String userName){
+        System.out.println("call /user/searchPermission");
+        Integer Permission=userService.searchPermission(userName);
+        return Permission;
+    }
+    @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<String> login(@RequestParam String userName,@RequestParam String password){
+        System.out.println("call /user/login");
+        Result<String> result=new Result<>();
+        String pass=userService.login(userName);
+        if(pass.equals(password)){
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("用户登录成功！");
+            result.setData(pass);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("用户登录失败！");
+            result.setData("0");
+        }
+        return result;
+
     }
 }

@@ -36,13 +36,16 @@ public class MessageController {
         return result;
     }
 
-    @RequestMapping(value = "/selectMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Message> selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
+    public Result<List>selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
         System.out.println("call /message/selectMessage");
         List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
-        System.out.println(select_Message.toString());
-        return select_Message;
+        Result<List> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询消息成功！");
+        result.setData(select_Message);
+        return result;
     }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -65,6 +68,7 @@ public class MessageController {
         return result;
 
     }
+ 
     @RequestMapping(value = "/insertTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Integer insertTypeName(@RequestParam String typeName) {
@@ -81,12 +85,16 @@ public class MessageController {
         return integer_message_type;
     }
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+ 
     @ResponseBody
-    public List<Message> viewProblem(@RequestParam int superMessageId){
+    public Result<List> viewProblem(@RequestParam int superMessageId) {
         System.out.println("call /message/viewProblem");
-        List<Message> view_Problem=messageService.viewProblem(superMessageId);
-        System.out.println(view_Problem.toString());
-        return view_Problem;
+        List<Message> view_Problem = messageService.viewProblem(superMessageId);
+        Result<List> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查看问题详情成功！");
+        result.setData(view_Problem);
+        return result;
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -126,8 +134,27 @@ public class MessageController {
         }
         return  result;
     }
+    @RequestMapping(value = "/addMessageGrade",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> addMessageGrade(@RequestParam double messageGrade,@RequestParam int messageId){
+        System.out.println("call /message/addMessageGrade");
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if(messageId>0)
+        {
+            r=messageService.addMessageGrade(messageGrade,messageId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("评分成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("评分失败！");
+            result.setData(r);
+        }
+        return result;
+    }
 
->>>>>>> a791dcdaf378b4e1beee3eda934d5443c1f4d134
+ 
 }
 
 
