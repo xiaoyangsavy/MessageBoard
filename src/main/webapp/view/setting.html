@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- meta使用viewport以确保页面可自由缩放 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 引入 jQuery Mobile 样式 -->
+<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<!-- 引入 jQuery 库 -->
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- 引入 jQuery Mobile 库 -->
+ <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+ <!-- 引入项目公共逻辑库 -->
+ <script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header" data-position="fixed">
+    <h1>系统管理</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+  <div  align="center">
+  <img src="../images/name.png" width="30%" text-align="center" >
+  </div>
+   <p align="center">用户：admin</p>
+	<button class="ui-btn ui-corner-all ui-shadow">类别管理</button><br/>
+	<button class="ui-btn ui-corner-all ui-shadow">用户管理</button><br/>
+      <button  class="ui-btn ui-corner-all ui-shadow" style="background-color: #FF0000;color: #FFFFFF""  onclick="logout()">退出登录</button>
+  </div>
+
+  
+  <div data-role="footer" data-position="fixed">
+   <div data-role="navbar">
+      <ul>
+        <li><a onclick="goWebpage('message.html')" data-icon="home"></a></li>
+        <li><a href="#" data-icon="gear" class="ui-btn-active ui-state-persist"></a></li>
+      </ul>
+    </div>
+  </div>
+</div> 
+
+
+  <script type="text/javascript">
+//退出
+function logout() {
+	delCookie(loginFlag)
+	window.location.href="login.html";
+} 
+  </script>
+</body>
+</html>

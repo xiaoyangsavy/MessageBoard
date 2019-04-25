@@ -30,4 +30,32 @@
         values (#{userName},#{password},#{permissionId},#{name},#{sex},#{phone},#{email})
 
     </insert>
+    <insert id="addUser">
+        insert into user(user_name,password,permission_id)
+        values (#{userName},#{password},#{permissionId});
+    </insert>
+    <select id="selectUser" parameterType="java.lang.String" resultType="com.savy.model.User">
+        select *
+        from user
+    </select>
+    <update id="updateUser">
+        update user
+        <set>
+            <if test="userName!=''and userName!=null">
+                user_name = #{userName},
+            </if>
+            <if test="password!=''and password!=null">
+                password = #{password},
+            </if>
+            <if test="permissionId!=''and permissionId!=null">
+                permission_id = #{permissionId},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+    <delete id="deleteUser" parameterType="com.savy.model.User">
+        delete
+        from user
+        where user_id=#{userId}
+    </delete>
 </mapper>

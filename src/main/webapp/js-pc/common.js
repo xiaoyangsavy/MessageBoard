@@ -2,6 +2,15 @@
 var permission = '0';
 var itemId = '';
 
+//设置网页缓存
+function Setcookie (name, value)
+{ 
+    //设置名称为name,值为value的Cookie
+    var expdate = new Date();   //初始化时间
+    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+    document.cookie = name+"="+value+";expires="+expdate.toGMTString()+";path=/";
+   //即document.cookie= name+"="+value+";path=/";   时间可以不要，但路径(path)必须要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！~
+}
 
 //获取网页缓存
 function getCookie(c_name)
@@ -34,10 +43,14 @@ var permission = getCookie("permission");
 return permission;
 }
 
-        
+//退出
+ function logout() {
+	delCookie("u_name")
+	 window.location.href="login.html";
+} 
 
 
-
+ 
 //左侧菜单栏选中方法
 function selectItem(item) {
     console.log("selectItem:");

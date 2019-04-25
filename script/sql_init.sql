@@ -61,6 +61,7 @@ create table message
    user_id		int		not null	default 0	COMMENT '用户编号',
    message_grade	decimal(10,2)					COMMENT '用户评分，默认为null',
    is_replay		boolean						COMMENT '管理员是否回复，仅对父消息生效',
+   type_id    int               COMMENT'消息类别ID，与message_type的ID相同',
    primary key (message_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '消息内容表';
 

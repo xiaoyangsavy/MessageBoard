@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+ <!-- 引入项目公共逻辑库 -->
+ <script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header" data-position="fixed">
+    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
+    <h1>选择</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    
+	  <div class="ui-field-contain">
+        <label for="search">搜索：</label>
+        <input type="search" name="search" id="search" placeholder="搜索内容...">
+      </div>
+
+       <div class="ui-field-contain">
+        <label for="day">选择类别</label>
+        <select name="day" id="day">
+		 <option value="0">全部</option>
+         <option value="1">教务教学</option>
+         <option value="2">后勤服务</option>
+         <option value="3">学生管理</option>
+         <option value="4">书记信箱</option>
+         <option value="5">校长信箱</option>
+        </select>
+     </div>
+
+	  <div class="ui-field-contain">
+        <label for="day">选择状态</label>
+        <select name="day" id="day" >
+		 <option value="0">全部</option>
+         <option value="1">未回复</option>
+         <option value="2">已回复</option>
+        </select>
+      </div>
+
+<br/><br/>
+ <table style="margin: 0 auto">
+    <tr><td align="center">
+      <input type="submit" onclick="goWebpage('message.html')" data-inline="true" value="搜索">
+	  <input type="reset" onclick="goWebpage('message.html')" data-inline="true" value="取消">
+      </td></tr>
+     </table>
+
+  </div>
+</div>
+
+
+ <script type="text/javascript">
+
+
+  </script>
+</body>
+</html>

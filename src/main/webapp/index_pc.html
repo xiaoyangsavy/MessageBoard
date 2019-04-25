@@ -6,7 +6,7 @@
   <meta name="author" content="Vincent Garreau" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title> </title>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js-pc/jquery.min.js"></script>
     <script type="text/javascript">
 	
     $(function(){
@@ -19,10 +19,10 @@
 			var name=getCookie("u_name");
            if(name==null||name=='')
             {					
-                window.location.href='view/login.html';
+                window.location.href='view_pc/login.html';
             }
             else{
-                window.location.href='view/main.html';
+                window.location.href='view_pc/main.html';
             }
 
 function getCookie(c_name)

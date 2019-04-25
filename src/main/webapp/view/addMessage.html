@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- meta使用viewport以确保页面可自由缩放 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 引入 jQuery Mobile 样式 -->
+<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<!-- 引入 jQuery 库 -->
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- 引入 jQuery Mobile 库 -->
+ <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+ <!-- 引入项目公共逻辑库 -->
+ <script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header" data-position="fixed">
+    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
+    <h1>发布内容</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+  
+	<div class="ui-field-contain">
+        <label for="search">标题</label>
+       <input type="text" name="fname" id="fname">
+      </div>
+  
+   <div class="ui-field-contain">
+        <label for="type">选择类别</label>
+        <select name="type" id="type">
+         <option value="1">教务教学</option>
+         <option value="2">后勤服务</option>
+         <option value="3">学生管理</option>
+         <option value="4">书记信箱</option>
+         <option value="5">校长信箱</option>
+        </select>
+     </div>
+
+ 	<div class="ui-field-contain">
+        <label for="info">内容:</label>
+        <textarea name="addinfo" id="info"></textarea>
+      </div>
+
+	<div class="ui-field-contain">
+		 <label for="age">上传图片</label>
+		 <input type="file"    multiple="multiple" accept="image/*" name="fileField" id="fileField"  />
+	</div>
+
+	<div class="ui-field-contain">
+		<label for="age">上传视频</label>
+		<input type="file"     name="fileField" id="fileField"  />
+	</div>
+
+	<div class="ui-field-contain">
+		<label for="age">上传语音</label>
+		<input type="file"     name="fileField" id="fileField"  />
+	</div>
+
+
+   <!-- 使按钮居中显示  -->
+    <table style="margin: 0 auto">
+    <tr><td align="center">
+     <input type="submit" data-inline="true" value="确定" onclick="goWebpage('message.html')" >
+    <!-- <a onclick="goWebpage('message.html')"  style="background-color: #32CD32;color: #FFFFFF"  class="ui-btn ui-corner-all ui-shadow">确定</a> -->
+	  </td> <td align="center">
+     <input type="reset" data-inline="true" value="取消" onclick="goWebpage('message.html')">
+      <!--<a onclick="goWebpage('message.html')"  style="background-color: #FF0000;color: #FFFFFF"  class="ui-btn   ui-corner-all ui-shadow">取消</a> -->
+	   </td></tr>
+     </table>
+ 
+
+  </div>
+
+  
+ 
+</div> 
+
+
+</body>
+</html>

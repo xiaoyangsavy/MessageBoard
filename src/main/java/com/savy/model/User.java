@@ -16,6 +16,7 @@ public class User {
     private String sex;   //性别
     private String phone;   //手机号
     private String email;   //邮箱
+    private System permissionId;//用户权限
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date lastLoginDate;   //最后登录日期
 
@@ -92,6 +93,14 @@ public class User {
         this.lastLoginDate = lastLoginDate;
     }
 
+    public System getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(System permissionId) {
+        this.permissionId = permissionId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -103,6 +112,7 @@ public class User {
                 ", sex='" + sex + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", permissionId=" + permissionId +
                 ", lastLoginDate=" + lastLoginDate +
                 '}';
     }

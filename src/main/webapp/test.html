@@ -1,156 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- 引入 jQuery Mobile 样式 -->
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-
-<!-- 引入 jQuery 库 -->
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<!-- 引入 jQuery Mobile 库 -->
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
-<!--data-role="page" 是在浏览器中显示的页面-->
-<div data-role="page">
-    <!--data-role="panel"面板(侧边栏)，data-display面板显示方式，data-position面板位置，data-position-fixed面板是否固定,-->
-    <!--data-data-dismissible指定面板是否可以通过点击面板外部区域来关闭,data-swipe-close是否可以通过滑动来关闭，data-theme="b"主题样式，a以白为主，b以黑为主-->
-    <div data-role="panel" id="myPanel" data-display="reveal" data-position="left" data-position-fixed="true" data-dismissible="true",data-swipe-close="true"  data-theme="b">
-        <h2>面板头部..</h2>
-        <p>面板内容..</p>
-        <a href="#" data-rel="close" class="ui-btn ui-btn-inline">关闭面板</a>
-    </div>
-    <!--data-role="header" 头部栏，data-position头部栏尾部栏定位（inline内联，Fixed固定，Fullscreen全屏）-->
-    <div data-role="header" data-position="inline">
-        <!--data-role定义为按钮样式，data-inline元素不占满屏幕，data-rel="back"后退按钮，会忽略href属性，class样式-->
-        <a href="#myPanel"  data-role="button" data-inline="true" data-rel="back" class="ui-btn ui-corner-all ui-icon-search ui-nodisc-icon ui-btn-left">设置</a>
-        <h1>主页</h1>
-    </div>
 
-    <!--data-role="main" 定义了页面的内容，比如文本， 图片，表单，按钮等,"ui-content" 类用于在页面添加内边距和外边距-->
-    <div data-role="main" class="ui-content">
-        <!--===================================组合=================================-->
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>ҳü�ı�</h1>
+  </div>
 
-        <!--===================================折叠=================================-->
-        <!--data-role="collapsible-set"折叠块集合-->
-        <div data-role="collapsible-set">
-            <!--data-role="collapsible"折叠块，data-collapsed是否折叠-->
-            <div data-role="collapsible" data-collapsed="false">
-                <h1>第1折叠块</h1>
-                <p>内容</p>
-                <!--嵌套折叠块-->
-                <div data-role="collapsible">
-                    <h1>第1.1个折叠块</h1>
-                    <p>内容</p>
-                </div>
-            </div>
-            <div data-role="collapsible">
-                <h1>第二个折叠块</h1>
-                <p>内容</p>
-            </div>
-        </div>
-        <!--===================================表单=================================-->
-        <!--method表单提交方式，action提交地址 -->
-        <form class="ui-filterable" method="post" action="demoform.html">
-            <!--可以使用label或placeholder为元素做提示内容。label标签的 for 属性来匹配元素的 id，class="ui-hidden-accessible"隐藏标签。-->
-            <label for="myname" class="ui-hidden-accessible">姓名:</label>
-            <!-- data-clear-btn="true" 添加清空输入框内容的按钮 (一个在输入框右侧的 X 图标)-->
-            <input type="text" name="name" id="myname" placeholder="姓名..." data-clear-btn="true">
-            <!--ui-field-contain 类基于页面的宽度为标签和表单控件添加样式。当页面的宽度大于 480px 时，它会自动把标签放置在与表单控件同一线上。当页面的宽度小于 480px 时，标签会被放置在表单元素的上面-->
-            <div class="ui-field-contain">
-                <label for="age">年龄:</label>
-                <input type="text" name="age" id="age">
-            </div>
-			 <div >
-                <label for="age">上传图片</label>
-                <input type="file"    multiple="multiple" accept="image/*" name="fileField" id="fileField"  />
-				 <label for="age">上传文件</label>
-				 <input type="file"     name="fileField" id="fileField"  />
-            </div>
-            <!--data-role="controlgroup"内部元素组合，data-type组合排列方向-->
-            <div data-role="controlgroup" data-type="horizontal">
-                <!--标准的input按钮，会自动渲染-->
-                <input type="button" data-corners="true" value="标准按钮">
-                <input type="reset" value="重置按钮">
-                <input type="submit" value="提交按钮">
+  <div data-role="main" class="ui-content">
+    <h2>�ҵ�����</h2>
+    <ul data-role="listview" data-inset="true">
+      <li data-role="list-divider">������, 1 �� 2 ��, 2013 <span class="ui-li-count">2</span></li>   
+      <li><a href="#">   
+        <h2>ҽ��</h2>
+        <p><b>To Peter Griffin</b></p>
+        <p>Well, Mr. Griffin, I've looked into physical results.</p>
+        <p>Ah, Mr. Griffin, I'm not quite sure how to say this. Kim Bassinger? Bass singer? Bassinger?</p>
+        <p>But now, onto the cancer</p>
+        <p>You are a Cancer, right? You were born in July? Now onto these test results.</p>
+        <p class="ui-li-aside">Re: Appointment</p></a>
+      </li>
+      <li><a href="#">
+        <h2>Glen Quagmire</h2>
+        <p>Don't forget me this weekend!</p>
+        <br>
+        <p>- giggity giggity goo</p>
+        <p class="ui-li-aside">Re: Camping</p></a>
+      </li>
+      <li data-role="list-divider">�ܶ�, 1 �� 1 ��, 2013 <span class="ui-li-count">1</span></li>   
+      <li><a href="#">   
+        <h2>Louis</h2>
+        <p><b>Happy Girl!</b></p>
+        <p>Thank you so much, Peter!!</p>
+        <p class="ui-li-aside">Re: Christmas Gifts</p></a>
+      </li>
+    </ul>
+  </div>
 
-            </div>
-            <!--fieldset单选或多选的集合，-->
-           <fieldset data-role="controlgroup">
-               <!--legend选项集合的标题-->
-               <legend>选中下面的一个:</legend>
-                <label for="male">单选</label>
-               <!--type="radio"单选项-->
-                <input type="radio" name="gender" id="male" value="male">
-                <label for="female">多选</label>
-               <!-- type="checkbox"多选项  checked选中状态-->
-                <input type="checkbox" name="gender" id="female" value="female" checked>
-            </fieldset>
-            <!--select选择菜单，multiple可多选 data-native-menu弹窗效果-->
-            <select name="day" id="day" multiple data-native-menu="false">
-                <option value="mon">Monday</option>
-                <option value="tue">Tuesday</option>
-                <!-- 选项组 -->
-                <optgroup label="Weekends">
-                    <option value="sat">Saturday</option>
-                    <option value="sun">Sunday</option>
-                </optgroup>
-            </select>
-           <!--type="range"滚动条，value默认值，min最小值，max最大值，step间隔，data-show-value滑动按钮上是否显示值，data-popup-enabled滑动按钮上是否有弹窗，data-hightlight进度值是否高亮-->
-            <input type="range" name="points" id="points" value="50" min="0" max="100" step="1" data-show-value="true" data-popup-enabled="true" data-hightlight="true">
-            <!--data-type="search"搜索框样式-->
-            <input id="myFilter" data-type="search" placeholder="根据名称搜索..">
-        </form>
-        <!--===================================列表=================================-->
-        <!--data-role="listview"列表，data-inset列表样式是否圆角和有边缘空间，data-filter="true"是否有过滤功能的输入框，placeholder="提示词" data-input搜索框绑定(ul默认也提供搜索框)， data-autodividers="true"列表自动分割-->
-        <ul data-role="listview" data-inset="true" data-filter="true" data-input="#myFilter">
-            <!--data-role="list-divider"列表分割-->
-            <li data-role="list-divider">欧洲</li>
-            <!--data-icon列表末尾图标-->
-            <li data-icon="minus"><a href="#">法国</a></li>
-            <!--data-icon="false"取消列表末端图标。列表中16*16图标:img元素，class="ui-li-icon"-->
-            <li data-icon="false">
-                <a href="#"><img src="images/open.png" alt="USA" class="ui-li-icon">德国</a>
-                <span class="ui-li-count">强国</span>
-            </li>
-            <li data-role="list-divider">亚洲</li>
-            <!--列表中80*80缩略图，img自动缩略。span行内元素， class="ui-li-count"气泡文字-->
-            <li><a href="#"><img src="images/open.png">中国</a></li>
-            <li>
-                <!--多个a自动分割，会自动设置第二个链接为蓝色箭头的图标，图标的链接文字（如果有的话）将在用户将鼠标悬停在 图标时显示-->
-                <a href="#">韩国</a>
-                <a href="#">下载浏览器</a>
-            </li>
-        </ul>
-        <!--===================================弹窗=================================-->
-        <!--href可以跳转到业内元素，定义元素为data-rel="popup"弹窗链接，data-position-to弹窗位置-->
-        <a href="#myPopup" data-rel="popup" data-position-to="origin" data-transition="fade" class="ui-btn ui-btn-inline ui-shadow">显示弹窗</a>
-        <!--data-role="popup"定义弹窗，data-arrow弹窗方向小边框（l左边，t顶部，r右边，b顶部），data-transition页面切换效果，data-direction切换效果取反， data-overlay-theme弹窗背景色（a浅色背景，b深色背景），ui-content用于添加内外边距-->
-        <div data-role="popup" id="myPopup" data-arrow="t" data-transition="slide" data-direction="reverse" data-overlay-theme="b"  class="ui-content">
-            <!--弹窗内可以有header，main，footer-->
-            <p>这是一个简单的弹窗</p>
-        </div>
-    </div>
-    <!--data-role="footer" 用于创建页面底部工具条-->
-    <div data-role="footer" data-position="fixed">
-        <!--data-role="navbar"导航框，-->
-        <div data-role="navbar">
-            <ul>
-                <!--导航按钮li：data-icon按钮图标 data-iconpos图标位置，class="ui-btn-active"被选中样式-->
-                <li><a href="#" data-icon="home" data-iconpos="bottom">主页</a></li>
-                <li><a href="#" data-icon="search" data-iconpos="bottom" class="ui-btn-active">留言</a></li>
-                <li><a href="#" data-icon="search" data-iconpos="bottom">网页</a></li>
-            </ul>
-        </div>
-
-    </div>
-
+ <div data-role="footer">
+    <h1>ҳ���ı�</h1>
+  </div>
 </div>
+
 </body>
 </html>
- 
