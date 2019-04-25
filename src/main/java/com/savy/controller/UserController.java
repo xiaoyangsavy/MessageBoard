@@ -136,7 +136,7 @@ public class UserController {
         Integer Permission=userService.searchPermission(userName);
         return Permission;
     }
-    @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/login",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<String> login(@RequestParam String userName,@RequestParam String password){
         System.out.println("call /user/login");

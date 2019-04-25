@@ -1,8 +1,10 @@
 package com.savy.controller;
 
 import com.alibaba.druid.util.StringUtils;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping(value = "/Upload")
@@ -39,6 +42,27 @@ public class UploadController{
 
         return map;
     }
+    @RequestMapping(value = "/up",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public void up(HttpServletResponse request){
+       // List<MultipartFile> files=(Mul)(request)
+    }
+    /*public String up(@RequestParam  MultipartFile file){
+        if(file.isEmpty()){
+            return "文件为空";
+        }
+        String fileName=file.getOriginalFilename();
+        String filePath="E:\\test_load";
+        File dest=new File(filePath+fileName);
+        try{
+            file.transferTo(dest);
+            return "上传成功";
+        }catch (IOException e){
+
+        }
+        return "上传失败";
+
+    }*/
 
     //下载
     @ResponseBody
