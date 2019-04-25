@@ -22,8 +22,36 @@
   </div>
 
   <div data-role="main" class="ui-content">
+    <div class="login-input-box">
+    <div class="ui-field-contain">
+  <lable>用户名：use</lable> 
+  </div>
   
-    
+   <div class="ui-field-contain">
+   <lable for="password">密码</lable>
+ <input type="text" name="password" id="password" value="待修改的密码">
+  </div>
+  
+  <div class="ui-field-contain">
+        <label for="type">选择类别</label>
+        <select name="type" id="type">
+		 <option value="0">无</option>
+         <option value="1">教务教学</option>
+         <option value="2">后勤服务</option>
+         <option value="3">学生管理</option>
+         <option value="4">书记信箱</option>
+         <option value="5">校长信箱</option>
+        </select>
+     </div>
+  
+ <table style="margin: 0 auto">
+    <tr><td align="center">
+     <input type="submit" onclick="goWebpage('userList.html')" data-inline="true" value="删除">
+      <input type="submit" onclick="goWebpage('userList.html')" data-inline="true" value="修改">
+	  <input type="reset" onclick="goWebpage('userList.html')" data-inline="true" value="取消">
+      </td></tr>
+     </table>
+     </div>
   </div>
 
   
