@@ -135,9 +135,17 @@ public class UserController {
         Result<Integer> result=new Result<>();
         System.out.println("call /user/searchPermission");
         Integer permission=userService.searchPermission(userName);
-        result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("查询成功！");
-        result.setData(permission);
+        if(permission!=null)
+        {
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("查询成功！");
+            result.setData(permission);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("查询失败！");
+            result.setData(permission);
+        }
+
         return result;
     }
     @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
