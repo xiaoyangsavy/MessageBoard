@@ -24,5 +24,9 @@ public interface UserMapper {
     Integer deleteUser(@Param("userId") int userId);
     //查找用户权限
     Integer searchPermission(@Param("userName") String userName);
+    //用户登录
+    String login(@Param("userName") String userName);
+    //查找用户ID
+    Integer selectID(@Param("userName") String userName );
 
 }

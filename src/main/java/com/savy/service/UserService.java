@@ -50,5 +50,13 @@ public class UserService {
         Integer search_Permission=userMapper.searchPermission(userName);
         return search_Permission;
     }
+    public String login(String userName){
+        String login=userMapper.login(userName);
+        return login;
+    }
+    public Integer selectID(String userName){
+        Integer select_ID=userMapper.selectID(userName);
+        return select_ID;
+    }
 
 }
