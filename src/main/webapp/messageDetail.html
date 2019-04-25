@@ -27,7 +27,7 @@
   <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>内容详情</h1>
-    <a onclick="goWebpage('view/addMessage.html')"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
+    <a id="replay-button" onclick="goWebpage('view/addMessage.html')"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
   </div>
 
   <div data-role="main" class="ui-content">
@@ -87,5 +87,36 @@
   </script>
     <script src="js/jquery.barrating.js"></script>
     <script src="js/examples.js"></script>
+    
+    
+<script type="text/javascript">
+$(function(){
+ //查找用户权限
+   $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/searchPermission?userName="+getUsername(),
+        contentType: "application/json",
+        success: function (data) {
+			console.log("call user/searchPermission");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			console.log("getPermission:");
+			console.log(data.data);
+			if(data.data==0){	//用户
+				$("#replay-button").hide();//显示发布按钮
+			}else{
+				$("#replay-button").show();//隐藏发布按钮
+			}
+			}else{
+				openPopup("权限获取失败，请重新登录！");
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("权限获取失败，请重新登录！");
+        }
+    });	 
+});
+  </script>
 </body>
 </html>
