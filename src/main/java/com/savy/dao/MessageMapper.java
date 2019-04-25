@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface MessageMapper {
     //新增问题
+    Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl);
+    //添加类别名称
+    Integer insertTypeName(@Param("typeName") String typeName );
+    //删除类别
+    Integer deleteTypeName(@Param("typeID") int typeID );
+
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId );
     //查询问题
     List<Message> selectMessage(@Param("messageDate") String messageData, @Param("typeId") int typeId, @Param("isReplay") String isReplay, @Param("userId") String userId);
@@ -21,3 +27,6 @@ public interface MessageMapper {
     //添加评论
     Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
 }
+
+
+

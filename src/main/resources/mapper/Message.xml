@@ -7,6 +7,15 @@
         insert into message(message_content,message_date,image_url,voice_url,video_url,type_id)
         values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId})
     </insert>
+    <insert id="insertTypeName">
+        insert into message_type
+        values (#{typeName})
+    </insert>
+    <delete id="deleteTypeName">
+        delete
+        from  message_type
+        where  type_id =#{typeId}
+    </delete>
     <select id="selectMessage" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
         from message,message_type
@@ -15,7 +24,6 @@
                 and message_date >= ${messageDate}
             </if>
             <if test="typeId!=''and typeId!=null">
-                and message.type_id=${typeId}
                 and message.type_id=message_type.type_id = ${typeId}
             </if>
             <if test="isReplay!='' and isReplay!=null">
@@ -50,5 +58,4 @@
         set message_grade=#{messageGrade}
         where message_id=#{messageId}
     </update>
-
 </mapper>
