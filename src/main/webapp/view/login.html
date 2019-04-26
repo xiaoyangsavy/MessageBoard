@@ -57,9 +57,34 @@ if(username == null || username == undefined || username == ''|| username == '�
 }else if(password == null || password == undefined || password == ''|| password == '密码'){
 	openPopup("密码不能为空！");
 }else{
-setCookie(isLoginFlag,1);	//已登录
-setCookie(usernameFlag,username);	//用户名
-window.location.href='message.html';
+	
+	 $.ajax({
+        type: "POST",
+        url:  serverUrl+"user/login",
+        contentType: "application/json",
+		data : JSON.stringify({
+				"userName": username,
+				"password": password
+			}),
+        success: function (data) {
+			console.log("call user/login");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			setCookie(isLoginFlag,1);	//已登录
+			setCookie(usernameFlag,username);	//用户名
+			window.location.href='message.html';
+			}else{
+				openPopup("登录失败，请重新登录！");
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("登录失败，请重新登录！");
+        }
+    });	 
+	
+	
+
 }
 }
  

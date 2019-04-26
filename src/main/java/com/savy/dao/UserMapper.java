@@ -25,7 +25,7 @@ public interface UserMapper {
     //查找用户权限
     Integer searchPermission(@Param("userName") String userName);
     //用户登录
-    String login(@Param("userName") String userName);
+    Integer login(@Param("userName") String userName,@Param("password") String password);
     //查找用户ID
     Integer selectID(@Param("userName") String userName );
 

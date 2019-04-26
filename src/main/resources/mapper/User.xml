@@ -63,10 +63,10 @@
         from user
         where user_name=#{userName}
     </select>
-    <select id="login" resultType="String">
-        select password
+    <select id="login" resultType="Integer">
+        select count(*)
         from user
-        where user_name=#{userName}
+        where user_name=#{userName} and password=#{password}
     </select>
     <select id="selectID" resultType="Integer">
         select user_id

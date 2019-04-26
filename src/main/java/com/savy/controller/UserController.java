@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)  //解决跨域
 @RequestMapping(value = "/user")
@@ -140,20 +141,22 @@ public class UserController {
         result.setData(permission);
         return result;
     }
-    @RequestMapping(value = "/login",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/login",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<String> login(@RequestParam String userName,@RequestParam String password){
-        System.out.println("call /user/login");
-        Result<String> result=new Result<>();
-        String pass=userService.login(userName);
-        if(pass.equals(password)){
+    public Result<Boolean> login(@RequestBody Map<String,String> myMap){
+        System.out.println("call /user/login:"+myMap.get("userName")+";"+myMap.get("password"));
+        String userName = myMap.get("userName");
+        String password = myMap.get("password");
+        Result<Boolean> result=new Result<>();
+        boolean flag=userService.login(userName,password);
+        if(flag){
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("用户登录成功！");
-            result.setData(pass);
+            result.setData(flag);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("用户登录失败！");
-            result.setData("0");
+            result.setData(flag);
         }
         return result;
 
