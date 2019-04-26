@@ -130,11 +130,13 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping(value = "/searchPermission",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+    //获取用户权限，命名规范get
+    @RequestMapping(value = "/getPermission",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> searchPermission(@RequestParam String userName){
+    public Result<Integer> getPermission(@RequestParam String userName){
         Result<Integer> result=new Result<>();
-        System.out.println("call /user/searchPermission");
+        System.out.println("call /user/getPermission");
         Integer permission=userService.searchPermission(userName);
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("查询成功！");

@@ -70,10 +70,10 @@ $(function(){
  //查找用户权限
    $.ajax({
         type: "GET",
-        url:  serverUrl+"user/searchPermission?userName="+getUsername(),
+        url:  serverUrl+"user/getPermission?userName="+getUsername(),
         contentType: "application/json",
         success: function (data) {
-			console.log("call user/searchPermission");
+			console.log("call user/getPermission");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			console.log("getPermission:");
