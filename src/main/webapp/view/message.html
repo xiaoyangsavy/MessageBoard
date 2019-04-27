@@ -104,19 +104,6 @@ $(function(){
             if(data.status==200){	//调用成功
 			console.log("接口数据长度："+data.data.length);
                  var html = "";
-			//for(var i = 0,len = data.data.length; i < len; i++){
-   			// console.log(data.data[i]);
-			// var item = data.data[i];
-			//  	html += '<li data-role="list-divider">'+data.data[i].userId+'</li>';
-			//  	html += '<li><a onclick="goMessageDetail('+data.data[i].messageId+')"> ';
-			//  	html += '<h2>'+data.data[i].messageTitle+'</h2>'; 
-			//  	html += '<p><b>'+data.data[i].messageDate+'</b></p>'; 
-        	//  	html += '<p>'+data.data[i].messageContent+'</p>'; 
-       		//	html += '<p class="ui-li-aside">'+(data.data[i].isReplay==1?"已回复":"未回复")+'</p>'; 
-        	//	html += '</a></li>'; 
-			//}
-			
-				 
    			 for(var i = 0,len = data.data.length; i < len; i++){
 				console.log(data.data[i]);
 			 	var item = data.data[i];
