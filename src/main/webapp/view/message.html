@@ -93,7 +93,30 @@ $(function(){
         }
     });	 
  
- 
+ //查询留言数据
+    $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/selectMessage",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/selectMessage");
+            console.log(data);
+            if(data.status==200){	//调用成功
+                if(data.data==0){	//用户
+                    $("#addmessage-button").show();//显示发布按钮
+                }else{
+                    $("#addmessage-button").hide();//隐藏发布按钮
+                }
+            }else{
+                openPopup("权限获取失败，请重新登录！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("权限获取失败，请重新登录！");
+        }
+    });
+
 });
   </script>
 

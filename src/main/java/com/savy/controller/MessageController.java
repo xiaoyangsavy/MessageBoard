@@ -38,14 +38,18 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Message> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
+    public Result<List<Message>> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
                                         @RequestParam(name = "isReplay", required = false) String isReplay,
                                         @RequestParam(name = "userId", required = false) String userId){
         System.out.println("call /message/selectMessage");
+        Result<List<Message>> result=new Result<>();
         List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message.toString());
-        return select_Message;
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("回复成功！");
+        result.setData(select_Message);
+        return result;
     }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
