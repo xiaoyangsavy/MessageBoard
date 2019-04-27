@@ -15,7 +15,7 @@ public interface MessageMapper {
 
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId );
     //查询问题
-    List<Message> selectMessage(@Param("messageDate") String messageData, @Param("typeId") int typeId, @Param("isReplay") String isReplay, @Param("userId") String userId);
+    List<Message> selectMessage(@Param("messageDate") String messageData, @Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userId") String userId);
     //回复问题
     Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId);
     //查看问题

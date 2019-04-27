@@ -38,7 +38,10 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Message> selectMessage(@RequestParam String messageDate, @RequestParam int typeId, @RequestParam String isReplay, @RequestParam String userId){
+    public List<Message> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
+                                        @RequestParam(name = "typeId", required = false) Integer typeId,
+                                        @RequestParam(name = "isReplay", required = false) String isReplay,
+                                        @RequestParam(name = "userId", required = false) String userId){
         System.out.println("call /message/selectMessage");
         List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message.toString());
