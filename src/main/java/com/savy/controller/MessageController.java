@@ -47,10 +47,11 @@ public class MessageController {
         List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("回复成功！");
+        result.setMessage("调用成功！");
         result.setData(select_Message);
         return result;
     }
+
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> addReply(@RequestParam int superMessageId,@RequestParam  String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl,@RequestParam String videoUrl,@RequestParam int userId)
