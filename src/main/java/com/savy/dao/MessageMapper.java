@@ -1,6 +1,7 @@
 package com.savy.dao;
 
 import com.savy.model.Message;
+import com.savy.model.MessageType;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,7 +12,11 @@ public interface MessageMapper {
     //添加类别名称
     Integer insertTypeName(@Param("typeName") String typeName );
     //删除类别
-    Integer deleteTypeName(@Param("typeID") int typeID );
+    Integer deleteTypeName(@Param("typeId") int typeId );
+    //查找信息类型
+     List<MessageType> selectTypeName();
+    //根据信息名查找信息
+    Integer select_Type(@Param("typeName") String typeName);
 
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId );
     //查询问题

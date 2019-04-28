@@ -2,6 +2,7 @@ package com.savy.service;
 
 import com.savy.dao.MessageMapper;
 import com.savy.model.Message;
+import com.savy.model.MessageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,21 @@ public class MessageService {
         Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
         return insert_Message;
     }
+    public List<MessageType> selectTypeName(){
+        List<MessageType> select_TypeName=messageMapper.selectTypeName();
+        return select_TypeName;
+    }
+
+    public Integer select_Type(String typeName){
+        Integer select_Type=messageMapper.select_Type(typeName);
+        return select_Type;
+    }
     public Integer insertTypeName(String typeName){
         Integer insert_TypeName=messageMapper.insertTypeName(typeName);
         return insert_TypeName;
     }
-    public Integer deleteTypeName(int  typeID) {
-        Integer delete_TypeName = messageMapper.deleteTypeName(typeID);
+    public Integer deleteTypeName(int  typeId) {
+        Integer delete_TypeName = messageMapper.deleteTypeName(typeId);
         return delete_TypeName;
     }
     public List<Message> selectMessage(String messageDate,String endDate, Integer typeId, String isReplay, String userId){

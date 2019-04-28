@@ -7,14 +7,23 @@
         insert into message(message_content,message_date,image_url,voice_url,video_url,type_id)
         values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId})
     </insert>
+    <select id="selectTypeName" parameterType="java.lang.String" resultType="com.savy.model.MessageType">
+        select *
+        from message_type
+    </select>
+    <select id="select_Type" resultType="Integer">
+        select count(*)
+        from message_type
+        where type_name=#{typeName}
+    </select>
     <insert id="insertTypeName">
-        insert into message_type
+        insert into message_type(type_name)
         values (#{typeName})
     </insert>
     <delete id="deleteTypeName">
         delete
         from  message_type
-        where  type_id =#{typeId}
+        where  type_id =${typeId}
     </delete>
     <select id="selectMessage" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *

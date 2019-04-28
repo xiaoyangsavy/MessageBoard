@@ -1,5 +1,6 @@
 package com.savy.controller;
 import com.savy.model.Message;
+import com.savy.model.MessageType;
 import com.savy.service.MessageService;
 import com.savy.util.Result;
 import com.savy.util.ResultStatus;
@@ -52,7 +53,17 @@ public class MessageController {
         result.setData(select_Message);
         return result;
     }
-
+    @RequestMapping(value = "/selectTypeName",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<List<MessageType>> selectTypeName(){
+        System.out.println("call /message/selectTypeName");
+        Result<List<MessageType>> result=new Result<>();
+        List<MessageType> select_TypeName=messageService.selectTypeName();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("调用成功！");
+        result.setData(select_TypeName);
+        return result;
+    }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> addReply(@RequestParam int superMessageId,@RequestParam  String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl,@RequestParam String videoUrl,@RequestParam int userId)
@@ -74,21 +85,46 @@ public class MessageController {
         return result;
 
     }
- 
+
     @RequestMapping(value = "/insertTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer insertTypeName(@RequestParam String typeName) {
+    public Result<Integer> insertTypeName(@RequestParam String typeName) {
         System.out.println("call /message/insertTypeName");
-        Integer integer_message_type = messageService.insertTypeName(typeName);
-        System.out.println(integer_message_type);
-        return integer_message_type;
+        Result<Integer> result=new Result<>();
+        Integer r=0,count;
+        count=messageService.select_Type(typeName);
+        System.out.println("------------------------"+count);
+        if(typeName!=null&&typeName!=""&&count==0)
+        {
+            r= messageService.insertTypeName(typeName);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("插入类型名成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("插入类型名失败！");
+            result.setData(r);
+        }
+        return result;
     }
     @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer deleteMessage_type(@RequestParam Integer typeId) {
+    public Result<Integer> deleteMessage_type(@RequestParam Integer typeId) {
         System.out.println("call /message/deleteTypeName");
-        Integer delete_message_type = messageService.deleteTypeName(typeId);
-        return delete_message_type;
+        Result<Integer> result=new Result<>();
+        Integer r=0;
+        if(typeId > 0)
+        {
+            r=messageService.deleteTypeName(typeId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("删除信息类型成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("删除信息类型失败！");
+            result.setData(r);
+        }
+        return  result;
     }
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
  
