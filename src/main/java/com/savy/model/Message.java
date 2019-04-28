@@ -16,6 +16,7 @@ public class Message {
     private double messageGrade;//用户评分
     private int isReplay;//管理员是否回复
     private int typeId;
+    private String messageTitle;
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date messageDate;//消息发布时间
 
@@ -115,6 +116,14 @@ public class Message {
         this.typeId = typeId;
     }
 
+    public String getMessageTitle() {
+        return messageTitle;
+    }
+
+    public void setMessageTitle(String messageTitle) {
+        this.messageTitle = messageTitle;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -122,7 +131,6 @@ public class Message {
                 ", typeName='" + typeName + '\'' +
                 ", superMessageId=" + superMessageId +
                 ", messageContent='" + messageContent + '\'' +
-                ", messageDate=" + messageDate +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", voiceUrl='" + voiceUrl + '\'' +
                 ", videoUrl='" + videoUrl + '\'' +
@@ -130,6 +138,8 @@ public class Message {
                 ", messageGrade=" + messageGrade +
                 ", isReplay=" + isReplay +
                 ", typeId=" + typeId +
+                ", messageTitle='" + messageTitle + '\'' +
+                ", messageDate=" + messageDate +
                 '}';
     }
 }

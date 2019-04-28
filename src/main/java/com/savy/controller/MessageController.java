@@ -18,13 +18,13 @@ public class MessageController {
 
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> insertMessage(@RequestParam String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl, @RequestParam String videoUrl,@RequestParam int typeId){
+    public Result<Integer> insertMessage(@RequestParam String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl, @RequestParam String videoUrl,@RequestParam int typeId,@RequestParam String messageTitle){
         System.out.println("call /message/insertMessage");
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
         if(messageContent!=""&&messageContent!=null)
         {
-            r=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
+            r=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
             result.setData(r);
@@ -43,10 +43,11 @@ public class MessageController {
                                         @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
                                         @RequestParam(name = "isReplay", required = false) String isReplay,
-                                        @RequestParam(name = "userId", required = false) String userId){
+                                        @RequestParam(name = "userId", required = false) String userId,
+                                        @RequestParam(name="messageTitle",required = false) String messageTitle){
         System.out.println("call /message/selectMessage");
         Result<List<Message>> result=new Result<>();
-        List<Message> select_Message=messageService.selectMessage(messageDate,endDate,typeId,isReplay,userId);
+        List<Message> select_Message=messageService.selectMessage(messageDate,endDate,typeId,isReplay,userId,messageTitle);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("调用成功！");
@@ -93,7 +94,6 @@ public class MessageController {
         Result<Integer> result=new Result<>();
         Integer r=0,count;
         count=messageService.select_Type(typeName);
-        System.out.println("------------------------"+count);
         if(typeName!=null&&typeName!=""&&count==0)
         {
             r= messageService.insertTypeName(typeName);

@@ -13,8 +13,8 @@ public class MessageService {
     @Autowired
     MessageMapper messageMapper;
 
-    public Integer insertMessage(String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int typeId){
-        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
+    public Integer insertMessage(String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int typeId,String messageTitle){
+        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
         return insert_Message;
     }
     public List<MessageType> selectTypeName(){
@@ -34,8 +34,8 @@ public class MessageService {
         Integer delete_TypeName = messageMapper.deleteTypeName(typeId);
         return delete_TypeName;
     }
-    public List<Message> selectMessage(String messageDate,String endDate, Integer typeId, String isReplay, String userId){
-        List<Message> select_Message=messageMapper.selectMessage(messageDate,endDate,typeId,isReplay,userId);
+    public List<Message> selectMessage(String messageDate,String endDate, Integer typeId, String isReplay, String userId,String messageTitle){
+        List<Message> select_Message=messageMapper.selectMessage(messageDate,endDate,typeId,isReplay,userId,messageTitle);
         System.out.println(select_Message);
         return select_Message;
     }
