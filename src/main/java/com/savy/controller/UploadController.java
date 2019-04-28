@@ -44,8 +44,29 @@ public class UploadController{
     }
     @RequestMapping(value = "/up",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public void up(HttpServletResponse request){
+    public String up(@RequestParam("file") MultipartFile file){
        // List<MultipartFile> files=(Mul)(request)
+        try{
+            if(file.isEmpty()){
+                return "文件为空";
+            }
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            String filePath = "E:/test_load/";
+            String path = filePath + fileName;
+            File dest = new File(path);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();// 新建文件夹
+            }
+            file.transferTo(dest);// 文件写入
+            return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
     }
     /*public String up(@RequestParam  MultipartFile file){
         if(file.isEmpty()){

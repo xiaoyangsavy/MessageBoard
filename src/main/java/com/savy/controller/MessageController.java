@@ -39,12 +39,13 @@ public class MessageController {
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<List<Message>> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
+                                        @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
                                         @RequestParam(name = "isReplay", required = false) String isReplay,
                                         @RequestParam(name = "userId", required = false) String userId){
         System.out.println("call /message/selectMessage");
         Result<List<Message>> result=new Result<>();
-        List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
+        List<Message> select_Message=messageService.selectMessage(messageDate,endDate,typeId,isReplay,userId);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("回复成功！");

@@ -24,8 +24,8 @@ public class MessageService {
         Integer delete_TypeName = messageMapper.deleteTypeName(typeID);
         return delete_TypeName;
     }
-    public List<Message> selectMessage(String messageDate, Integer typeId, String isReplay, String userId){
-        List<Message> select_Message=messageMapper.selectMessage(messageDate,typeId,isReplay,userId);
+    public List<Message> selectMessage(String messageDate,String endDate, Integer typeId, String isReplay, String userId){
+        List<Message> select_Message=messageMapper.selectMessage(messageDate,endDate,typeId,isReplay,userId);
         System.out.println(select_Message);
         return select_Message;
     }

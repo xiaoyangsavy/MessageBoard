@@ -23,8 +23,12 @@
             <if test="messageDate!=''and messageDate!=null">
                 and message_date >= ${messageDate}
             </if>
+            <if test="endDate!='' and endDate!=null">
+                and message_date &lt;= ${endDate}
+            </if>
             <if test="typeId!=''and typeId!=null">
-                and message.type_id=message_type.type_id = ${typeId}
+                and message.type_id=${typeId}
+                and message.type_id=message_type.type_id
             </if>
             <if test="isReplay!='' and isReplay!=null">
                 and is_replay = ${isReplay}

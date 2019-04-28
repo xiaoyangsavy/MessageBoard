@@ -1,5 +1,7 @@
 package com.savy.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Message {
@@ -7,7 +9,6 @@ public class Message {
     private String typeName;
     private int superMessageId;//父消息编号
     private String messageContent;//消息内容
-    private Date messageDate;//消息发布时间
     private String imageUrl;//图片地址
     private String voiceUrl;//音频地址
     private String videoUrl;//视频地址
@@ -15,6 +16,8 @@ public class Message {
     private double messageGrade;//用户评分
     private int isReplay;//管理员是否回复
     private int typeId;
+    @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
+    private Date messageDate;//消息发布时间
 
     public int getMessageId() {
         return messageId;
