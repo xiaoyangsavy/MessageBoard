@@ -40,6 +40,11 @@ public class MessageService {
         Integer update_TypeName=messageMapper.updateTypeName(typeName,typeId);
         return update_TypeName;
     }
+    public Integer countMessageType(Integer typeId){
+        Integer count_MessageType=messageMapper.countMessageType(typeId);
+        return count_MessageType;
+    }
+
     public List<Message> selectMessage(String startDate,String endDate, Integer typeId, String isReplay, String userName,String messageTitle){
         List<Message> select_Message=messageMapper.selectMessage(startDate,endDate,typeId,isReplay,userName,messageTitle);
         System.out.println(select_Message);

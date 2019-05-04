@@ -30,6 +30,11 @@
         set type_name=#{typeName}
         where type_id=${typeId}
     </update>
+    <select id="countMessageType" resultType="Integer">
+        select count(*)
+        from message
+        where message.type_id=${typeId}
+    </select>
     <select id="selectMessage" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
         from message,message_type,user

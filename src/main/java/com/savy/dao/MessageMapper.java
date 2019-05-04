@@ -20,6 +20,8 @@ public interface MessageMapper {
     Integer select_Type(@Param("typeName") String typeName);
     //修改类别
     Integer updateTypeName(@Param("typeName") String typeName,@Param("typeId") Integer typeId);
+    //根据信息类别查找信息个数
+    Integer countMessageType(@Param("typeId") Integer typeId);
 
     //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId,@Param("messageTitle") String messageTitle );

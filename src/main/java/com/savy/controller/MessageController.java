@@ -116,8 +116,9 @@ public class MessageController {
     public Result<Integer> deleteMessage_type(@RequestParam Integer typeId) {
         System.out.println("call /message/deleteTypeName");
         Result<Integer> result=new Result<>();
-        Integer r=0;
-        if(typeId > 0)
+        Integer r=0,count;
+        count=messageService.countMessageType(typeId);
+        if(typeId > 0&&count==0)
         {
             r=messageService.deleteTypeName(typeId);
             result.setResultStatus(ResultStatus.SUCCESS);
