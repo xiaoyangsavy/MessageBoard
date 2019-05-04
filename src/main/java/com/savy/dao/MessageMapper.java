@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageMapper {
     //新增问题
-    Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl);
+    //Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl);
     //添加类别名称
     Integer insertTypeName(@Param("typeName") String typeName );
     //删除类别
@@ -18,9 +18,10 @@ public interface MessageMapper {
     //根据信息名查找信息
     Integer select_Type(@Param("typeName") String typeName);
 
+    //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId,@Param("messageTitle") String messageTitle );
     //查询问题
-    List<Message> selectMessage(@Param("messageDate") String messageData, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userId") String userId,@Param("messageTitle") String messageTitle);
+    List<Message> selectMessage(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     //回复问题
     Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId);
     //查看问题
@@ -29,8 +30,12 @@ public interface MessageMapper {
     Integer deleteProblem(@Param("messageId") int messageId);
     //删除回复
     Integer deleteReply(@Param("superMessageId") int superMessageId);
-    //添加评论
+    //添加评分
     Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
+
+    //查询问题个数
+    Integer messageCount();
+    List<Message> selectMessage_page();
 }
 
 

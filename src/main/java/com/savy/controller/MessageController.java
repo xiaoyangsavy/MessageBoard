@@ -1,11 +1,13 @@
 package com.savy.controller;
-import com.savy.model.Message;
-import com.savy.model.MessageType;
+import com.savy.model.*;
 import com.savy.service.MessageService;
+import com.savy.service.UserService;
 import com.savy.util.Result;
 import com.savy.util.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -39,15 +41,15 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List<Message>> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
+    public Result<List<Message>> selectMessage( @RequestParam(name = "startDate", required = false) String startDate,
                                         @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
                                         @RequestParam(name = "isReplay", required = false) String isReplay,
-                                        @RequestParam(name = "userId", required = false) String userId,
+                                        @RequestParam(name = "userName", required = false) String userName,
                                         @RequestParam(name="messageTitle",required = false) String messageTitle){
         System.out.println("call /message/selectMessage");
         Result<List<Message>> result=new Result<>();
-        List<Message> select_Message=messageService.selectMessage(messageDate,endDate,typeId,isReplay,userId,messageTitle);
+        List<Message> select_Message=messageService.selectMessage(startDate,endDate,typeId,isReplay,userName,messageTitle);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("调用成功！");
@@ -192,6 +194,24 @@ public class MessageController {
         }
         return result;
     }
+
+    @RequestMapping(value = "/queryList",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResponseEntity queryList(@RequestParam(name = "currentPage",required =false)  int currentPage,
+                                    @RequestParam(name = "pageSize",required = false) int pageSize){
+      //  MessageEntity messageEntity;
+        List<MessageEntity> messageEntities=messageService.findItemByPage(currentPage, pageSize);
+        PageEntity pageEntity=new PageEntity<>(messageEntities);
+       pageEntity.setPageSize(pageSize);
+        pageEntity.setCurrentPage(currentPage);
+        //return new ResponseEntity(new PageEntity<>(messageEntities),HttpStatus.OK);
+        return new ResponseEntity(pageEntity,HttpStatus.OK);
+    }
+   /* public List findItemByPage(@RequestParam  int currentPage,@RequestParam int pageSize){
+        System.out.println("call /message/findItemByPage");
+        return messageService.findItemByPage(currentPage, pageSize);
+    }*/
+
 
  
 }
