@@ -23,12 +23,9 @@ public class PageEntity <T> implements Serializable {
     private boolean isFirstPage = false;
     //是否为最后一页
     private boolean isLastPage = false;
-
-    public PageEntity() {
-    }
     public PageEntity(List<T> list) {
-        System.out.println("------------------------"+Page.class.toString());
-        System.out.println("------------------------"+(list instanceof Page));
+        //System.out.println("------------------------"+Page.class.toString());
+        //System.out.println("------------------------"+(list instanceof Page));
         if (list instanceof Page) {
             Page page = (Page) list;
             this.currentPage = page.getPageNum();
@@ -44,19 +41,19 @@ public class PageEntity <T> implements Serializable {
             this.list = list;
             this.total = list.size();
         }
-        if (list instanceof Collection) {
+        /*if (list instanceof Collection) {
             //判断页面边界
             judgePageBoudary();
-        }
+        }*/
     }
 
     /**
      * 判定页面边界
      */
-    private void judgePageBoudary() {
+    /*private void judgePageBoudary() {
         isFirstPage = currentPage == 1;
         isLastPage = currentPage == pages;
-    }
+    }*/
 
     public int getCurrentPage() {
         return currentPage;

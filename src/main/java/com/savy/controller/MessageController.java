@@ -1,4 +1,5 @@
 package com.savy.controller;
+import com.github.pagehelper.PageHelper;
 import com.savy.model.*;
 import com.savy.service.MessageService;
 import com.savy.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/message")
 @Controller
@@ -128,8 +130,19 @@ public class MessageController {
         }
         return  result;
     }
+
+    @RequestMapping(value = "/updateTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> update_TypeName(@RequestParam String typeName,@RequestParam Integer typeId){
+        System.out.println("call /message/updateTypeName");
+        Result<Integer> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("修改信息类别成功！");
+        result.setData(messageService.updateTypeName(typeName,typeId));
+        return result;
+    }
+
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
- 
     @ResponseBody
     public List<Message> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
@@ -194,26 +207,35 @@ public class MessageController {
         }
         return result;
     }
-
-    @RequestMapping(value = "/queryList",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//采用分页插件实现
+    @RequestMapping(value = "/queryList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResponseEntity queryList(@RequestParam(name = "currentPage",required =false)  int currentPage,
-                                    @RequestParam(name = "pageSize",required = false) int pageSize){
-      //  MessageEntity messageEntity;
-        List<MessageEntity> messageEntities=messageService.findItemByPage(currentPage, pageSize);
-        PageEntity pageEntity=new PageEntity<>(messageEntities);
-       pageEntity.setPageSize(pageSize);
-        pageEntity.setCurrentPage(currentPage);
-        //return new ResponseEntity(new PageEntity<>(messageEntities),HttpStatus.OK);
-        return new ResponseEntity(pageEntity,HttpStatus.OK);
+    public Result<PageEntity> queryList(
+                                @RequestParam(name = "startDate", required = false) String startDate,
+                                @RequestParam(name = "endDate",required = false) String endDate,
+                                @RequestParam(name = "typeId", required = false) Integer typeId,
+                                @RequestParam(name = "isReplay", required = false) String isReplay,
+                                @RequestParam(name = "userName", required = false) String userName,
+                                @RequestParam(name="messageTitle",required = false) String messageTitle,
+                                @RequestParam(name = "currentPage",required =false)  Integer currentPage,
+                                @RequestParam(name = "pageSize",required = false) Integer pageSize){
+        System.out.println("call /message/queryList");
+        if(currentPage==null||currentPage==0){
+            currentPage=1;
+        }
+        if(pageSize==null||pageSize==0){
+            pageSize=5;
+        }
+        int start=(currentPage-1)*pageSize;
+        int end=pageSize;
+        Result<PageEntity> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询成功！");
+        result.setData(messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end));
+        //PageEntity pageEntity=messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end);
+        return result;
     }
-   /* public List findItemByPage(@RequestParam  int currentPage,@RequestParam int pageSize){
-        System.out.println("call /message/findItemByPage");
-        return messageService.findItemByPage(currentPage, pageSize);
-    }*/
 
-
- 
 }
 
 

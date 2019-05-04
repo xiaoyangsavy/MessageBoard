@@ -1,6 +1,7 @@
 package com.savy.dao;
 
 import com.savy.model.Message;
+import com.savy.model.MessageEntity;
 import com.savy.model.MessageType;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +18,8 @@ public interface MessageMapper {
      List<MessageType> selectTypeName();
     //根据信息名查找信息
     Integer select_Type(@Param("typeName") String typeName);
+    //修改类别
+    Integer updateTypeName(@Param("typeName") String typeName,@Param("typeId") Integer typeId);
 
     //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId,@Param("messageTitle") String messageTitle );
@@ -34,8 +37,8 @@ public interface MessageMapper {
     Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
 
     //查询问题个数
-    Integer messageCount();
-    List<Message> selectMessage_page();
+    Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
+    List<MessageEntity> selectMessage_page(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle,@Param("start") Integer start,@Param("end") Integer end);
 }
 
 

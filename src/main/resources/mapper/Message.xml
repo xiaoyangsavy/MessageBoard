@@ -25,6 +25,11 @@
         from  message_type
         where  type_id =${typeId}
     </delete>
+    <update id="updateTypeName">
+        update message_type
+        set type_name=#{typeName}
+        where type_id=${typeId}
+    </update>
     <select id="selectMessage" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
         from message,message_type,user
@@ -78,21 +83,58 @@
     </update>
     <select id="messageCount" resultType="Integer">
         select count(*)
-        from message
-        where super_message_id is null
+        from message,message_type,user
+        <where>
+            super_message_id is null
+            <if test="startDate!=''and startDate!=null">
+                and message_date >= ${startDate}
+            </if>
+            <if test="endDate!='' and endDate!=null">
+                and message_date &lt;= ${endDate}
+            </if>
+            <if test="typeId!=''and typeId!=null">
+                and message.type_id=${typeId}
+
+            </if>
+            <if test="isReplay!='' and isReplay!=null">
+                and is_replay = ${isReplay}
+            </if>
+            <if test="userName!='' and userName!=null">
+                and user.user_name=#{userName}
+                and message.user_id =user.user_id
+            </if>
+            <if test="messageTitle!=''and messageTitle!=null">
+                and message_title = #{messageTitle}
+            </if>
+            and message.type_id=message_type.type_id
+        </where>
     </select>
     <select id="selectMessage_page" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
-        from message
+        from message,message_type,user
         <where>
             super_message_id is null
+            <if test="startDate!=''and startDate!=null">
+                and message_date >= ${startDate}
+            </if>
+            <if test="endDate!='' and endDate!=null">
+                and message_date &lt;= ${endDate}
+            </if>
+            <if test="typeId!=''and typeId!=null">
+                and message.type_id=${typeId}
+                and message.type_id=message_type.type_id
+            </if>
+            <if test="isReplay!='' and isReplay!=null">
+                and is_replay = ${isReplay}
+            </if>
+            <if test="userName!='' and userName!=null">
+                and user.user_name=#{userName}
+                and message.user_id =user.user_id
+            </if>
+            <if test="messageTitle!=''and messageTitle!=null">
+                and message_title = #{messageTitle}
+            </if>
         </where>
-    </select>
-    <select id="findByPage" resultType="com.savy.model.MessageEntity">
-        select *
-        from message
-        <where>
-            super_message_id is null
-        </where>
+        limit ${start},${end}
     </select>
 </mapper>
