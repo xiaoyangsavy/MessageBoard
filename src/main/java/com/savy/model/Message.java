@@ -17,6 +17,7 @@ public class Message {
     private int isReplay;//管理员是否回复
     private int typeId;
     private String messageTitle;
+    private String userName;
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date messageDate;//消息发布时间
 
@@ -124,6 +125,14 @@ public class Message {
         this.messageTitle = messageTitle;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -139,6 +148,7 @@ public class Message {
                 ", isReplay=" + isReplay +
                 ", typeId=" + typeId +
                 ", messageTitle='" + messageTitle + '\'' +
+                ", userName='" + userName + '\'' +
                 ", messageDate=" + messageDate +
                 '}';
     }

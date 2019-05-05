@@ -1,5 +1,6 @@
 package com.savy.service;
 
+import com.alibaba.druid.util.StringUtils;
 import com.savy.dao.MessageMapper;
 import com.savy.model.Message;
 import com.savy.model.MessageEntity;
@@ -7,6 +8,8 @@ import com.savy.model.MessageType;
 import com.savy.model.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ClassUtils;
+
 import java.util.List;
 
 @Service
@@ -15,6 +18,23 @@ public class MessageService {
     MessageMapper messageMapper;
 
     public Integer insertMessage(String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int typeId,String messageTitle){
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        String p=StringUtils.subString(path,"","MessageBoard");
+        if(imageUrl!=""&&imageUrl!=null){
+            imageUrl=imageUrl.substring(imageUrl.lastIndexOf("/"));
+            imageUrl=p+"filed"+imageUrl;
+            imageUrl=imageUrl.substring(1,imageUrl.length());
+        }
+        if(voiceUrl!=""&&voiceUrl!=null){
+            voiceUrl=voiceUrl.substring(voiceUrl.lastIndexOf("/"));
+            voiceUrl=p+"filed"+voiceUrl;
+            voiceUrl=voiceUrl.substring(1,voiceUrl.length());
+        }
+        if(videoUrl!=""&&videoUrl!=null){
+            videoUrl=videoUrl.substring(videoUrl.lastIndexOf("/"));
+            videoUrl=p+"filed"+videoUrl;
+            videoUrl=videoUrl.substring(1,videoUrl.length());
+        }
         Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
         return insert_Message;
     }

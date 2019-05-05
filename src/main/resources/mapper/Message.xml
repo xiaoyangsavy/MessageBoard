@@ -106,12 +106,13 @@
             </if>
             <if test="userName!='' and userName!=null">
                 and user.user_name=#{userName}
-                and message.user_id =user.user_id
+
             </if>
             <if test="messageTitle!=''and messageTitle!=null">
                 and message_title = #{messageTitle}
             </if>
             and message.type_id=message_type.type_id
+            and message.user_id =user.user_id
         </where>
     </select>
     <select id="selectMessage_page" parameterType="java.lang.String" resultType="com.savy.model.Message">
@@ -127,18 +128,18 @@
             </if>
             <if test="typeId!=''and typeId!=null">
                 and message.type_id=${typeId}
-                and message.type_id=message_type.type_id
             </if>
             <if test="isReplay!='' and isReplay!=null">
                 and is_replay = ${isReplay}
             </if>
             <if test="userName!='' and userName!=null">
                 and user.user_name=#{userName}
-                and message.user_id =user.user_id
             </if>
             <if test="messageTitle!=''and messageTitle!=null">
                 and message_title = #{messageTitle}
             </if>
+            and message.type_id=message_type.type_id
+            and message.user_id =user.user_id
         </where>
         limit ${start},${end}
     </select>
