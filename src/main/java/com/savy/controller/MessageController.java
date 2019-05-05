@@ -209,7 +209,7 @@ public class MessageController {
         return result;
     }
 //采用分页插件实现
-    @RequestMapping(value = "/queryList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/queryMessageList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<PageEntity> queryList(
                                 @RequestParam(name = "startDate", required = false) String startDate,
@@ -225,7 +225,7 @@ public class MessageController {
             currentPage=1;
         }
         if(pageSize==null||pageSize==0){
-            pageSize=5;
+            pageSize=10;
         }
         int start=(currentPage-1)*pageSize;
         int end=pageSize;
