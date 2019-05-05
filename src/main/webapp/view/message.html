@@ -67,6 +67,7 @@
 
  <script type="text/javascript">
 $(function(){
+if(!debug){
  //查找用户权限
    $.ajax({
         type: "GET",
@@ -126,6 +127,10 @@ $(function(){
             openPopup("获取数据失败，请重试！");
         }
     });
+
+}else{
+//测试代码
+}
 
 });
   </script>

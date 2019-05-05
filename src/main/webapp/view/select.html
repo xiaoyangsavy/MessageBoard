@@ -59,6 +59,7 @@
 
  <script type="text/javascript">
 $(function(){
+if(!debug){
  //查找用户权限
    $.ajax({
         type: "GET",
@@ -87,7 +88,9 @@ $(function(){
  
  
  //获取列表数据
- 
+ }else{
+ //测试数据
+ }
  
 });
   </script>
