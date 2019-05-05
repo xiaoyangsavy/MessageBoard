@@ -48,7 +48,7 @@
   <script type="text/javascript">
   //登录
 function login(){
-	
+	if(!debug){
 var username = $("#username").val(); 
 var password = $("#password").val(); 
 console.log("username="+username+";password="+password);	
@@ -57,6 +57,7 @@ if(username == null || username == undefined || username == ''|| username == '�
 }else if(password == null || password == undefined || password == ''|| password == '密码'){
 	openPopup("密码不能为空！");
 }else{
+	
 	
 	 $.ajax({
         type: "POST",
@@ -82,10 +83,11 @@ if(username == null || username == undefined || username == ''|| username == '�
             openPopup("登录失败，请重新登录！");
         }
     });	 
-	
-	
 
 }
+	}else{
+window.location.href='message.html';
+	}
 }
  
   </script>

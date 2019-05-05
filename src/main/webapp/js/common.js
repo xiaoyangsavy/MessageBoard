@@ -1,9 +1,10 @@
-
+var version = '0.1.6'	//版本号
+var debug  = false	//测试模式
 var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
-var loginFlag = "isLogin";	//登录标记
 var serverUrl = "http://127.0.0.1:8080/message/"
+
  
 
 //设置网页缓存

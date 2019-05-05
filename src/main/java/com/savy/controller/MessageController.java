@@ -1,13 +1,18 @@
 package com.savy.controller;
-import com.savy.model.Message;
+import com.github.pagehelper.PageHelper;
+import com.savy.model.*;
 import com.savy.service.MessageService;
+import com.savy.service.UserService;
 import com.savy.util.Result;
 import com.savy.util.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/message")
 @Controller
@@ -17,13 +22,13 @@ public class MessageController {
 
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> insertMessage(@RequestParam String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl, @RequestParam String videoUrl,@RequestParam int typeId){
+    public Result<Integer> insertMessage(@RequestParam String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl, @RequestParam String videoUrl,@RequestParam int typeId,@RequestParam String messageTitle){
         System.out.println("call /message/insertMessage");
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
         if(messageContent!=""&&messageContent!=null)
         {
-            r=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId);
+            r=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
             result.setData(r);
@@ -38,20 +43,32 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List<Message>> selectMessage( @RequestParam(name = "messageDate", required = false) String messageDate,
+    public Result<List<Message>> selectMessage( @RequestParam(name = "startDate", required = false) String startDate,
+                                        @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
                                         @RequestParam(name = "isReplay", required = false) String isReplay,
-                                        @RequestParam(name = "userId", required = false) String userId){
+                                        @RequestParam(name = "userName", required = false) String userName,
+                                        @RequestParam(name="messageTitle",required = false) String messageTitle){
         System.out.println("call /message/selectMessage");
         Result<List<Message>> result=new Result<>();
-        List<Message> select_Message=messageService.selectMessage(messageDate,typeId,isReplay,userId);
+        List<Message> select_Message=messageService.selectMessage(startDate,endDate,typeId,isReplay,userName,messageTitle);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("调用成功！");
         result.setData(select_Message);
         return result;
     }
-
+    @RequestMapping(value = "/selectTypeName",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<List<MessageType>> selectTypeName(){
+        System.out.println("call /message/selectTypeName");
+        Result<List<MessageType>> result=new Result<>();
+        List<MessageType> select_TypeName=messageService.selectTypeName();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("调用成功！");
+        result.setData(select_TypeName);
+        return result;
+    }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> addReply(@RequestParam int superMessageId,@RequestParam  String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl,@RequestParam String videoUrl,@RequestParam int userId)
@@ -73,24 +90,60 @@ public class MessageController {
         return result;
 
     }
- 
+
     @RequestMapping(value = "/insertTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer insertTypeName(@RequestParam String typeName) {
+    public Result<Integer> insertTypeName(@RequestParam String typeName) {
         System.out.println("call /message/insertTypeName");
-        Integer integer_message_type = messageService.insertTypeName(typeName);
-        System.out.println(integer_message_type);
-        return integer_message_type;
+        Result<Integer> result=new Result<>();
+        Integer r=0,count;
+        count=messageService.select_Type(typeName);
+        if(typeName!=null&&typeName!=""&&count==0)
+        {
+            r= messageService.insertTypeName(typeName);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("插入类型名成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("插入类型名失败！");
+            result.setData(r);
+        }
+        return result;
     }
     @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Integer deleteMessage_type(@RequestParam Integer typeId) {
+    public Result<Integer> deleteMessage_type(@RequestParam Integer typeId) {
         System.out.println("call /message/deleteTypeName");
-        Integer delete_message_type = messageService.deleteTypeName(typeId);
-        return delete_message_type;
+        Result<Integer> result=new Result<>();
+        Integer r=0,count;
+        count=messageService.countMessageType(typeId);
+        if(typeId > 0&&count==0)
+        {
+            r=messageService.deleteTypeName(typeId);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("删除信息类型成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("删除信息类型失败！");
+            result.setData(r);
+        }
+        return  result;
     }
+
+    @RequestMapping(value = "/updateTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> update_TypeName(@RequestParam String typeName,@RequestParam Integer typeId){
+        System.out.println("call /message/updateTypeName");
+        Result<Integer> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("修改信息类别成功！");
+        result.setData(messageService.updateTypeName(typeName,typeId));
+        return result;
+    }
+
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
- 
     @ResponseBody
     public List<Message> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
@@ -155,8 +208,35 @@ public class MessageController {
         }
         return result;
     }
+//采用分页插件实现
+    @RequestMapping(value = "/queryList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<PageEntity> queryList(
+                                @RequestParam(name = "startDate", required = false) String startDate,
+                                @RequestParam(name = "endDate",required = false) String endDate,
+                                @RequestParam(name = "typeId", required = false) Integer typeId,
+                                @RequestParam(name = "isReplay", required = false) String isReplay,
+                                @RequestParam(name = "userName", required = false) String userName,
+                                @RequestParam(name="messageTitle",required = false) String messageTitle,
+                                @RequestParam(name = "currentPage",required =false)  Integer currentPage,
+                                @RequestParam(name = "pageSize",required = false) Integer pageSize){
+        System.out.println("call /message/queryList");
+        if(currentPage==null||currentPage==0){
+            currentPage=1;
+        }
+        if(pageSize==null||pageSize==0){
+            pageSize=5;
+        }
+        int start=(currentPage-1)*pageSize;
+        int end=pageSize;
+        Result<PageEntity> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询成功！");
+        result.setData(messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end));
+        //PageEntity pageEntity=messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end);
+        return result;
+    }
 
- 
 }
 
 

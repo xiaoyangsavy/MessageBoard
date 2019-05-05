@@ -3,6 +3,8 @@ package com.savy.controller;
 import com.alibaba.druid.util.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,10 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.savy.service.FileUploadUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,83 +23,86 @@ import java.util.Map;
 public class UploadController{
 
     //上传
-    @ResponseBody
-    @RequestMapping(value ="/upload")
-    public Map upload(HttpServletRequest request, @RequestParam(value = "myFile", required = false) MultipartFile[] files) {
-        Map map =new HashMap();
-        try {
-            for(int i=0;i<files.length;i++){
-                FileUploadUtils.upload(request, files[i]);
-            }
-            map.put("code","1");
-            map.put("msg","上传成功！");
-        } catch (Exception e) {
-            map.put("code","0");
-            map.put("msg","上传失败！");
-            e.printStackTrace();
-        }
-
-        return map;
-    }
     @RequestMapping(value = "/up",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public void up(HttpServletResponse request){
+    public String up(@RequestParam("file") MultipartFile file){
        // List<MultipartFile> files=(Mul)(request)
-    }
-    /*public String up(@RequestParam  MultipartFile file){
-        if(file.isEmpty()){
-            return "文件为空";
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+       //  System.out.println("---------------------"+path);
+        String p=StringUtils.subString(path,"","MessageBoard");
+        //System.out.println("---------------------"+p);
+        path=p+"\\filed";
+        File f = new File(path);
+        if(!f.exists()&&!f.isDirectory()){
+            f.mkdirs();
+            //System.out.println("创建文件");
+        }else {
+            //System.out.println("文件夹已经存在");
         }
-        String fileName=file.getOriginalFilename();
-        String filePath="E:\\test_load";
-        File dest=new File(filePath+fileName);
+       // System.out.println("--------------------"+f);
         try{
-            file.transferTo(dest);
+            if(file.isEmpty()){
+                return "文件为空";
+            }
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            //String filePath = "E:/test_load/";
+            String filePath = f.toString()+"//";
+            path = filePath + fileName;
+            File dest = new File(path);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();// 新建文件夹
+            }
+            file.transferTo(dest);// 文件写入
             return "上传成功";
-        }catch (IOException e){
-
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return "上传失败";
-
-    }*/
-
+    }
     //下载
     @ResponseBody
-    @RequestMapping("/getMp4")
-    public void getMp4(String cateogry,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException {
-
-        if(StringUtils.isEmpty(cateogry)) {
-            cateogry = "";
+    @RequestMapping(value = "/download",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void testDownload (@RequestParam(name = "fileName",required = false) String fileName, HttpServletResponse  response) {
+        //获取文件的路径
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        String p=StringUtils.subString(path,"","MessageBoard");
+        path=p+"filed/"+fileName;
+       // System.out.println("------------------------"+path);
+        //File file=new File("E:/sex.jpg");//     //1.获取要下载的文件的绝对路径
+        File file=new File(path);
+        String newDname=fileName;     //2.获取要下载的文件名
+        if(file.exists()) {  //判断文件父目录是否存在
+            System.out.println("aaa");
+            response.setHeader("content-type", "application/octet-stream");
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment;filename=" + newDname);  //3.设置content-disposition响应头控制浏览器以下载的形式打开文件
+            byte[] buff = new byte[1024];    //5.创建数据缓冲区
+            BufferedInputStream bis = null;
+            OutputStream os = null;
+            try {
+                os = response.getOutputStream(); //6.通过response对象获取OutputStream流
+                bis = new BufferedInputStream(new FileInputStream(file));     //4.根据文件路径获取要下载的文件输入流
+                int i = bis.read(buff);         //7.将FileInputStream流写入到buffer缓冲区
+                while (i != -1) {
+                    os.write(buff, 0, buff.length); //8.使用将OutputStream缓冲区的数据输出到客户端浏览器
+                    os.flush();
+                    i = bis.read(buff);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
-        String os = System.getProperty("os.name");
-        String path="";
-        if(os.toLowerCase().startsWith("win")){
-            path="D:/";
-        }else{
-            path="/home/work/";
-        }
-
-        String fileName = path+cateogry;
-
-        File file = new File(fileName);
-
-        //判断文件是否存在如果不存在就返回默认图标
-        if(!(file.exists() && file.canRead())) {
-            file = new File(path+"company/root.png");
-        }
-
-        FileInputStream inputStream = new FileInputStream(file);
-        byte[] data = new byte[(int)file.length()];
-        int length = inputStream.read(data);
-        inputStream.close();
-        response.setContentType("video/mpeg4");// 设定输出的类型
-        response.setHeader("Content-Disposition", "attachment;filename="  + fileName);
-
-        OutputStream stream = response.getOutputStream();
-        stream.write(data);
-        stream.flush();
-        stream.close();
     }
 }

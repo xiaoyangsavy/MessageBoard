@@ -64,4 +64,5 @@
         <package name="com.savy.model" />
     </typeAliases>
 
+
 </configuration>
