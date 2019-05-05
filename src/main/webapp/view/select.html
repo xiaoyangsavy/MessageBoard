@@ -86,8 +86,32 @@ $(function(){
     });	 
  
  
- //获取列表数据
- 
+ //获取选项列表数据(待接口完善)
+  $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/selectMessage",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/selectMessage");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			console.log("接口数据长度："+data.data.length);
+                 var html = "";
+   			 for(var i = 0,len = data.data.length; i < len; i++){
+				console.log(data.data[i]);
+			 	 
+			 }
+				// document.getElementById("listview").innerHTML = html;
+				
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
  
 });
   </script>
