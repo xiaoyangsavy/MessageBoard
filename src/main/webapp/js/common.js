@@ -1,5 +1,5 @@
-var version = '0.1.5'	//版本号
-var debug  = true	//测试模式
+var version = '0.1.6'	//版本号
+var debug  = false	//测试模式
 var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
