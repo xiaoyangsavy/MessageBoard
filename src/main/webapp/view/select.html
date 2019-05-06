@@ -25,8 +25,8 @@
       </div>
 
        <div class="ui-field-contain">
-        <label for="day">选择类别</label>
-        <select name="typeId" id="typeId">
+        <label for="messageType">选择类别</label>
+        <select name="messageType" id="messageType">
 		 <option value="-1">全部</option>
         </select>
      </div>
@@ -83,7 +83,7 @@ if(!debug){
  
  
 
- //获取选项列表数据(待接口完善)
+ //获取选项列表数
   $.ajax({
         type: "GET",
         url:  serverUrl+"message/selectTypeName",
@@ -127,7 +127,7 @@ function goMessage(){
 	if(userName != null&&userName != undefined&&userName != ''){
 		url += "&userName="+userName;
 	}
-	var typeId = $("#typeId").val();
+	var typeId = $("#messageType").val();
 	if(typeId!="-1"){
 		url += "&typeId="+typeId;
 	}
