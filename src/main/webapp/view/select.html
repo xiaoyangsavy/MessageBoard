@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang = "zh-CN">
 <head>
- <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -21,34 +21,29 @@
     
 	  <div id="search-div" class="ui-field-contain">
         <label for="search">用户：</label>
-        <input type="search" name="search" id="search" placeholder="请输入用户名...">
+        <input type="userName" name="userName" id="userName" placeholder="请输入用户名...">
       </div>
 
        <div class="ui-field-contain">
-        <label for="day">选择类别</label>
-        <select name="day" id="day">
-		 <option value="0">全部</option>
-         <option value="1">教务教学</option>
-         <option value="2">后勤服务</option>
-         <option value="3">学生管理</option>
-         <option value="4">书记信箱</option>
-         <option value="5">校长信箱</option>
+        <label for="messageType">选择类别</label>
+        <select name="messageType" id="messageType">
+		 <option value="-1">全部</option>
         </select>
      </div>
 
 	  <div class="ui-field-contain">
         <label for="day">选择状态</label>
-        <select name="day" id="day" >
-		 <option value="0">全部</option>
-         <option value="1">未回复</option>
-         <option value="2">已回复</option>
+        <select name="isReplay" id="isReplay" >
+		 <option value="-1">全部</option>
+         <option value="0">未回复</option>
+         <option value="1">已回复</option>
         </select>
       </div>
 
 <br/><br/>
  <table style="margin: 0 auto">
     <tr><td align="center">
-      <input type="submit" onclick="goWebpage('message.html')" data-inline="true" value="搜索">
+      <input type="submit" onclick="goMessage()" data-inline="true" value="搜索">
 	  <input type="reset" onclick="goWebpage('message.html')" data-inline="true" value="取消">
       </td></tr>
      </table>
@@ -88,23 +83,25 @@ if(!debug){
  
  
 
- //获取选项列表数据(待接口完善)
+ //获取选项列表数
   $.ajax({
         type: "GET",
-        url:  serverUrl+"message/selectMessage",
+        url:  serverUrl+"message/selectTypeName",
         contentType: "application/json",
         success: function (data) {
-            console.log("call message/selectMessage");
+            console.log("call message/selectTypeName");
             console.log(data);
             if(data.status==200){	//调用成功
 			console.log("接口数据长度："+data.data.length);
                  var html = "";
+				 html += '<option value="-1">全部</option>';
    			 for(var i = 0,len = data.data.length; i < len; i++){
 				console.log(data.data[i]);
-			 	 
+			 	var item = data.data[i];
+			  	html += '<option value="'+item.typeId+'">'+item.typeName+'</option>';
 			 }
-				// document.getElementById("listview").innerHTML = html;
-				
+				 document.getElementById("messageType").innerHTML = html; 
+			 
             }else{
                 openPopup("获取数据失败，请重试！");
             }
@@ -121,6 +118,26 @@ if(!debug){
 
  
 });
+
+//跳转到留言列表页
+function goMessage(){
+	var url = "message.html?1=1";
+	//获取选择数据
+	var userName = $("#userName").val();
+	if(userName != null&&userName != undefined&&userName != ''){
+		url += "&userName="+userName;
+	}
+	var typeId = $("#messageType").val();
+	if(typeId!="-1"){
+		url += "&typeId="+typeId;
+	}
+	var isReplay = $("#isReplay").val();
+	if(isReplay!="-1"){
+		url += "&isReplay="+isReplay;
+	}
+	window.location.href=url;
+	}
+	
   </script>
 </body>
 </html>

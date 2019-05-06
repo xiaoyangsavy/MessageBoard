@@ -71,6 +71,7 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @Deprecated
     public Result<List<Message>> selectMessage( @RequestParam(name = "startDate", required = false) String startDate,
                                         @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,
@@ -171,17 +172,26 @@ public class MessageController {
         return result;
     }
 
-    @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Map viewProblem(@RequestParam int superMessageId){
+    public Result<Map> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
+        Result<Map> result=new Result<>();
         List<Message> view_Problem=messageService.viewProblem(superMessageId);
         List<Message> select_Problem=messageService.selectProblem(superMessageId);
         Map<String, Object> map = new HashMap<>();
         map.put("problem",select_Problem);
         map.put("apply",view_Problem);
-        //System.out.println(view_Problem.toString());
-        return map;
+        if(view_Problem.size() > 0)
+        {
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("接口调用成功！");
+            result.setData(map);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("接口调用失败！");
+        }
+        return result;
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
