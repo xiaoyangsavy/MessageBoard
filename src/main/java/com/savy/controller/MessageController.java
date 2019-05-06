@@ -146,11 +146,20 @@ public class MessageController {
 
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Message> viewProblem(@RequestParam int superMessageId){
+    public Result<List<Message>> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
+        Result<List<Message>> result=new Result<>();
         List<Message> view_Problem=messageService.viewProblem(superMessageId);
-        System.out.println(view_Problem.toString());
-        return view_Problem;
+        if(view_Problem.size() > 0)
+        {
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("接口调用成功！");
+            result.setData(view_Problem);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("接口调用失败！");
+        }
+        return result;
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
