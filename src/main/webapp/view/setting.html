@@ -18,6 +18,7 @@
 
 <div data-role="page">
   <div data-role="header" data-position="fixed">
+  <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>系统管理</h1>
   </div>
 
@@ -46,7 +47,7 @@
   <script type="text/javascript">
 //退出
 function logout() {
-	delCookie(loginFlag);	//删除缓存
+	delCookie(isLoginFlag);	//删除缓存
 	window.location.href="login.html";
 } 
   </script>

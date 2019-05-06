@@ -43,6 +43,7 @@ public class MessageController {
 
     @RequestMapping(value = "/selectMessage",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @Deprecated
     public Result<List<Message>> selectMessage( @RequestParam(name = "startDate", required = false) String startDate,
                                         @RequestParam(name = "endDate",required = false) String endDate,
                                         @RequestParam(name = "typeId", required = false) Integer typeId,

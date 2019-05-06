@@ -13,9 +13,7 @@
  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="js/common.js"></script>
- <!-- 音频播放 -->
-	<link rel="stylesheet" type="text/css" href="css/audio.css">
-	<script type="text/javascript" src="js-pc/weixinAudio.js"></script>
+
 	<!-- 评分 -->
 <link rel="stylesheet" href="css/rating-main.css">
     <link rel="stylesheet" href="css/css-stars.css">
@@ -95,10 +93,10 @@ if(!debug){
  //查找用户权限
    $.ajax({
         type: "GET",
-        url:  serverUrl+"user/searchPermission?userName="+getUsername(),
+        url:  serverUrl+"user/getPermission?userName="+getUsername(),
         contentType: "application/json",
         success: function (data) {
-			console.log("call user/searchPermission");
+			console.log("call user/getPermission");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			console.log("getPermission:");
@@ -116,7 +114,11 @@ if(!debug){
 			console.log(e);
             openPopup("权限获取失败，请重新登录！");
         }
-    });	 
+    });
+
+   //获取页面数据
+
+
 	}else{
 	//测试代码
 	}
