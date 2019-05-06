@@ -9,7 +9,11 @@ import com.savy.model.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -80,6 +84,11 @@ public class MessageService {
         System.out.println(view_Problem);
         return view_Problem;
     }
+
+    public List<Message> selectProblem(int messageId){
+        List<Message> select_Problem=messageMapper.selectProblem(messageId);
+        return select_Problem;
+    }
     public Integer deleteProblem(int messageId){
         Integer delete_Problem=messageMapper.deleteProblem(messageId);
         return  delete_Problem;
@@ -120,6 +129,45 @@ public class MessageService {
 
         return pageEntity;
     }
+    public String up(MultipartFile file){
+        // List<MultipartFile> files=(Mul)(request)
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        //  System.out.println("---------------------"+path);
+        String p=StringUtils.subString(path,"","MessageBoard");
+        //System.out.println("---------------------"+p);
+        path=p+"\\filed";
+        File f = new File(path);
+        if(!f.exists()&&!f.isDirectory()){
+            f.mkdirs();
+            //System.out.println("创建文件");
+        }else {
+            //System.out.println("文件夹已经存在");
+        }
+        // System.out.println("--------------------"+f);
+        try{
+            if(file.isEmpty()){
+                return "文件为空";
+            }
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            //String filePath = "E:/test_load/";
+            String filePath = f.toString()+"//";
+            path = filePath + fileName;
+            File dest = new File(path);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();// 新建文件夹
+            }
+            file.transferTo(dest);// 文件写入
+            return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
+    }
+
 }
 
 

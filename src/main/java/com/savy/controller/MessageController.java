@@ -11,6 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +25,38 @@ public class MessageController {
 
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> insertMessage(@RequestParam String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl, @RequestParam String videoUrl,@RequestParam int typeId,@RequestParam String messageTitle){
+    public Result<Integer> insertMessage(@RequestParam String messageContent,
+                                         @RequestParam String messageDate,
+                                         //@RequestParam String imageUrl,
+                                         @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
+                                         @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
+                                         @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
+                                         @RequestParam int typeId,
+                                         @RequestParam String messageTitle){
         System.out.println("call /message/insertMessage");
+        String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
+        try {
+
+            if(!imageUrl.isEmpty()){
+            imageUrl_2="/"+imageUrl.getOriginalFilename();
+            messageService.up(imageUrl);
+        }
+        if(!voiceUrl.isEmpty()){
+            voiceUrl_2="/"+voiceUrl.getOriginalFilename();
+            messageService.up(voiceUrl);
+        }
+        if (!videoUrl.isEmpty()){
+            videoUrl_2="/"+videoUrl.getOriginalFilename();
+            messageService.up(videoUrl);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
         if(messageContent!=""&&messageContent!=null)
         {
-            r=messageService.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
+            r=messageService.insertMessage(messageContent,messageDate,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
             result.setData(r);
@@ -145,11 +173,15 @@ public class MessageController {
 
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Message> viewProblem(@RequestParam int superMessageId){
+    public Map viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
         List<Message> view_Problem=messageService.viewProblem(superMessageId);
-        System.out.println(view_Problem.toString());
-        return view_Problem;
+        List<Message> select_Problem=messageService.selectProblem(superMessageId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("problem",select_Problem);
+        map.put("apply",view_Problem);
+        //System.out.println(view_Problem.toString());
+        return map;
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody

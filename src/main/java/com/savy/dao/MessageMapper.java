@@ -31,6 +31,7 @@ public interface MessageMapper {
     Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId);
     //查看问题
     List<Message> viewProblem(@Param("superMessageId") int superMessageId);
+    List<Message> selectProblem(@Param("messageId") int messageId);
     //删除问题
     Integer deleteProblem(@Param("messageId") int messageId);
     //删除回复

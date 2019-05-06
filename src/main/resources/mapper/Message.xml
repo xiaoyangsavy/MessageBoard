@@ -71,6 +71,11 @@
         from message
         where super_message_id= ${superMessageId}
     </select>
+    <select id="selectProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
+        select *
+        from message
+        where message_id=${messageId};
+    </select>
     <delete id="deleteProblem" parameterType="com.savy.model.Message">
         delete
         from message
