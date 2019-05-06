@@ -63,18 +63,14 @@
         </where>
     </select>
     <insert id="addReply">
-        insert into message (super_message_id,message_content,message_date,image_url,voice_url,video_url,user_id)
-        values (#{superMessageId},#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{userId})
+        insert into message (super_message_id,message_content,message_date,image_url,voice_url,video_url,user_id,is_replay)
+        values (#{superMessageId},#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{userId},#{isReplay})
     </insert>
     <select id="viewProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
         from message
-        where super_message_id= ${superMessageId}
-    </select>
-    <select id="selectProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
-        select *
-        from message
-        where message_id=${messageId};
+        where message_id=${superMessageId}
+        or super_message_id= ${superMessageId}
     </select>
     <delete id="deleteProblem" parameterType="com.savy.model.Message">
         delete
@@ -147,5 +143,11 @@
             and message.user_id =user.user_id
         </where>
         limit ${start},${end}
+    </select>
+    <select id="searchPermission" resultType="Integer">
+        select permisssion_id
+        from user
+        where user_id=${userId}
+
     </select>
 </mapper>

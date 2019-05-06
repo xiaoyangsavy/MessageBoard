@@ -14,7 +14,7 @@ public class Message {
     private String videoUrl;//视频地址
     private int userId;//用户编号
     private double messageGrade;//用户评分
-    private int isReplay;//管理员是否回复
+    private boolean isReplay;//管理员是否回复
     private int typeId;
     private String messageTitle;
     private String userName;
@@ -93,12 +93,12 @@ public class Message {
         this.messageGrade = messageGrade;
     }
 
-    public int getIsReplay() {
+    public boolean isReplay() {
         return isReplay;
     }
 
-    public void setIsReplay(int isReplay) {
-        this.isReplay = isReplay;
+    public void setReplay(boolean replay) {
+        isReplay = replay;
     }
 
     public String getTypeName() {

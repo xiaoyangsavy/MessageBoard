@@ -23,6 +23,7 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
+
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> insertMessage(@RequestParam String messageContent,
@@ -105,9 +106,14 @@ public class MessageController {
         System.out.println("call /message/addReply");
         Result<Integer> result=new Result<>();
         Integer r=0;
+        boolean isReplay=false;
+        int permisstion=messageService.searchPermission(userId);
+        if(permisstion!=0){
+            isReplay=true;
+        }
         if(messageContent!=""&&messageContent!=null)
         {
-            r=messageService.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId);
+            r=messageService.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId,isReplay);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("回复成功！");
             result.setData(r);
@@ -174,19 +180,15 @@ public class MessageController {
 
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Map> viewProblem(@RequestParam int superMessageId){
+    public Result<List<Message>> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
-        Result<Map> result=new Result<>();
+        Result<List<Message>> result=new Result<>();
         List<Message> view_Problem=messageService.viewProblem(superMessageId);
-        List<Message> select_Problem=messageService.selectProblem(superMessageId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("problem",select_Problem);
-        map.put("apply",view_Problem);
         if(view_Problem.size() > 0)
         {
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("接口调用成功！");
-            result.setData(map);
+            result.setData(view_Problem);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("接口调用失败！");

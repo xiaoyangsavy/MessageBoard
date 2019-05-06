@@ -74,8 +74,8 @@ public class MessageService {
         System.out.println(select_Message);
         return select_Message;
     }
-    public Integer addReply(int superMessageId,String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int userId){
-        Integer add_Reply=messageMapper.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId);
+    public Integer addReply(int superMessageId,String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int userId,boolean isReplay){
+        Integer add_Reply=messageMapper.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId,isReplay);
         return  add_Reply;
 
     }
@@ -85,10 +85,11 @@ public class MessageService {
         return view_Problem;
     }
 
-    public List<Message> selectProblem(int messageId){
-        List<Message> select_Problem=messageMapper.selectProblem(messageId);
-        return select_Problem;
+    public Integer searchPermission(int userId){
+        Integer search_Permission=messageMapper.searchPermission(userId);
+        return search_Permission;
     }
+
     public Integer deleteProblem(int messageId){
         Integer delete_Problem=messageMapper.deleteProblem(messageId);
         return  delete_Problem;

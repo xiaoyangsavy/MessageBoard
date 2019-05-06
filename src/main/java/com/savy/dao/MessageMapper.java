@@ -23,15 +23,16 @@ public interface MessageMapper {
     //根据信息类别查找信息个数
     Integer countMessageType(@Param("typeId") Integer typeId);
 
+    Integer searchPermission(@Param("userId") Integer userId);
+
     //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId,@Param("messageTitle") String messageTitle );
     //查询问题
     List<Message> selectMessage(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     //回复问题
-    Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId);
+    Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") String messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId,@Param("isReplay") boolean isReplay);
     //查看问题
     List<Message> viewProblem(@Param("superMessageId") int superMessageId);
-    List<Message> selectProblem(@Param("messageId") int messageId);
     //删除问题
     Integer deleteProblem(@Param("messageId") int messageId);
     //删除回复
