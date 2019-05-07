@@ -70,7 +70,9 @@
   </div>
 
   
-   <div id="replay-div" data-role="footer">
+   <div data-role="footer">
+
+<div id="replay-div">
 
      <h4 align="left" style="text-align:left">管理员回复：</h4><br/>
     <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辽宁大学信息学院座落于古朴厚重的崇山校区，现有用房总建筑面积8000余平方米，使用面积所属总计约5417平方米。学院前身为计算机科学系，于1984年在数学系计算数学专业基础上成立，设有计算机应用技术和计算机软件2个专业；1986年，计算机科学系与物理系计算机应用研究所合并成立计算机科学与技术系；1999年10月18日，学校以计算机科学与技术系、电子科学与工程系为主体，整合工商管理学院信息管理与信息技术专业组建信息科学与技术学院，时任国家领导人王文元同志亲笔题写院名；2007年更名为辽宁大学信息学院。多年来，学院秉承“明德精学 笃行致强”校训精神，以学科建设为龙头，以提高教学质量为核心，以社会化需求为导向，以人才培养为宗旨，不断调整课程结构、完善教学体系，为社会输出大量专业技术人才，获得了很好的社会效应。
@@ -105,10 +107,12 @@
   </div>
   
   
-  <br/>
+  
+ </div>
+ 
 
 <br/>
- <div class="stars stars-example-css" >
+ <div id="grade-div" class="stars stars-example-css">
  <span class="title">评分</span>
                 <select id="example-css" name="rating" autocomplete="off" data-role="none">
                   <option value="1">1</option>
@@ -118,7 +122,7 @@
                   <option value="5">5</option>
                 </select>
                 
-              </div>
+              </div><br/>
 </div> 
 
  <script>          
@@ -136,6 +140,7 @@
 	var messageId= getUrlParams("messageId");	//留言编号
     console.log("messageId="+messageId);
  
+ var permission = 0;
 
 
 $(function(){
@@ -151,11 +156,8 @@ if(!debug){
 	 		if(data.status==200){	//调用成功
 			console.log("getPermission:");
 			console.log(data.data);
-			if(data.data==0){	//用户
-				$("#replay-button").hide();//显示发布按钮
-			}else{
-				$("#replay-button").show();//隐藏发布按钮
-			}
+			permission = data.data;
+			
 			}else{
 				openPopup("权限获取失败，请重新登录！");
 			}
@@ -169,30 +171,48 @@ if(!debug){
    //获取页面数据
  $.ajax({
         type: "GET",
-        url:  serverUrl+"message/viewProblem?superMessageId="+messageId(),
+        url:  serverUrl+"message/viewProblem?superMessageId="+messageId,
         contentType: "application/json",
         success: function (data) {
 			console.log("call message/viewProblem");
 			console.log(data);
 	 		if(data.status==200){	//调用成功	
  
- 
+ 				//var exitReply = false;
+				//if(data.data.length>1){
+				//	exitReply = true;
+				//}
  			 for(var i = 0,len = data.data.length; i < len; i++){
 				console.log(data.data[i]);
 			 	var item = data.data[i];
-			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider">'+item.userId+'</li>';
-			   
-			   if(i==0){
-			   html += '<h4 align="center">'+item.messageTitle+'</h4>';
-			   html += ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>'+item.messageContent+'</label>';
-			   for(var j = 0,len = data.data.imageUrl.length; j < len; j++){	//图片
-				   
-				   
-				 }
-			   
+			  	var html = '';
+			   	if(i==0){
+			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
+			   	html += ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>'+item.messageContent+'</label>';
+			   	//for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
+				// }
+			   //	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+				// }
+				//for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				// }
+	
 			   }
+			   
+			   
+			    var grade = item.messageGrade;
+				 $("#example-css").val(grade);	//TODO需要修改js文件逻辑
+				 
+			 
 			 }
 			 
+			 if(permission==0){	//用户
+				$("#replay-button").hide();//隐藏发布按钮
+				$("#grade-div").show();	//显示评分控件
+			}else{
+				$("#replay-button").show();//显示发布按钮
+				$("#grade-div").hide();	//隐藏评分控件
+				
+			}
 			}else{
 				openPopup(data.message);
 			}

@@ -25,46 +25,42 @@
   <div data-role="main" class="ui-content">
   
 	<div class="ui-field-contain">
-        <label for="search">标题</label>
-       <input type="text" name="fname" id="fname">
+        <label>标题</label>
+       <input type="text" name="messageTitle" id="messageTitle">
       </div>
   
    <div class="ui-field-contain">
-        <label for="type">选择类别</label>
-        <select name="type" id="type">
-         <option value="1">教务教学</option>
-         <option value="2">后勤服务</option>
-         <option value="3">学生管理</option>
-         <option value="4">书记信箱</option>
-         <option value="5">校长信箱</option>
+        <label for="messageType">选择类别</label>
+        <select name="messageType" id="messageType">
+         <option value="0">请选择</option>
         </select>
      </div>
 
  	<div class="ui-field-contain">
-        <label for="info">内容:</label>
-        <textarea name="addinfo" id="info"></textarea>
+        <label>内容:</label>
+        <textarea name="messageContent" id="messageContent"></textarea>
       </div>
 
 	<div class="ui-field-contain">
-		 <label for="age">上传图片</label>
-		 <input type="file"    multiple="multiple" accept="image/*" name="fileField" id="fileField"  />
+		 <label>上传图片</label>
+		 <input type="file"    multiple="multiple" accept="image/*" name="imageUrl" id="imageUrl"  />
 	</div>
 
 	<div class="ui-field-contain">
-		<label for="age">上传视频</label>
-		<input type="file"     name="fileField" id="fileField"  />
+		<label>上传视频</label>
+		<input type="file"     name="videoUrl" id="videoUrl"  />
 	</div>
 
 	<div class="ui-field-contain">
-		<label for="age">上传语音</label>
-		<input type="file"     name="fileField" id="fileField"  />
+		<label>上传语音</label>
+		<input type="file"     name="voiceUrl" id="voiceUrl"  />
 	</div>
 
 
    <!-- 使按钮居中显示  -->
     <table style="margin: 0 auto">
     <tr><td align="center">
-     <input type="submit" data-inline="true" value="确定" onclick="goWebpage('message.html')" >
+     <input type="submit" data-inline="true" value="确定" onclick="addMessage()" >
     <!-- <a onclick="goWebpage('message.html')"  style="background-color: #32CD32;color: #FFFFFF"  class="ui-btn ui-corner-all ui-shadow">确定</a> -->
 	  </td> <td align="center">
      <input type="reset" data-inline="true" value="取消" onclick="goWebpage('message.html')">
@@ -81,12 +77,80 @@
 
  <script type="text/javascript">
  
+ $(function(){
+if(!debug){
+ 
+ //获取选项列表数
+  $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/selectTypeName",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/selectTypeName");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			console.log("接口数据长度："+data.data.length);
+                 var html = "";
+				 //html += '<option value="-1">全部</option>';
+   			 for(var i = 0,len = data.data.length; i < len; i++){
+				console.log(data.data[i]);
+			 	var item = data.data[i];
+			  	html += '<option value="'+item.typeId+'">'+item.typeName+'</option>';
+			 }
+				 document.getElementById("messageType").innerHTML = html; 
+			 
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
+
+ }else{
+ //测试数据
+ }
+
+ 
+});
+
+  
+ 
  //新增信息
  function addMessage(){
-	
+	var messageTitle = $("#messageTitle").val();
+	var typeId = $("#messageType").val();
+	var messageContent = $("#messageContent").val();
 	 
+	 
+	// 构建form数据
+	var formFile = new FormData();
+    //formFile.append("action", "UploadPath");
+	formFile.append("messageTitle", messageTitle);
+	formFile.append("typeId", typeId);
+	formFile.append("messageContent", messageContent);
+    //把文件放入form对象中  
+    formFile.append("file", file); 
 
+ 	// ajax提交
+            $.ajax({
+            	url: serverUrl+"message/insertMessage",
+               	data: formFile,
+               	type: "POST",
+               	dataType: "json",
+               	cache: false,			//上传文件无需缓存
+               	processData: false,		//用于对data参数进行序列化处理 这里必须false
+               	contentType: false, 	//必须	(multipart/form-data)
+               	success: function(result){
+               		alert('上传成功');
+               	},
+               	error: function(result){
+               		alert('上传失败');
+               	}
 
+			});
 
 }
  
