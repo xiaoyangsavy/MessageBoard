@@ -92,10 +92,10 @@ public class UserController {
     }
     @RequestMapping(value = "/selectUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List> selectUser(){
+    public Result<List<User>> selectUser(){
         System.out.println("call /user/selectUser");
         List<User> select_User=userService.selectUser();
-        Result<List> result=new Result<>();
+        Result<List<User>> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("查询所有用户成功！");
         result.setData(select_User);

@@ -24,9 +24,9 @@
 
   <div data-role="main" class="ui-content">
   
-    <ul data-role="listview" data-inset="true">
+    <ul id="list-ul" data-role="listview" data-inset="true">
       <li data-role="list-divider">  </li>   
-      <li><a onclick="goWebpage('userDetail.html')">   
+      <li><a onclick="goUserDetail(this)">   
         <h2>user</h2>
         <p><b>123456</b></p>
         <p class="ui-li-aside">普通用户</p></a>
@@ -45,7 +45,68 @@
    
 </div> 
 
-
+ <script type="text/javascript">
+  var currentPage = 1;
+ var pageSize = 3;
+ var maxPage = 1;
  
+ $(function(){
+if(!debug){
+	
+	
+	getDataList(currentPage,pageSize);
+	
+}else{
+//测试代码
+}
+
+});	
+	
+	
+	
+	//获取列表数据
+function getDataList(currentPage,pageSize){
+	
+	 $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/selectUser",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call user/selectUser");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			//maxPage = data.data.pages;	//最大页数
+			console.log("接口数据长度："+data.data.length);
+                 var html = "";
+   			 for(var i = 0,len = data.data.length; i < len; i++){
+				console.log(data.data[i]);
+			 	var item = data.data[i];
+			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider"></li> ';
+			  	html += '<li><input type="hidden" value='+item.userId+'><a onclick="goUserDetail(this)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
+			  	html += '<h2>'+item.userName+'</h2>'; 
+			  	html += '<p><b>'+item.password+'</b></p>'; 
+        	  	html += '<p class="ui-li-aside">'+item.name+'</p>'; 
+        		html += '</a></li>'; 
+			 }
+				 document.getElementById("list-ul").innerHTML = html;
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
+	
+	}
+	
+	function goUserDetail(object){
+		console.log($(object).siblings("input[type=hidden]"));	
+		var userId = $(object).siblings("input[type=hidden]").val();
+		window.location.href='userDetail.html?userId='+userId;
+		
+}
+   </script>
 </body>
 </html>
