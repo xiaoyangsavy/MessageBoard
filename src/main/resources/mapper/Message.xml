@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.savy.dao.MessageMapper">
     <insert id="insertMessage">
-        insert into message(message_content,message_date,image_url,voice_url,video_url,type_id,message_title)
-        values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId},#{messageTitle})
+        insert into message(message_content,message_date,image_url,voice_url,video_url,type_id,message_title,user_id)
+        values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId},#{messageTitle},#{userId})
     </insert>
     <select id="selectTypeName" parameterType="java.lang.String" resultType="com.savy.model.MessageType">
         select *

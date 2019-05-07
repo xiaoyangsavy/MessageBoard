@@ -27,13 +27,14 @@ public class MessageController {
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> insertMessage(@RequestParam String messageContent,
-                                         @RequestParam String messageDate,
+                                         //@RequestParam String messageDate,
                                          //@RequestParam String imageUrl,
                                          @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
                                          @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
                                          @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
                                          @RequestParam int typeId,
-                                         @RequestParam String messageTitle){
+                                         @RequestParam String messageTitle,
+                                         @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         try {
@@ -57,7 +58,7 @@ public class MessageController {
         Integer r=0;
         if(messageContent!=""&&messageContent!=null)
         {
-            r=messageService.insertMessage(messageContent,messageDate,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle);
+            r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加成功！");
             result.setData(r);
