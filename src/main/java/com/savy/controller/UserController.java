@@ -33,13 +33,21 @@ public class UserController {
         return String.valueOf(userId);
     }*/
 
-    @RequestMapping(value = "/getUser")
+    @RequestMapping(value = "/getUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public User getUser() {
+    public Result<User> getUser(@RequestParam int userId) {
         System.out.println("call /user/getUser");
-        User user = userService.getUserById(1);
-        System.out.println(user.toString());
-        return user;
+        Result<User> result=new Result<User>();
+        User user = userService.getUserById(userId);
+        if(user!=null) {
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("添加成功！");
+            result.setData(user);
+        }else{
+            result.setResultStatus(ResultStatus.NO_DATA);
+            result.setMessage("调用失败！");
+        }
+        return result;
     }
     @RequestMapping(value = "/register",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
