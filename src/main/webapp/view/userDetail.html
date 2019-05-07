@@ -25,23 +25,18 @@
   <div data-role="main" class="ui-content">
     <div class="login-input-box">
     <div class="ui-field-contain">
-  <lable>用户名：use</lable> 
+  <lable>用户名：</lable> <lable id="userName"></lable> 
   </div>
   
    <div class="ui-field-contain">
-   <lable for="password">密码</lable>
+   <lable id="password" for="password">密码</lable>
  <input type="text" name="password" id="password" placeholder="待修改的密码">
   </div>
   
-  <div class="ui-field-contain">
-        <label for="type">选择类别</label>
-        <select name="type" id="type">
-		 <option value="0">无</option>
-         <option value="1">教务教学</option>
-         <option value="2">后勤服务</option>
-         <option value="3">学生管理</option>
-         <option value="4">书记信箱</option>
-         <option value="5">校长信箱</option>
+  <div id="message-type-div" class="ui-field-contain">
+        <label for="type">管理类别</label>
+        <select name="label" id="messageType">
+		 <option value="0">请选择</option>
         </select>
      </div>
   
@@ -61,9 +56,12 @@
 
 
  <script type="text/javascript">
-  var currentPage = 1;
- var pageSize = 3;
- var maxPage = 1;
+ 
+ //获取页面跳转时传递的参数
+	var userId= getUrlParams("userId");	//用户编号
+    console.log("userId="+userId);
+ 
+ 
  
  $(function(){
 if(!debug){
@@ -71,26 +69,28 @@ if(!debug){
  
 	 $.ajax({
         type: "GET",
-        url:  serverUrl+"user/selectUser",
+        url:  serverUrl+"user/getUser?userId="+userId,
         contentType: "application/json",
         success: function (data) {
-            console.log("call user/selectUser");
+            console.log("call user/getUser");
             console.log(data);
             if(data.status==200){	//调用成功
-			//maxPage = data.data.pages;	//最大页数
-			console.log("接口数据长度："+data.data.length);
-                 var html = "";
-   			 for(var i = 0,len = data.data.length; i < len; i++){
-				console.log(data.data[i]);
-			 	var item = data.data[i];
-			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider"></li> ';
-			  	html += '<li><input type="hidden" value='+item.userId+'><a onclick="goUserDetail(this)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
-			  	html += '<h2>'+item.userName+'</h2>'; 
-			  	html += '<p><b>'+item.password+'</b></p>'; 
-        	  	html += '<p class="ui-li-aside">'+item.name+'</p>'; 
-        		html += '</a></li>'; 
-			 }
-				 document.getElementById("list-ul").innerHTML = html;
+			var myData = data.data;
+			var userId = myData.userId;
+			var userName = myData.userName;
+			var password = myData.password;
+			var permissionId = myData.permissionId;
+		 	
+			$("#userName").val(userName);
+			$("#messageType").val(permissionId);
+			
+			if(permissionId != null && permissionId != undefined && permissionId != ''&&permissionId==-1){	//超级管理员
+				$("#message-type-div").hide();	//隐藏类别选择控件
+			}else{
+				$("#message-type-div").show();
+			}
+                 
+   			 
             }else{
                 openPopup("获取数据失败，请重试！");
             }
