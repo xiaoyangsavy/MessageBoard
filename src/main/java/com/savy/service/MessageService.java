@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +45,13 @@ public class MessageService {
             videoUrl=p+"filed"+videoUrl;
             videoUrl=videoUrl.substring(1,videoUrl.length());
         }
-        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle,userId);
+        List list_image=new ArrayList();
+        List list_voice=new ArrayList();
+        List list_video=new ArrayList();
+        list_image.add(imageUrl);
+        list_video.add(videoUrl);
+        list_voice.add(voiceUrl);
+        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,list_image.toString(),list_voice.toString(),list_video.toString(),typeId,messageTitle,userId);
         return insert_Message;
     }
     public List<MessageType> selectTypeName(){
@@ -106,6 +113,11 @@ public class MessageService {
     public Integer addMessageGrade(double messageGrade,int messageId){
         Integer add_MessageGrade=messageMapper.addMessageGrade(messageGrade,messageId);
         return add_MessageGrade;
+    }
+
+    public Integer selectMessageGrade(Integer messageId){
+        Integer select_MessageGrade=messageMapper.selectMessageGrade(messageId);
+        return select_MessageGrade;
     }
 
     public PageEntity findItemByPage(String startDate,String endDate, Integer typeId, String isReplay, String userName,String messageTitle,Integer currentPage,Integer pageSize,int start,int end) {

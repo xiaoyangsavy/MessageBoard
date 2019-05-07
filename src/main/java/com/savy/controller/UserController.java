@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -153,20 +154,23 @@ public class UserController {
     }
     @RequestMapping(value = "/login",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Boolean> login(@RequestBody Map<String,String> myMap){
+    public Result<Map> login(@RequestBody Map<String,String> myMap){
         System.out.println("call /user/login:"+myMap.get("userName")+";"+myMap.get("password"));
         String userName = myMap.get("userName");
         String password = myMap.get("password");
-        Result<Boolean> result=new Result<>();
+        Result<Map> result=new Result<>();
+        Map map=new HashMap();
         boolean flag=userService.login(userName,password);
         if(flag){
+            Integer userId=userService.selectID(userName);
+            map.put("userId",userId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("用户登录成功！");
-            result.setData(flag);
+            result.setData(map);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("用户登录失败！");
-            result.setData(flag);
+            result.setData(map);
         }
         return result;
 

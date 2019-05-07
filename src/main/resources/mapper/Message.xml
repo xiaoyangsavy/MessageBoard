@@ -68,9 +68,9 @@
     </insert>
     <select id="viewProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
         select *
-        from message
-        where message_id=${superMessageId}
-        or super_message_id= ${superMessageId}
+        from message,user,message_type
+        where (message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
+        or (super_message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
     </select>
     <delete id="deleteProblem" parameterType="com.savy.model.Message">
         delete
@@ -149,5 +149,10 @@
         from user
         where user_id=${userId}
 
+    </select>
+    <select id="selectMessageGrade" resultType="Integer">
+        select message_grade
+        from message
+        where message_id=${messageId}
     </select>
 </mapper>

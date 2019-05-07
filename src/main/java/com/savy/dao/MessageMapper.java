@@ -40,6 +40,8 @@ public interface MessageMapper {
     Integer deleteReply(@Param("superMessageId") int superMessageId);
     //添加评分
     Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
+    //查找评分
+    Integer selectMessageGrade(@Param("messageId") Integer messageId);
 
     //查询问题个数
     Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);

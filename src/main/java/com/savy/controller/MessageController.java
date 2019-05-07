@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -281,6 +282,19 @@ public class MessageController {
         //PageEntity pageEntity=messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end);
         return result;
     }
+
+    @RequestMapping(value = "/selectMessageGrade",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> selectMessageGrade(@RequestParam Integer messageId){
+        System.out.println("call /message/selectMessageGrade");
+        Integer select_MessageGrade=messageService.selectMessageGrade(messageId);
+        Result<Integer> result=new Result<>();
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询评分成功！");
+        result.setData(select_MessageGrade);
+        return result;
+    }
+
 
 }
 
