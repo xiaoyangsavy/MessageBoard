@@ -5,6 +5,7 @@ import com.savy.model.MessageEntity;
 import com.savy.model.MessageType;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MessageMapper {
@@ -26,7 +27,7 @@ public interface MessageMapper {
     Integer searchPermission(@Param("userId") Integer userId);
 
     //新增问题
-    Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") String messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl,@Param("typeId") int typeId,@Param("messageTitle") String messageTitle );
+    Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") Date messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl, @Param("typeId") int typeId, @Param("messageTitle") String messageTitle , @Param("userId") Integer userId);
     //查询问题
     List<Message> selectMessage(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     //回复问题

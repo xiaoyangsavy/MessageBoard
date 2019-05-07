@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.savy.service.FileUploadUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -104,5 +106,33 @@ public class UploadController{
                 }
             }
         }
+    }
+    @RequestMapping(value = "/batch",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String handleFileUpload(HttpServletRequest request) {
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+        MultipartFile file = null;
+        BufferedOutputStream stream = null;
+        for (int i = 0; i < files.size(); ++i) {
+            file = files.get(i);
+            String filePath = "E:/";
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    stream = new BufferedOutputStream(new FileOutputStream(
+                            new File(filePath + file.getOriginalFilename())));//设置文件路径及名字
+                    stream.write(bytes);// 写入
+                    stream.close();
+                } catch (Exception e) {
+                    stream = null;
+                    return "第 " + i + " 个文件上传失败 ==> "
+                            + e.getMessage();
+                }
+            } else {
+                return "第 " + i
+                        + " 个文件上传失败因为文件为空";
+            }
+        }
+        return "上传成功";
     }
 }

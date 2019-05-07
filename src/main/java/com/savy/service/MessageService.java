@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,7 +23,10 @@ public class MessageService {
     @Autowired
     MessageMapper messageMapper;
 
-    public Integer insertMessage(String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int typeId,String messageTitle){
+    public Integer insertMessage(String messageContent, String imageUrl, String voiceUrl, String videoUrl, int typeId, String messageTitle, Integer userId){
+     //   SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+       // System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        Date messageDate=new Date();
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
         String p=StringUtils.subString(path,"","MessageBoard");
         if(imageUrl!=""&&imageUrl!=null){
@@ -39,7 +44,7 @@ public class MessageService {
             videoUrl=p+"filed"+videoUrl;
             videoUrl=videoUrl.substring(1,videoUrl.length());
         }
-        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle);
+        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle,userId);
         return insert_Message;
     }
     public List<MessageType> selectTypeName(){
@@ -168,6 +173,7 @@ public class MessageService {
         }
         return "上传失败";
     }
+
 
 }
 
