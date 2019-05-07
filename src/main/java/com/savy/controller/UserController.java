@@ -43,8 +43,13 @@ public class UserController {
     }
     @RequestMapping(value = "/register",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> register(@RequestParam  String userName,@RequestParam String password,@RequestParam String sex,@RequestParam String phone,@RequestParam String email){
+    public Result<Integer> register(@RequestBody Map<String,String> myMap){
         System.out.println("call /user/register");
+        String userName=myMap.get("userName");
+        String password=myMap.get("password");
+        String sex=myMap.get("sex");
+        String phone=myMap.get("phone");
+        String email=myMap.get("email");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
         Integer user_id=userService.selectID(userName);
@@ -64,8 +69,11 @@ public class UserController {
 
     @RequestMapping(value = "/addUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> addUser(@RequestParam String userName,@RequestParam String password,@RequestParam int permissionId){
+    public Result<Integer> addUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/register");
+        String userName=String.valueOf(myMap.get("userName"));
+        String password=String.valueOf(myMap.get("password"));
+        Integer permissionId=Integer.valueOf((String)myMap.get("permission"));
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
         Integer user_id=userService.selectID(userName);
@@ -95,8 +103,12 @@ public class UserController {
     }
     @RequestMapping(value = "/updateUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> updateUser(@RequestParam String userName,@RequestParam int userId,@RequestParam  String password,@RequestParam Integer permissionId){
+    public Result<Integer> updateUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/updateUser");
+        String userName=String.valueOf(myMap.get("userName"));
+        int userId=Integer.valueOf((String)myMap.get("userId"));
+        String password=String.valueOf(myMap.get("password"));
+        Integer permissionId=Integer.valueOf((String) myMap.get("permission"));
         System.out.println("%s"+userName+" "+userId+" "+password+" "+permissionId);
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
@@ -115,8 +127,9 @@ public class UserController {
     }
     @RequestMapping(value = "/deleteUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> deleteUser(@RequestParam int userId){
+    public Result<Integer> deleteUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/deleteUser");
+        int userId=Integer.valueOf((String) myMap.get("userId"));
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(userId>0){

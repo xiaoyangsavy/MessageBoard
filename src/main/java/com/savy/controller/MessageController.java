@@ -13,10 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 @RequestMapping(value = "/message")
 @Controller
@@ -103,9 +101,16 @@ public class MessageController {
     }
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> addReply(@RequestParam int superMessageId,@RequestParam  String messageContent,@RequestParam String messageDate,@RequestParam String imageUrl,@RequestParam String voiceUrl,@RequestParam String videoUrl,@RequestParam int userId)
+    public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
     {
         System.out.println("call /message/addReply");
+        int superMessageId=Integer.valueOf((String)myMap.get("superMessageId"));
+        String messageContent=String.valueOf(myMap.get("messageContent"));
+        String imageUrl=String.valueOf(myMap.get("imageUrl"));
+        String voiceUrl=String.valueOf(myMap.get("voiceUrl"));
+        String videoUrl=String.valueOf(myMap.get("videoUrl"));
+        int userId=Integer.valueOf((String)myMap.get("userId"));
+        Date messageDate=new Date();
         Result<Integer> result=new Result<>();
         Integer r=0;
         boolean isReplay=false;
@@ -130,8 +135,9 @@ public class MessageController {
 
     @RequestMapping(value = "/insertTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> insertTypeName(@RequestParam String typeName) {
+    public Result<Integer> insertTypeName(@RequestBody Map<String,String> myMap) {
         System.out.println("call /message/insertTypeName");
+        String typeName=myMap.get("typeName");
         Result<Integer> result=new Result<>();
         Integer r=0,count;
         count=messageService.select_Type(typeName);
@@ -150,8 +156,9 @@ public class MessageController {
     }
     @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> deleteMessage_type(@RequestParam Integer typeId) {
+    public Result<Integer> deleteMessage_type(@RequestBody Map<String,Integer> myMap) {
         System.out.println("call /message/deleteTypeName");
+        Integer typeId=myMap.get("typeId");
         Result<Integer> result=new Result<>();
         Integer r=0,count;
         count=messageService.countMessageType(typeId);
@@ -171,8 +178,10 @@ public class MessageController {
 
     @RequestMapping(value = "/updateTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> update_TypeName(@RequestParam String typeName,@RequestParam Integer typeId){
+    public Result<Integer> update_TypeName(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/updateTypeName");
+        String typeName=String.valueOf(myMap.get("typeName"));
+        Integer typeId=Integer.valueOf((String)myMap.get("typeId"));
         Result<Integer> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("修改信息类别成功！");
@@ -199,8 +208,9 @@ public class MessageController {
     }
     @RequestMapping(value = "/deleteProblem",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> deleteProblem(@RequestParam int messageId){
+    public Result<Integer> deleteProblem(@RequestBody Map<String,Integer> myMap){
         System.out.println("call /message/deleteProblem");
+        int messageId=myMap.get("messageId");
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(messageId > 0)
@@ -218,8 +228,9 @@ public class MessageController {
     }
     @RequestMapping(value = "/deleteReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> deleteReply(@RequestParam int superMessageId){
+    public Result<Integer> deleteReply(@RequestBody Map<String,Integer> myMap){
         System.out.println("call /message/deleteReply");
+        int superMessageId=myMap.get("superMessageId");
         Result<Integer> result=new Result<>();
         Integer r=0;
         if (superMessageId>0)
@@ -237,8 +248,10 @@ public class MessageController {
     }
     @RequestMapping(value = "/addMessageGrade",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> addMessageGrade(@RequestParam double messageGrade,@RequestParam int messageId){
+    public Result<Integer> addMessageGrade(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/addMessageGrade");
+        double messageGrade=Double.valueOf((String)myMap.get("messageGrade"));
+        int messageId=Integer.valueOf((String)myMap.get("messageId"));
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(messageId>0)

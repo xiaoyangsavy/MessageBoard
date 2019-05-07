@@ -86,7 +86,7 @@ public class MessageService {
         System.out.println(select_Message);
         return select_Message;
     }
-    public Integer addReply(int superMessageId,String messageContent,String messageDate,String imageUrl,String voiceUrl,String videoUrl,int userId,boolean isReplay){
+    public Integer addReply(int superMessageId,String messageContent,Date messageDate,String imageUrl,String voiceUrl,String videoUrl,int userId,boolean isReplay){
         Integer add_Reply=messageMapper.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId,isReplay);
         return  add_Reply;
 
