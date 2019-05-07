@@ -11,12 +11,13 @@ public class User {
     private int userId; //用户编号
     private String userName;   //用户名
     private String password;   //密码
-    private String roleId;   //角色编号
+    //private String roleId;   //角色编号
     private String name;   //姓名
     private String sex;   //性别
     private String phone;   //手机号
     private String email;   //邮箱
-    private System permissionId;//用户权限
+    private Integer permissionId;//用户权限
+    private String permissionName;
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date lastLoginDate;   //最后登录日期
 
@@ -45,13 +46,13 @@ public class User {
         this.password = password;
     }
 
-    public String getRoleId() {
+   /* public String getRoleId() {
         return roleId;
     }
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -93,12 +94,20 @@ public class User {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public System getPermissionId() {
+    public Integer getPermissionId() {
         return permissionId;
     }
 
-    public void setPermissionId(System permissionId) {
+    public void setPermissionId(Integer permissionId) {
         this.permissionId = permissionId;
+    }
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
     @Override
@@ -107,12 +116,12 @@ public class User {
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", roleId='" + roleId + '\'' +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", permissionId=" + permissionId +
+                ", permissionName='" + permissionName + '\'' +
                 ", lastLoginDate=" + lastLoginDate +
                 '}';
     }

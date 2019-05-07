@@ -36,6 +36,12 @@
     </insert>
     <select id="selectUser" parameterType="java.lang.String" resultType="com.savy.model.User">
         select *
+        from user,permission
+        where user.permission_id=permission.permission_id
+        limit ${start},${end}
+    </select>
+    <select id="userCount" resultType="Integer">
+        select count(*)
         from user
     </select>
     <update id="updateUser">

@@ -17,7 +17,7 @@ public interface UserMapper {
     //用户管理——添加用户
     Integer addUser(@Param("userName") String userName,@Param("password") String password,@Param("permissionId") Integer permissionId);
     //用户管理——查询用户
-    List<User> selectUser();
+    List<User> selectUser(@Param("start") Integer start,@Param("end") Integer end);
     //用户管理——修改用户
     Integer updateUser(@Param("userName") String userName,@Param("userId") int userId,@Param("password") String password,@Param("permissionId") Integer permissionId);
     //用户管理——删除用户
@@ -27,6 +27,8 @@ public interface UserMapper {
     //用户登录
     Integer login(@Param("userName") String userName,@Param("password") String password);
     //查找用户ID
-    Integer selectID(@Param("userName") String userName );
+    Integer selectID(@Param("userName") String userName);
+    //统计用户个数
+    Integer userCount();
 
 }
