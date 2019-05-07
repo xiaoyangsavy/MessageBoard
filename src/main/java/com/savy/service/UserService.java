@@ -1,6 +1,7 @@
 package com.savy.service;
 
 import com.savy.dao.UserMapper;
+import com.savy.model.PageEntity;
 import com.savy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,32 @@ public class UserService {
         Integer add_User=userMapper.addUser(userName,password,permissionId);
         return  add_User;
     }
-    public List<User> selectUser(){
-        List<User> select_User=userMapper.selectUser();
-        return select_User;
+    public PageEntity selectUser(Integer currentPage,Integer pageSize,int start,int end){
+        int Total=0;
+        int count=userMapper.userCount();
+        if(userMapper.userCount()%pageSize>0)
+        {
+            Total=(userMapper.userCount()/pageSize)+1;
+        }
+        if(currentPage>Total){
+            currentPage=Total;
+        }
+        if((count-currentPage*pageSize)<0){
+            end=count-(currentPage-1)*pageSize;
+        }
+        List<User> select_User=userMapper.selectUser(start,end);
+        PageEntity<User> pageEntity=new PageEntity<>(select_User);
+        if (currentPage==1){
+            pageEntity.setIsFirstPage(true);
+        }
+        if (currentPage==Total){
+            pageEntity.setIsLastPage(true);
+        }
+        pageEntity.setCurrentPage(currentPage);//当前页
+        pageEntity.setTotal(count);//总记录数
+        pageEntity.setPages(Total);//总页数
+
+        return pageEntity;
     }
     public Integer updateUser(String userName,int userId,String password,Integer permissionId){
         Integer update_User=userMapper.updateUser(userName,userId,password,permissionId);

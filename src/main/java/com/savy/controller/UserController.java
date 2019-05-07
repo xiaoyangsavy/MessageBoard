@@ -1,5 +1,6 @@
 package com.savy.controller;
 
+import com.savy.model.PageEntity;
 import com.savy.model.User;
 import com.savy.service.UserService;
 import com.savy.util.Result;
@@ -92,13 +93,22 @@ public class UserController {
     }
     @RequestMapping(value = "/selectUser",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List<User>> selectUser(){
+    public Result<PageEntity> selectUser(@RequestParam(name = "currentPage",required =false)  Integer currentPage,
+                                         @RequestParam(name = "pageSize",required = false) Integer pageSize){
         System.out.println("call /user/selectUser");
-        List<User> select_User=userService.selectUser();
-        Result<List<User>> result=new Result<>();
+        if(currentPage==null||currentPage==0){
+            currentPage=1;
+        }
+        if(pageSize==null||pageSize==0){
+            pageSize=10;
+        }
+        int start=(currentPage-1)*pageSize;
+        int end=pageSize;
+        //List<User> select_User=userService.selectUser(currentPage,pageSize,start,end);
+        Result<PageEntity> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("查询所有用户成功！");
-        result.setData(select_User);
+        result.setData(userService.selectUser(currentPage,pageSize,start,end));
         return result;
     }
     @RequestMapping(value = "/updateUser",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
