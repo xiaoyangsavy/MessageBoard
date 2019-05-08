@@ -42,11 +42,11 @@ public class UserController {
         User user = userService.getUserById(userId);
         if(user!=null) {
             result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加成功！");
+            result.setMessage("获取用户信息成功！");
             result.setData(user);
         }else{
             result.setResultStatus(ResultStatus.NO_DATA);
-            result.setMessage("调用失败！");
+            result.setMessage("获取用户信息失败！");
         }
         return result;
     }

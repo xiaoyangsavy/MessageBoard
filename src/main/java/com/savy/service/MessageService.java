@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MessageService {
@@ -184,6 +185,17 @@ public class MessageService {
             e.printStackTrace();
         }
         return "上传失败";
+    }
+    //生成UUID
+    public String tid(){
+        Date date=new Date();
+        String tid=String.valueOf(date.getYear()+date.getMonth()+date.getDay()+date.getHours()+date.getMinutes());
+        return tid;
+    }
+    public String rid(){
+        //String uuid5 = UUID.randomUUID().toString().replaceAll("\\d","");
+        String uuid5 = UUID.randomUUID().toString().concat(".apk");
+        return uuid5;
     }
 
 
