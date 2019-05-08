@@ -307,6 +307,12 @@ public class MessageController {
         result.setData(select_MessageGrade);
         return result;
     }
+    @RequestMapping(value = "/test",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String test(){
+       // messageService.rid();
+        return messageService.rid();
+    }
 
 
 }
