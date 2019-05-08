@@ -95,7 +95,7 @@ function regist(){
 			setCookie(usernameFlag,userName);	//用户名
 			window.location.href='message.html';
 			}else{
-				openPopup("注册失败，请重新登录！");
+				openPopup(data.message);
 			}
         },
         error: function (e) {
