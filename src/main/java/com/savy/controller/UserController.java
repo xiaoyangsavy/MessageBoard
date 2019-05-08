@@ -62,10 +62,28 @@ public class UserController {
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
         Integer user_id=userService.selectID(userName);
-        if (userName!=""&&userName!=null&&user_id==null){
+        if(user_id!=null){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("注册失败！用户名重复");
+            result.setData(r);
+            return result;
+        }
+        if(userName==""||userName==null){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("注册失败！用户名不能为空");
+            result.setData(r);
+            return result;
+        }
+        if(password==""||password==null){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("注册失败！密码不能为空");
+            result.setData(r);
+            return result;
+        }
+        if (userName!=""&&userName!=null&&user_id==null&&password!=""&&password!=null){
             r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
             result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加成功！");
+            result.setMessage("注册成功！");
             result.setData(r);
         }
         else {
