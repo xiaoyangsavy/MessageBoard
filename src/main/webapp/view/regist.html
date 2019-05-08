@@ -64,12 +64,51 @@ function regist(){
 	var password = $("#password").val();
 	var passwordAffirm = $("#passwordAffirm").val();
 	var phone = $("#phone").val();
+	var email = $("#email").val();
 	var sex = $("input[name='sex']:checked").val();
 	
+	console.log("userName:"+userName);
+	console.log("password:"+password);
+	console.log("passwordAffirm:"+passwordAffirm);
+	console.log("phone:"+phone);
+	console.log("email:"+(email==''));
+	console.log("sex:"+sex);
 	
+	if(password==passwordAffirm){
 	
-setCookie(loginFlag,1);
- window.location.href='message.html';
+	$.ajax({
+        type: "POST",
+        url:  serverUrl+"user/register",
+        contentType: "application/json",
+		data : JSON.stringify({
+				"userName": userName,
+				"password": password,
+				"phone": phone,
+				"email": email,
+				"sex": sex
+			}),
+        success: function (data) {
+			console.log("call user/register");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			setCookie(isLoginFlag,1);	//已登录
+			setCookie(usernameFlag,userName);	//用户名
+			window.location.href='message.html';
+			}else{
+				openPopup(data.message);
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("注册失败，请重新登录！");
+        }
+    });	 
+	
+}else{
+	openPopup("密码不一致，请重试！");
+}
+	
+ 
 }
  
   </script>
