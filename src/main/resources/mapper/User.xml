@@ -14,16 +14,10 @@
     </select>
 
     <select id="getUserById" resultType="User">
-        select
-          user_id,
-          permission_id,
-          name,
-          sex,
-          phone,
-          email,
-          last_login_date
-        from user
+        select *
+        from user,permission
         where user_id = #{userId}
+        and user.permission_id=permission.permission_id
     </select>
     <insert id="insertUser">
         insert into user(user_name,password,permission_id,name,sex,phone,email)
