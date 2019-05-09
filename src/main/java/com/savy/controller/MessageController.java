@@ -59,12 +59,12 @@ public class MessageController {
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
             result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加成功！");
+            result.setMessage("添加信息成功！");
             result.setData(r);
         }
         else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加失败！");
+            result.setMessage("添加信息失败！");
             result.setData(r);
         }
         return result;
@@ -84,7 +84,7 @@ public class MessageController {
         List<Message> select_Message=messageService.selectMessage(startDate,endDate,typeId,isReplay,userName,messageTitle);
         System.out.println(select_Message.toString());
         result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("调用成功！");
+        result.setMessage("查询信息成功！");
         result.setData(select_Message);
         return result;
     }
@@ -95,7 +95,7 @@ public class MessageController {
         Result<List<MessageType>> result=new Result<>();
         List<MessageType> select_TypeName=messageService.selectTypeName();
         result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("调用成功！");
+        result.setMessage("查询消息类型成功！");
         result.setData(select_TypeName);
         return result;
     }
@@ -104,12 +104,12 @@ public class MessageController {
     public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
     {
         System.out.println("call /message/addReply");
-        int superMessageId=Integer.valueOf((String)myMap.get("superMessageId"));
+        int superMessageId=Integer.parseInt((String)myMap.get("superMessageId"));
         String messageContent=String.valueOf(myMap.get("messageContent"));
         String imageUrl=String.valueOf(myMap.get("imageUrl"));
         String voiceUrl=String.valueOf(myMap.get("voiceUrl"));
         String videoUrl=String.valueOf(myMap.get("videoUrl"));
-        int userId=Integer.valueOf((String)myMap.get("userId"));
+        int userId=Integer.parseInt((String)myMap.get("userId"));
         Date messageDate=new Date();
         Result<Integer> result=new Result<>();
         Integer r=0;
@@ -181,7 +181,7 @@ public class MessageController {
     public Result<Integer> update_TypeName(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/updateTypeName");
         String typeName=String.valueOf(myMap.get("typeName"));
-        Integer typeId=Integer.valueOf((String)myMap.get("typeId"));
+        Integer typeId=Integer.parseInt((String)myMap.get("typeId"));
         Result<Integer> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("修改信息类别成功！");
@@ -251,7 +251,7 @@ public class MessageController {
     public Result<Integer> addMessageGrade(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/addMessageGrade");
         double messageGrade=Double.valueOf((String)myMap.get("messageGrade"));
-        int messageId=Integer.valueOf((String)myMap.get("messageId"));
+        int messageId=Integer.parseInt((String)myMap.get("messageId"));
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(messageId>0)
@@ -290,7 +290,7 @@ public class MessageController {
         int end=pageSize;
         Result<PageEntity> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
-        result.setMessage("查询成功！");
+        result.setMessage("接口调用成功！");
         result.setData(messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end));
         //PageEntity pageEntity=messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end);
         return result;

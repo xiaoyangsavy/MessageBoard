@@ -37,9 +37,10 @@ public class UserService {
     public PageEntity selectUser(Integer currentPage,Integer pageSize,int start,int end){
         int Total=0;
         int count=userMapper.userCount();
-        if(userMapper.userCount()%pageSize>0)
+
+        if(userMapper.userCount()%pageSize>=0)
         {
-            Total=(userMapper.userCount()/pageSize)+1;
+            Total=(userMapper.userCount()/pageSize);
         }
         if(currentPage>Total){
             currentPage=Total;

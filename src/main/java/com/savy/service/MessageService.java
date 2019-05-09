@@ -194,7 +194,10 @@ public class MessageService {
     }
     public String rid(){
         //String uuid5 = UUID.randomUUID().toString().replaceAll("\\d","");
-        String uuid5 = UUID.randomUUID().toString().concat(".apk");
+        String im="D:/asd/123.jpg";
+        String imageUrl=im.substring(im.lastIndexOf("."));
+       // String uuid5 = UUID.randomUUID().toString().concat(".apk");
+        String uuid5 = UUID.randomUUID().toString().concat(imageUrl);
         return uuid5;
     }
 

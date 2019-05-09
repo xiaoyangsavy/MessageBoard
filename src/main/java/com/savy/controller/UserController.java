@@ -88,7 +88,7 @@ public class UserController {
         }
         else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加失败！");
+            result.setMessage("注册失败！");
             result.setData(r);
         }
         return result;
@@ -100,19 +100,19 @@ public class UserController {
         System.out.println("call /user/register");
         String userName=String.valueOf(myMap.get("userName"));
         String password=String.valueOf(myMap.get("password"));
-        Integer permissionId=Integer.valueOf((String)myMap.get("permission"));
+        Integer permissionId=Integer.parseInt((String)myMap.get("permission"));
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
         Integer user_id=userService.selectID(userName);
         if (userName!=""&&userName!=null&&user_id==null){
             r=userService.addUser(userName,password,permissionId);
             result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加成功！");
+            result.setMessage("添加用户成功！");
             result.setData(r);
         }
         else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加失败！");
+            result.setMessage("添加用户失败！");
             result.setData(r);
         }
         return result;
@@ -142,7 +142,8 @@ public class UserController {
     public Result<Integer> updateUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/updateUser");
         String userName=String.valueOf(myMap.get("userName"));
-        int userId=Integer.valueOf((String)myMap.get("userId"));
+        //int userId=Integer.valueOf((String)myMap.get("userId"));
+        int userId=Integer.parseInt((String)myMap.get("userId"));
         String password=String.valueOf(myMap.get("password"));
         Integer permissionId=Integer.valueOf((String) myMap.get("permission"));
         System.out.println("%s"+userName+" "+userId+" "+password+" "+permissionId);
@@ -165,7 +166,7 @@ public class UserController {
     @ResponseBody
     public Result<Integer> deleteUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/deleteUser");
-        int userId=Integer.valueOf((String) myMap.get("userId"));
+        int userId=Integer.parseInt((String) myMap.get("userId"));
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(userId>0){
@@ -191,11 +192,11 @@ public class UserController {
         if(permission!=null)
         {
             result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("查询成功！");
+            result.setMessage("获取用户权限成功！");
             result.setData(permission);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("查询失败！");
+            result.setMessage("获取用户权限失败！");
             result.setData(permission);
         }
 
