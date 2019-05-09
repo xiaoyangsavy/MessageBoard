@@ -77,6 +77,10 @@
 
  <script type="text/javascript">
  
+ //获取页面跳转时传递的参数
+	var messageId= getUrlParams("messageId");	//留言编号
+    console.log("messageId="+messageId);
+ 
  $(function(){
 if(!debug){
  
@@ -133,6 +137,9 @@ if(!debug){
 	formFile.append("messageContent", messageContent);
     //把文件放入form对象中  
     formFile.append("file", file); 
+	if(messageId != null && messageId != undefined && messageId != ''){
+	formFile.append("messageId", messageId); 	
+	}
 
  	// ajax提交
             $.ajax({

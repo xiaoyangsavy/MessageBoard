@@ -38,6 +38,51 @@
 </div> 
 
 
+ <script type="text/javascript">
+  
  
+ $(function(){
+if(!debug){
+	
+ $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/selectUser?1=1",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call user/selectUser");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			maxPage = data.data.pages;	//最大页数
+			console.log("接口数据长度："+data.data.list.length);
+                 var html = "";
+   			 for(var i = 0,len = data.data.list.length; i < len; i++){
+				console.log(data.data.list[i]);
+			 	var item = data.data.list[i];
+			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider"></li> ';
+			  	html += '<li><input type="hidden" value='+item.userId+'><a onclick="goUserDetail(this)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
+			  	html += '<h2>'+item.userName+'</h2>'; 
+			  	html += '<p><b>'+item.password+'</b></p>'; 
+        	  	html += '<p class="ui-li-aside">'+item.name+'</p>'; 
+        		html += '</a></li>'; 
+			 }
+				 document.getElementById("list-ul").innerHTML = html;
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });	
+	 
+	
+}else{
+//测试代码
+}
+
+});	
+
+</script>
 </body>
 </html>
