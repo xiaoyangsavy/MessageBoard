@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang = "zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 引入 jQuery Mobile 样式 -->
 <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
-<link rel="stylesheet" type="text/css" href="../css/login.css">
 <!-- 引入 jQuery 库 -->
  <script type="text/javascript" src="../js/jquery.min.js"></script>
 <!-- 引入 jQuery Mobile 库 -->
@@ -29,8 +29,8 @@
  
  <table style="margin: 0 auto">
     <tr><td align="center">
-     <input type="submit" onclick="goWebpage('typeList.html')" data-inline="true" value="删除">
-      <input type="submit" onclick="goWebpage('typeList.html')" data-inline="true" value="修改">
+      <input type="submit" onclick="deleteData()" data-inline="true" value="删除"></div>
+      <input type="submit" onclick="updateData()" data-inline="true" value="修改">
 	  <input type="reset" onclick="goWebpage('typeList.html')" data-inline="true" value="取消">
       </td></tr>
      </table>
@@ -52,48 +52,6 @@
  $(function(){
 if(!debug){
 	
-	 
-	
- //获取用户信息
-	 $.ajax({
-        type: "GET",
-        url:  serverUrl+"user/getMesageType?typeId="+typeId,
-        contentType: "application/json",
-        success: function (data) {
-            console.log("call user/getUser");
-            console.log(data);
-            if(data.status==200){	//调用成功
-			var myData = data.data;
-			var userId = myData.userId;
-			var userName = myData.userName;
-			var password = myData.password;
-			var permissionId = myData.permissionId;
-		 	
-			$("#userName").text(userName);
-			//修改下拉框显示样式
-			$("#messageType").val(permissionId);
-			var text = $("#messageType").find("option:selected").text();
-			//console.log(text);
-			$("#messageType").prev().text(text);	//修改默认添加的span标签
-			 
-			
-			if(permissionId != null && permissionId != undefined && permissionId != ''&&permissionId==-1){	//超级管理员
-				$("#message-type-div").hide();	//隐藏类别选择控件
-				$("#delete-button").hide();		
-			}else{
-				$("#message-type-div").show();
-			}
-                 
-   			 
-            }else{
-                openPopup("获取数据失败，请重试！");
-            }
-        },
-        error: function (e) {
-            console.log(e);
-            openPopup("获取数据失败，请重试！");
-        }
-    });
  
 	
 }else{
@@ -106,17 +64,17 @@ if(!debug){
 function deleteData(){
 	 $.ajax({
         type: "POST",
-        url:  serverUrl+"user/deleteTypeName",
+        url:  serverUrl+"message/deleteTypeName",
         contentType: "application/json",
 		data : JSON.stringify({
 				"typeId": typeId 
 			}),
         success: function (data) {
-			console.log("call user/login");
+			console.log("call message/deleteTypeName");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			 openPopup("删除成功！");
-			 window.location.href='typeList.html';
+			 //window.location.href='typeList.html';
 			}else{
 				openPopup(data.message);
 			}
@@ -137,7 +95,7 @@ function updateData(){
 		
 	var jsonObject = '{';
 	jsonObject+='"typeId":'+typeId;
-	jsonObject+=',"typeName":'+typeName;
+	jsonObject+=',"typeName":"'+typeName+'"';
 	
 	 
 	jsonObject+='}'
@@ -145,15 +103,15 @@ function updateData(){
 		
 	$.ajax({
         type: "POST",
-        url:  serverUrl+"user/updateTypeName",
+        url:  serverUrl+"message/updateTypeName",
         contentType: "application/json",
 		data : jsonObject,
         success: function (data) {
 			console.log("call user/updateTypeName");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
-			 openPopup("删除成功！");
-			 window.location.href='typeList.html';
+			 openPopup("修改成功！");
+			 //window.location.href='typeList.html';
 			}else{
 				openPopup(data.message);
 			}
@@ -165,7 +123,6 @@ function updateData(){
     });	 
 		
 }
-	
 	 
    </script>
   
