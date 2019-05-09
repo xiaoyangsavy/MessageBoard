@@ -24,12 +24,8 @@
 
   <div data-role="main" class="ui-content">
   
-    <ul data-role="listview" data-inset="true">
-      <li><a onclick="goWebpage('typeDetail.html')">教务教学</a></li>
-      <li><a onclick="goWebpage('typeDetail.html')">后勤服务</a></li>
-      <li><a onclick="goWebpage('typeDetail.html')">学生管理</a></li>
-      <li><a onclick="goWebpage('typeDetail.html')">书记信箱</a></li>
-      <li><a onclick="goWebpage('typeDetail.html')">校长信箱</a></li>
+    <ul id="list-ul" data-role="listview" data-inset="true">
+      <li><a onclick="goWebpage('typeDetail.html')">暂无类别</a></li>
     </ul>
   </div>
 
@@ -44,28 +40,26 @@
  $(function(){
 if(!debug){
 	
- $.ajax({
+ //获取选项列表数
+  $.ajax({
         type: "GET",
-        url:  serverUrl+"user/selectUser?1=1",
+        url:  serverUrl+"message/selectTypeName",
         contentType: "application/json",
         success: function (data) {
-            console.log("call user/selectUser");
+            console.log("call message/selectTypeName");
             console.log(data);
             if(data.status==200){	//调用成功
-			maxPage = data.data.pages;	//最大页数
-			console.log("接口数据长度："+data.data.list.length);
+			console.log("接口数据长度："+data.data.length);
                  var html = "";
-   			 for(var i = 0,len = data.data.list.length; i < len; i++){
-				console.log(data.data.list[i]);
-			 	var item = data.data.list[i];
-			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider"></li> ';
-			  	html += '<li><input type="hidden" value='+item.userId+'><a onclick="goUserDetail(this)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
-			  	html += '<h2>'+item.userName+'</h2>'; 
-			  	html += '<p><b>'+item.password+'</b></p>'; 
-        	  	html += '<p class="ui-li-aside">'+item.name+'</p>'; 
-        		html += '</a></li>'; 
+				 
+   			 for(var i = 0,len = data.data.length; i < len; i++){
+				console.log(data.data[i]);
+			 	var item = data.data[i];
+				html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider"></li> ';
+				html += '<li><input type="hidden" value='+item.typeId+'><a onclick="goTypeDetail(this)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+item.typeName+'</a></li>';
 			 }
-				 document.getElementById("list-ul").innerHTML = html;
+				 document.getElementById("list-ul").innerHTML = html; 
+			 
             }else{
                 openPopup("获取数据失败，请重试！");
             }
@@ -74,7 +68,7 @@ if(!debug){
             console.log(e);
             openPopup("获取数据失败，请重试！");
         }
-    });	
+    });
 	 
 	
 }else{
@@ -83,6 +77,12 @@ if(!debug){
 
 });	
 
+	function goTypeDetail(object){
+		console.log($(object).siblings("input[type=hidden]"));	
+		var typeId = $(object).siblings("input[type=hidden]").val();
+		window.location.href='typeDetail.html?typeId='+typeId;
+		
+}
 </script>
 </body>
 </html>
