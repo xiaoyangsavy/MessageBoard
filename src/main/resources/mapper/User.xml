@@ -41,13 +41,13 @@
     <update id="updateUser">
         update user
         <set>
-            <if test="userName != null and userName!=''">
+            <if test='userName != null and userName!="" and userName!="null"'>
                 user_name = #{userName},
             </if>
-            <if test="password != null and  password!=''">
+            <if test='password != null and  password!="" and password!="null" '>
                 password = #{password},
             </if>
-            <if test="permissionId != null and permissionId!=''">
+            <if test='permissionId != null and permissionId!="" '>
                 permission_id = #{permissionId},
             </if>
         </set>

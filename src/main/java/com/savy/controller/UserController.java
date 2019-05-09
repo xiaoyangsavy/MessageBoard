@@ -142,9 +142,9 @@ public class UserController {
     public Result<Integer> updateUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/updateUser");
         String userName=String.valueOf(myMap.get("userName"));
-        int userId=(Integer)myMap.get("userId");
+        int userId=Integer.parseInt((String) myMap.get("userId"));
         String password=String.valueOf(myMap.get("password"));
-        Integer permissionId=(Integer) myMap.get("permission");
+        Integer permissionId=Integer.parseInt((String) myMap.get("permission"));
         System.out.println("%s"+userName+" "+userId+" "+password+" "+permissionId);
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
