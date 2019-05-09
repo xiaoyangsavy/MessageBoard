@@ -29,21 +29,22 @@
   </div>
   
    <div class="ui-field-contain">
-   <lable id="password" for="password">密码</lable>
- <input type="text" name="password" id="password" placeholder="待修改的密码">
+   <lable for="password">密码</lable>
+ <input type="password" name="password" id="password" placeholder="待修改的密码">
   </div>
   
   <div id="message-type-div" class="ui-field-contain">
-        <label for="type">管理类别</label>
-        <select name="label" id="messageType">
-		 <option value="0">请选择</option>
+        <label for="messageType">管理类别</label>
+        <select name="messageType" id="messageType">
+		 <option value="-1">请选择</option>
         </select>
      </div>
   
  <table style="margin: 0 auto">
     <tr><td align="center">
-     <input type="submit" onclick="goWebpage('userList.html')" data-inline="true" value="删除">
-      <input type="submit" onclick="goWebpage('userList.html')" data-inline="true" value="修改">
+    <div id="delete-button" style="display: inline-block">
+     <input type="submit" onclick="deleteData()" data-inline="true" value="删除"></div>
+      <input type="submit" onclick="updateData()" data-inline="true" value="修改">
 	  <input type="reset" onclick="goWebpage('userList.html')" data-inline="true" value="取消">
       </td></tr>
      </table>
@@ -66,7 +67,38 @@
  $(function(){
 if(!debug){
 	
- 
+	//获取选项列表数
+  $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/selectTypeName",
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/selectTypeName");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			console.log("接口数据长度："+data.data.length);
+                 var html = "";
+				 html += '<option value="0">普通用户</option>';
+   			 for(var i = 0,len = data.data.length; i < len; i++){
+				console.log(data.data[i]);
+			 	var item = data.data[i];
+			  	html += '<option value="'+item.typeId+'">'+item.typeName+'</option>';
+			 }
+				 document.getElementById("messageType").innerHTML = html; 
+			 
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
+
+	
+	
+ //获取用户信息
 	 $.ajax({
         type: "GET",
         url:  serverUrl+"user/getUser?userId="+userId,
@@ -81,11 +113,17 @@ if(!debug){
 			var password = myData.password;
 			var permissionId = myData.permissionId;
 		 	
-			$("#userName").val(userName);
+			$("#userName").text(userName);
+			//修改下拉框显示样式
 			$("#messageType").val(permissionId);
+			var text = $("#messageType").find("option:selected").text();
+			//console.log(text);
+			$("#messageType").prev().text(text);	//修改默认添加的span标签
+			 
 			
 			if(permissionId != null && permissionId != undefined && permissionId != ''&&permissionId==-1){	//超级管理员
 				$("#message-type-div").hide();	//隐藏类别选择控件
+				$("#delete-button").hide();		
 			}else{
 				$("#message-type-div").show();
 			}
@@ -108,8 +146,71 @@ if(!debug){
 
 });	
 	
- 
+//删除数据 
+function deleteData(){
+	 $.ajax({
+        type: "POST",
+        url:  serverUrl+"user/deleteUser",
+        contentType: "application/json",
+		data : JSON.stringify({
+				"userId": userId 
+			}),
+        success: function (data) {
+			console.log("call user/login");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			 openPopup("删除成功！");
+			 window.location.href='userList.html';
+			}else{
+				openPopup("登录失败，请重新登录！");
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("登录失败，请重新登录！");
+        }
+    });	 
+		
+}
+
+//修改数据 
+function updateData(){
+		
+	var password = $("#password").val(); 
+	var permission = $("#messageType").val(); 
+		
+	var jsonObject = '{';
+	jsonObject+='"userId":'+userId;
+	jsonObject+=',"permission":'+permission;
 	
+	if(password != null && password != undefined && password != ''){
+		jsonObject+=',"password":'+password;
+	}
+	jsonObject+='}'
+	console.log(jsonObject);
+		
+	$.ajax({
+        type: "POST",
+        url:  serverUrl+"user/updateUser",
+        contentType: "application/json",
+		data : jsonObject,
+        success: function (data) {
+			console.log("call user/login");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			 openPopup("删除成功！");
+			 window.location.href='userList.html';
+			}else{
+				openPopup(data.message);
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("接口调用失败，请重试！");
+        }
+    });	 
+		
+}
 	
 	 
    </script>
