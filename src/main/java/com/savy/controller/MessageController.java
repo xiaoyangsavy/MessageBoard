@@ -112,7 +112,7 @@ public class MessageController {
     public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
     {
         System.out.println("call /message/addReply");
-        int superMessageId=Integer.parseInt((String)myMap.get("superMessageId"));
+        int superMessageId=(Integer)myMap.get("superMessageId");
         String messageContent=String.valueOf(myMap.get("messageContent"));
         String imageUrl=String.valueOf(myMap.get("imageUrl"));
         String voiceUrl=String.valueOf(myMap.get("voiceUrl"));
@@ -189,7 +189,7 @@ public class MessageController {
     public Result<Integer> update_TypeName(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/updateTypeName");
         String typeName=String.valueOf(myMap.get("typeName"));
-        Integer typeId=Integer.parseInt((String)myMap.get("typeId"));
+        Integer typeId=(Integer)myMap.get("typeId");
         Result<Integer> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("修改信息类别成功！");

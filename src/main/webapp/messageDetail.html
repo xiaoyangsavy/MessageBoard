@@ -25,7 +25,7 @@
   <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>内容详情</h1>
-    <a id="replay-button" onclick="goWebpage('view/addMessage.html')"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
+    <a id="replay-button" onclick="goReply()"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
   </div>
 
   <div  data-role="main" class="ui-content">
@@ -124,7 +124,9 @@
 	var messageId= getUrlParams("messageId");	//留言编号
     console.log("messageId="+messageId);
  
- var permission = 0;
+ var permission = 0;	//权限
+ 
+ var isReplay = false; //是否回复
 
 
 $(function(){
@@ -172,11 +174,11 @@ if(!debug){
 				//评分控件默认显示值
 				 var grade = item.messageGrade;
 				 $("#example-css").val(grade);	//TODO需要修改js文件逻辑
-			  	
-			  
-				
-				 	if(i==0){	//用户留言内容
-					var html = '';
+	 
+	 			//document.getElementById("content-div").innerHTML = '';
+	 			document.getElementById("reply-div").innerHTML = '<h4 id="messageTitle" align="center">无</h4>';
+				if(i==0){	//用户留言内容
+				var html = '';
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label>';
 			   	//for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
@@ -186,6 +188,9 @@ if(!debug){
 				//for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
 				// }
 				document.getElementById("content-div").innerHTML = html;
+
+				isReplay = item.replay;	//是否回复
+				
 			   }else{	//管理员回复内容
 			   	var html = '';
 			   	html += '<h4 style="text-align:left">'+item.userName+'： </h4>';
@@ -202,14 +207,17 @@ if(!debug){
 			   
 				 
 			 }
-			 
+			 console.log("permission="+permission+"isReplay="+isReplay)
 			 if(permission==0){	//用户
 				$("#replay-button").hide();//隐藏发布按钮
+				if(isReplay){
 				$("#grade-div").show();	//显示评分控件
+				}else{
+				$("#grade-div").hide();	//隐藏评分控	
+				}
 			}else{
 				$("#replay-button").show();//显示发布按钮
 				$("#grade-div").hide();	//隐藏评分控件
-				
 			}
 			}else{
 				openPopup(data.message);
@@ -225,6 +233,11 @@ if(!debug){
 	//测试代码
 	}
 });
+
+//管理员回复
+function goReply(){
+	window.location.href='view/addMessage.html?messageId='+messageId;
+}
   </script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang = "zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 引入 jQuery Mobile 样式 -->
 <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
-<link rel="stylesheet" type="text/css" href="../css/login.css">
 <!-- 引入 jQuery 库 -->
  <script type="text/javascript" src="../js/jquery.min.js"></script>
 <!-- 引入 jQuery Mobile 库 -->
@@ -25,12 +25,12 @@
   <div data-role="main" class="ui-content">
    
   
- <input type="text" name="type" id="type" value="暂无">
+ <input id="typeName" type="text" name="typeName" value="暂无">
  
  <table style="margin: 0 auto">
     <tr><td align="center">
-     <input type="submit" onclick="goWebpage('typeList.html')" data-inline="true" value="删除">
-      <input type="submit" onclick="goWebpage('typeList.html')" data-inline="true" value="修改">
+      <input type="submit" onclick="deleteData()" data-inline="true" value="删除"></div>
+      <input type="submit" onclick="updateData()" data-inline="true" value="修改">
 	  <input type="reset" onclick="goWebpage('typeList.html')" data-inline="true" value="取消">
       </td></tr>
      </table>
@@ -41,7 +41,91 @@
    
 </div> 
 
+ <script type="text/javascript">
+ 
+ //获取页面跳转时传递的参数
+	var typeId= getUrlParams("typeId");	//用户编号
+    console.log("typeId="+typeId);
+ 
+ 
+ 
+ $(function(){
+if(!debug){
+	
+ 
+	
+}else{
+//测试代码
+}
 
+});	
+	
+//删除数据 
+function deleteData(){
+	 $.ajax({
+        type: "POST",
+        url:  serverUrl+"message/deleteTypeName",
+        contentType: "application/json",
+		data : JSON.stringify({
+				"typeId": typeId 
+			}),
+        success: function (data) {
+			console.log("call message/deleteTypeName");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			 openPopup("删除成功！");
+			 //window.location.href='typeList.html';
+			}else{
+				openPopup(data.message);
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("调用失败，请重试！");
+        }
+    });	 
+		
+}
+
+//修改数据 
+function updateData(){
+		
+	 
+	var typeName = $("#typeName").val(); 
+		
+	var jsonObject = '{';
+	jsonObject+='"typeId":'+typeId;
+	jsonObject+=',"typeName":"'+typeName+'"';
+	
+	 
+	jsonObject+='}'
+	console.log(jsonObject);
+		
+	$.ajax({
+        type: "POST",
+        url:  serverUrl+"message/updateTypeName",
+        contentType: "application/json",
+		data : jsonObject,
+        success: function (data) {
+			console.log("call user/updateTypeName");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			 openPopup("修改成功！");
+			 //window.location.href='typeList.html';
+			}else{
+				openPopup(data.message);
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("接口调用失败，请重试！");
+        }
+    });	 
+		
+}
+	 
+   </script>
+  
  
 </body>
 </html>
