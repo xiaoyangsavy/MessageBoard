@@ -28,6 +28,7 @@ public class MessageController {
     public Result<Integer> insertMessage(@RequestParam String messageContent,
                                          //@RequestParam String messageDate,
                                          //@RequestParam String imageUrl,
+                                         @RequestParam(name = "messageId",required= false) int messageId,
                                          @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
                                          @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
                                          @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
@@ -36,6 +37,8 @@ public class MessageController {
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
+        int superMessageId;
+        boolean isReplay=false;
         try {
 
             if(!imageUrl.isEmpty()){
@@ -55,6 +58,11 @@ public class MessageController {
         }
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
+        if(messageId>0){
+            superMessageId=messageId;
+            isReplay=true;
+
+        }
         if(messageContent!=""&&messageContent!=null)
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
@@ -170,7 +178,7 @@ public class MessageController {
             result.setData(r);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("删除信息类型失败！");
+            result.setMessage("有相关类型的信息，删除信息类型失败！");
             result.setData(r);
         }
         return  result;
