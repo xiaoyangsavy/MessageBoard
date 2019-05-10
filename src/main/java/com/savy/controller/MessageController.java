@@ -28,7 +28,7 @@ public class MessageController {
     public Result<Integer> insertMessage(@RequestParam String messageContent,
                                          //@RequestParam String messageDate,
                                          //@RequestParam String imageUrl,
-                                         @RequestParam(name = "messageId",required= false) int messageId,
+                                         @RequestParam(name = "messageId",required= false) Integer messageId,
                                          @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
                                          @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
                                          @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
@@ -37,33 +37,33 @@ public class MessageController {
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
-        int superMessageId;
+        int superMessageId=0;
         boolean isReplay=false;
         try {
-
             if(!imageUrl.isEmpty()){
-            imageUrl_2="/"+imageUrl.getOriginalFilename();
-            messageService.up(imageUrl);
+            imageUrl_2=messageService.up(imageUrl,"image");
         }
         if(!voiceUrl.isEmpty()){
-            voiceUrl_2="/"+voiceUrl.getOriginalFilename();
-            messageService.up(voiceUrl);
+            voiceUrl_2=messageService.up(voiceUrl,"voice");
         }
         if (!videoUrl.isEmpty()){
-            videoUrl_2="/"+videoUrl.getOriginalFilename();
-            messageService.up(videoUrl);
+             videoUrl_2=messageService.up(videoUrl,"video");
         }
         }catch (Exception e){
             e.printStackTrace();
         }
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
-        if(messageId>0){
+        if(messageId!=null){//用户评论的插入
             superMessageId=messageId;
             isReplay=true;
-
+            r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("添加信息成功！");
+            result.setData(r);
+            return result;
         }
-        if(messageContent!=""&&messageContent!=null)
+        if(messageContent!=""&&messageContent!=null)//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
             result.setResultStatus(ResultStatus.SUCCESS);

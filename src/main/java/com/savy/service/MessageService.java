@@ -9,7 +9,6 @@ import com.savy.model.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,26 +25,7 @@ public class MessageService {
     MessageMapper messageMapper;
 
     public Integer insertMessage(String messageContent, String imageUrl, String voiceUrl, String videoUrl, int typeId, String messageTitle, Integer userId){
-     //   SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-       // System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
         Date messageDate=new Date();
-        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-        String p=StringUtils.subString(path,"","MessageBoard");
-        if(imageUrl!=""&&imageUrl!=null){
-            imageUrl=imageUrl.substring(imageUrl.lastIndexOf("/"));
-            imageUrl=p+"filed"+imageUrl;
-            imageUrl=imageUrl.substring(1,imageUrl.length());
-        }
-        if(voiceUrl!=""&&voiceUrl!=null){
-            voiceUrl=voiceUrl.substring(voiceUrl.lastIndexOf("/"));
-            voiceUrl=p+"filed"+voiceUrl;
-            voiceUrl=voiceUrl.substring(1,voiceUrl.length());
-        }
-        if(videoUrl!=""&&videoUrl!=null){
-            videoUrl=videoUrl.substring(videoUrl.lastIndexOf("/"));
-            videoUrl=p+"filed"+videoUrl;
-            videoUrl=videoUrl.substring(1,videoUrl.length());
-        }
         List list_image=new ArrayList();
         List list_voice=new ArrayList();
         List list_video=new ArrayList();
@@ -53,6 +33,16 @@ public class MessageService {
         list_video.add(videoUrl);
         list_voice.add(voiceUrl);
         Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,list_image.toString(),list_voice.toString(),list_video.toString(),typeId,messageTitle,userId);
+        return insert_Message;
+    }
+    public Integer insertMessage_2(String messageContent, String imageUrl, String voiceUrl, String videoUrl, int typeId, String messageTitle, Integer userId, Integer superMessageId,boolean isReplay){
+        Date messageDate=new Date();
+        List list_image=new ArrayList();
+        List list_voice=new ArrayList();
+        List list_video=new ArrayList();
+        list_video.add(videoUrl);
+        list_voice.add(voiceUrl);
+        Integer insert_Message=messageMapper.insertMessage_2(messageContent,messageDate,list_image.toString(),list_voice.toString(),list_video.toString(),typeId,messageTitle,userId,superMessageId,isReplay);
         return insert_Message;
     }
     public List<MessageType> selectTypeName(){
@@ -134,8 +124,8 @@ public class MessageService {
         if((count-currentPage*pageSize)<0){
             end=count-(currentPage-1)*pageSize;
         }
-        List<MessageEntity> messageEntityList = messageMapper.selectMessage_page(startDate,endDate,typeId,isReplay,userName,messageTitle,start,end);        //全部商品
-        PageEntity<MessageEntity> pageEntity=new PageEntity<>(messageEntityList);
+        List<Message> messageEntityList = messageMapper.selectMessage_page(startDate,endDate,typeId,isReplay,userName,messageTitle,start,end);        //全部商品
+        PageEntity<Message> pageEntity=new PageEntity<>(messageEntityList);
         if (currentPage==1){
             pageEntity.setIsFirstPage(true);
         }
@@ -148,13 +138,13 @@ public class MessageService {
 
         return pageEntity;
     }
-    public String up(MultipartFile file){
+    public String up(MultipartFile file,String childFiled){
         // List<MultipartFile> files=(Mul)(request)
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
         //  System.out.println("---------------------"+path);
         String p=StringUtils.subString(path,"","MessageBoard");
         //System.out.println("---------------------"+p);
-        path=p+"\\filed";
+        path=p+"\\filed\\"+childFiled;
         File f = new File(path);
         if(!f.exists()&&!f.isDirectory()){
             f.mkdirs();
@@ -162,23 +152,26 @@ public class MessageService {
         }else {
             //System.out.println("文件夹已经存在");
         }
-        // System.out.println("--------------------"+f);
         try{
             if(file.isEmpty()){
                 return "文件为空";
             }
             String fileName = file.getOriginalFilename();
+
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            fileName=rid();
+            //System.out.println("-----------------------"+fileName);
             //String filePath = "E:/test_load/";
-            String filePath = f.toString()+"//";
-            path = filePath + fileName;
+            String filePath = f.toString()+"\\";
+            path = filePath + fileName+suffixName;
+            //System.out.println("--------------------------"+path);
             File dest = new File(path);
             // 检测是否存在目录
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();// 新建文件夹
             }
             file.transferTo(dest);// 文件写入
-            return "上传成功";
+            return path;
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -193,11 +186,7 @@ public class MessageService {
         return tid;
     }
     public String rid(){
-        //String uuid5 = UUID.randomUUID().toString().replaceAll("\\d","");
-        String im="D:/asd/123.jpg";
-        String imageUrl=im.substring(im.lastIndexOf("."));
-       // String uuid5 = UUID.randomUUID().toString().concat(".apk");
-        String uuid5 = UUID.randomUUID().toString().concat(imageUrl);
+       String uuid5 = UUID.randomUUID().toString();
         return uuid5;
     }
 
