@@ -43,7 +43,7 @@
 
 	<div class="ui-field-contain">
 		 <label>上传图片</label>
-		 <input type="file"    multiple="multiple" accept="image/*" name="imageUrl" id="imageUrl"  />
+		 <input type="file" id="file_upload"/>
 	</div>
 
 	<div class="ui-field-contain">
@@ -123,11 +123,16 @@ if(!debug){
   
  
  //新增信息
- function addMessage(){
+ function addMessage1(){
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
 	var messageContent = $("#messageContent").val();
+	var imageUrl = $("#imageUrl").files;
+	var videoUrl = $("#videoUrl").files;
+	var voiceUrl = $("#voiceUrl").files;
 	 
+	 console.log("values:");
+	console.log("messageTitle="+messageTitle);
 	 
 	// 构建form数据
 	var formFile = new FormData();
@@ -136,10 +141,23 @@ if(!debug){
 	formFile.append("typeId", typeId);
 	formFile.append("messageContent", messageContent);
     //把文件放入form对象中  
-    formFile.append("file", file); 
+    formFile.append("imageUrl", imageUrl); 
+	formFile.append("videoUrl", videoUrl);
+	formFile.append("voiceUrl", voiceUrl);
 	if(messageId != null && messageId != undefined && messageId != ''){
 	formFile.append("messageId", messageId); 	
 	}
+	alert(formFile.get("messageTitle"));
+	
+	var items = formFile.entries();
+	var data = {};
+  while(item = items.next()){
+    if(item.done) break;
+    console.log(item);
+}
+	
+	console.log("formFile:");
+	console.log(JSON.stringify(data));
 
  	// ajax提交
             $.ajax({
@@ -162,6 +180,26 @@ if(!debug){
 }
  
  
+ 
+  function addMessage(){
+ var formData = new FormData();
+        formData.append('file',$("#file_upload")[0].files[0]);    //将文件转成二进制形式
+        $.ajax({
+            type:"post",
+            url:serverUrl+"message/fileupload",
+            async:false,
+            contentType: false,    //这个一定要写
+            processData: false, //这个也一定要写，不然会报错
+            data:formData,
+            dataType:'text',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+            success:function(data){
+                alert(data);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown, data){
+                alert(errorThrown);
+            }            
+        });
+  }
  </script>
 </body>
 </html>

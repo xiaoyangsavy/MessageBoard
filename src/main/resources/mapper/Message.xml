@@ -7,6 +7,10 @@
         insert into message(message_content,message_date,image_url,voice_url,video_url,type_id,message_title,user_id)
         values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId},#{messageTitle},#{userId})
     </insert>
+    <insert id="insertMessage_2">
+        insert into message(message_content,message_date,image_url,voice_url,video_url,type_id,message_title,user_id,super_message_id,is_replay)
+        values (#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{typeId},#{messageTitle},#{userId},#{superMessageId},#{isReplay})
+    </insert>
     <select id="selectTypeName" parameterType="java.lang.String" resultType="com.savy.model.MessageType">
         select *
         from message_type

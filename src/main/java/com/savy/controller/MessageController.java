@@ -16,6 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Type;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -31,6 +35,7 @@ public class MessageController {
     public Result<Integer> insertMessage(@RequestParam String messageContent,
                                          //@RequestParam String messageDate,
                                          //@RequestParam String imageUrl,
+                                         @RequestParam(name = "messageId",required= false) Integer messageId,
                                          @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
                                          @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
                                          @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
@@ -39,26 +44,33 @@ public class MessageController {
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
+        int superMessageId=0;
+        boolean isReplay=false;
         try {
-
             if(!imageUrl.isEmpty()){
-            imageUrl_2="/"+imageUrl.getOriginalFilename();
-            messageService.up(imageUrl);
+            imageUrl_2=messageService.up(imageUrl,"image");
         }
         if(!voiceUrl.isEmpty()){
-            voiceUrl_2="/"+voiceUrl.getOriginalFilename();
-            messageService.up(voiceUrl);
+            voiceUrl_2=messageService.up(voiceUrl,"voice");
         }
         if (!videoUrl.isEmpty()){
-            videoUrl_2="/"+videoUrl.getOriginalFilename();
-            messageService.up(videoUrl);
+             videoUrl_2=messageService.up(videoUrl,"video");
         }
         }catch (Exception e){
             e.printStackTrace();
         }
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
-        if(messageContent!=""&&messageContent!=null)
+        if(messageId!=null){//用户评论的插入
+            superMessageId=messageId;
+            isReplay=true;
+            r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("添加信息成功！");
+            result.setData(r);
+            return result;
+        }
+        if(messageContent!=""&&messageContent!=null)//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
             result.setResultStatus(ResultStatus.SUCCESS);
@@ -126,7 +138,7 @@ public class MessageController {
     public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
     {
         System.out.println("call /message/addReply");
-        int superMessageId=Integer.parseInt((String)myMap.get("superMessageId"));
+        int superMessageId=(Integer)myMap.get("superMessageId");
         String messageContent=String.valueOf(myMap.get("messageContent"));
         String imageUrl=String.valueOf(myMap.get("imageUrl"));
         String voiceUrl=String.valueOf(myMap.get("voiceUrl"));
@@ -192,7 +204,7 @@ public class MessageController {
             result.setData(r);
         }else {
             result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("删除信息类型失败！");
+            result.setMessage("有相关类型的信息，删除信息类型失败！");
             result.setData(r);
         }
         return  result;
@@ -203,7 +215,7 @@ public class MessageController {
     public Result<Integer> update_TypeName(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/updateTypeName");
         String typeName=String.valueOf(myMap.get("typeName"));
-        Integer typeId=Integer.parseInt((String)myMap.get("typeId"));
+        Integer typeId=(Integer)myMap.get("typeId");
         Result<Integer> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("修改信息类别成功！");
@@ -338,6 +350,16 @@ public class MessageController {
     }
 
 
+
+
+    @RequestMapping(value="fileupload", method=RequestMethod.POST,produces="text/html;charset=utf-8")
+    public void addPic(HttpServletResponse response, HttpServletRequest request,
+                       @RequestParam(value="file", required=false) MultipartFile file) throws IOException {
+        System.out.println(file.getOriginalFilename());
+        response.getWriter().write("success");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+//        return "success";
+    }
 }
 
 

@@ -31,6 +31,7 @@ public interface MessageMapper {
 
     //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") Date messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl, @Param("typeId") int typeId, @Param("messageTitle") String messageTitle , @Param("userId") Integer userId);
+    Integer insertMessage_2(@Param("messageContent") String messageContent, @Param("messageDate") Date messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl, @Param("typeId") int typeId, @Param("messageTitle") String messageTitle , @Param("userId") Integer userId,@Param("superMessageId") Integer superMessageId,@Param("isReplay") boolean isReplay);
     //查询问题
     List<Message> selectMessage(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     //回复问题
@@ -51,7 +52,7 @@ public interface MessageMapper {
 
     //查询问题个数
     Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
-    List<MessageEntity> selectMessage_page(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle,@Param("start") Integer start,@Param("end") Integer end);
+    List<Message> selectMessage_page(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle,@Param("start") Integer start,@Param("end") Integer end);
 }
 
 
