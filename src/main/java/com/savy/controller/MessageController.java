@@ -13,8 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.io.File;
+import java.lang.reflect.Type;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 @RequestMapping(value = "/message")
 @Controller
@@ -112,6 +119,25 @@ public class MessageController {
         result.setData(select_TypeName);
         return result;
     }
+
+
+    @RequestMapping(value = "/select_TypeName",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<MessageType> select_TypeName(@RequestParam Integer typeId){
+        System.out.println("call /message/selectTypeName");
+        Result<MessageType> result=new Result<>();
+        MessageType select_TypeName=messageService.select_TypeName(typeId);
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询消息类型成功！");
+        result.setData(select_TypeName);
+        return result;
+    }
+
+
+
+
+
+
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
@@ -280,6 +306,7 @@ public class MessageController {
         }
         return result;
     }
+
 //采用分页插件实现
     @RequestMapping(value = "/queryMessageList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -325,6 +352,14 @@ public class MessageController {
     public String test(){
        // messageService.rid();
         return messageService.rid();
+    }
+    @RequestMapping(value="fileupload", method=RequestMethod.POST,produces="text/html;charset=utf-8")
+    public void addPic(HttpServletResponse response, HttpServletRequest request,
+                       @RequestParam(value="file", required=false) MultipartFile file) throws IOException {
+        System.out.println(file.getOriginalFilename());
+        response.getWriter().write("success");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+//        return "success";
     }
 }
 

@@ -43,6 +43,11 @@ public class MessageService {
         return select_TypeName;
     }
 
+
+    public MessageType select_TypeName(Integer typeId){
+        MessageType  select_TypeName=messageMapper.selectType_Name(typeId);
+        return select_TypeName;
+    }
     public Integer select_Type(String typeName){
         Integer select_Type=messageMapper.select_Type(typeName);
         return select_Type;
@@ -73,8 +78,10 @@ public class MessageService {
     public Integer addReply(int superMessageId,String messageContent,Date messageDate,String imageUrl,String voiceUrl,String videoUrl,int userId,boolean isReplay){
         Integer add_Reply=messageMapper.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId,isReplay);
         return  add_Reply;
-
     }
+
+
+
     public List<Message> viewProblem(int superMessageId){
         List<Message> view_Problem=messageMapper.viewProblem(superMessageId);
         System.out.println(view_Problem);
