@@ -43,7 +43,7 @@
 
 	<div class="ui-field-contain">
 		 <label>上传图片</label>
-		 <input type="file" id="file_upload"/>
+		 <input type="file" multiple="multiple" accept="image/*" id="file_upload"/>
 	</div>
 
 	<div class="ui-field-contain">
@@ -183,7 +183,13 @@ if(!debug){
  
   function addMessage(){
  var formData = new FormData();
-        formData.append('file',$("#file_upload")[0].files[0]);    //将文件转成二进制形式
+ var files = document.getElementById("file_upload").files;
+for(var i=0; i< files.length; i++){
+console.log(files[i].name);
+formData.append('file',files[i]);    //将文件转成二进制形式
+}	
+
+       // formData.append('file',files[0]);    //将文件转成二进制形式
         $.ajax({
             type:"post",
             url:serverUrl+"message/fileupload",
@@ -191,12 +197,12 @@ if(!debug){
             contentType: false,    //这个一定要写
             processData: false, //这个也一定要写，不然会报错
             data:formData,
-            dataType:'text',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+            dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
             success:function(data){
-                alert(data);
+                console.log(data);
             },
             error:function(XMLHttpRequest, textStatus, errorThrown, data){
-                alert(errorThrown);
+                console.log(errorThrown);
             }            
         });
   }

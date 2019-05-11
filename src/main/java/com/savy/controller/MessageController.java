@@ -353,12 +353,22 @@ public class MessageController {
        // messageService.rid();
         return messageService.rid();
     }
-    @RequestMapping(value="fileupload", method=RequestMethod.POST,produces="text/html;charset=utf-8")
-    public void addPic(HttpServletResponse response, HttpServletRequest request,
-                       @RequestParam(value="file", required=false) MultipartFile file) throws IOException {
-        System.out.println(file.getOriginalFilename());
-        response.getWriter().write("success");
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    @RequestMapping(value="fileupload", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer>  addPic(
+                       @RequestParam(value="file", required=false) MultipartFile[] file)  {
+        //System.out.println(file.getOriginalFilename());
+        System.out.println(file.length);
+        for(int i=0;i<file.length;i++){
+
+            System.out.println(file[i].getOriginalFilename());
+        }
+        Result<Integer> result=new Result<>();
+
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("上传成功！");
+        result.setData(1);
+        return result;
 //        return "success";
     }
 }
