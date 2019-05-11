@@ -1,8 +1,6 @@
 package com.savy.controller;
-import com.github.pagehelper.PageHelper;
 import com.savy.model.*;
 import com.savy.service.MessageService;
-import com.savy.service.UserService;
 import com.savy.util.Result;
 import com.savy.util.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.*;
 
@@ -28,26 +28,31 @@ public class MessageController {
     public Result<Integer> insertMessage(@RequestParam String messageContent,
                                          //@RequestParam String messageDate,
                                          //@RequestParam String imageUrl,
+                                         HttpServletRequest request1,
+                                         HttpServletRequest request2,
+                                         HttpServletRequest request3,
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
-                                         @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
+                                        /* @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
                                          @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
-                                         @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,
+                                         @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,*/
                                          @RequestParam int typeId,
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
+        List<MultipartFile> image_files = ((MultipartHttpServletRequest) request1).getFiles("imageUrl");
+        List<MultipartFile> voice_files = ((MultipartHttpServletRequest) request2).getFiles("voiceUrl");
+        List<MultipartFile> video_files = ((MultipartHttpServletRequest) request3).getFiles("videoUrl");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
-        try {
-            if(!imageUrl.isEmpty()){
-            imageUrl_2=messageService.up(imageUrl,"image");
+       try { if(!image_files.isEmpty()){
+            imageUrl_2=messageService.up2(image_files,"image");
         }
-        if(!voiceUrl.isEmpty()){
-            voiceUrl_2=messageService.up(voiceUrl,"voice");
+        if(!voice_files.isEmpty()){
+            voiceUrl_2=messageService.up2(voice_files,"voice");
         }
-        if (!videoUrl.isEmpty()){
-             videoUrl_2=messageService.up(videoUrl,"video");
+        if(!video_files.isEmpty()){
+            videoUrl_2=messageService.up2(video_files,"video");
         }
         }catch (Exception e){
             e.printStackTrace();
@@ -203,7 +208,7 @@ public class MessageController {
         System.out.println("call /message/viewProblem");
         Result<List<Message>> result=new Result<>();
         List<Message> view_Problem=messageService.viewProblem(superMessageId);
-        if(view_Problem.size() > 0)
+        if(view_Problem.size()> 0)
         {
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("接口调用成功！");
@@ -321,8 +326,6 @@ public class MessageController {
        // messageService.rid();
         return messageService.rid();
     }
-
-
 }
 
 

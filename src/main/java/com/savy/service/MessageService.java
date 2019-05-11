@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,23 +30,12 @@ public class MessageService {
 
     public Integer insertMessage(String messageContent, String imageUrl, String voiceUrl, String videoUrl, int typeId, String messageTitle, Integer userId){
         Date messageDate=new Date();
-        List list_image=new ArrayList();
-        List list_voice=new ArrayList();
-        List list_video=new ArrayList();
-        list_image.add(imageUrl);
-        list_video.add(videoUrl);
-        list_voice.add(voiceUrl);
-        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,list_image.toString(),list_voice.toString(),list_video.toString(),typeId,messageTitle,userId);
+        Integer insert_Message=messageMapper.insertMessage(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle,userId);
         return insert_Message;
     }
     public Integer insertMessage_2(String messageContent, String imageUrl, String voiceUrl, String videoUrl, int typeId, String messageTitle, Integer userId, Integer superMessageId,boolean isReplay){
         Date messageDate=new Date();
-        List list_image=new ArrayList();
-        List list_voice=new ArrayList();
-        List list_video=new ArrayList();
-        list_video.add(videoUrl);
-        list_voice.add(voiceUrl);
-        Integer insert_Message=messageMapper.insertMessage_2(messageContent,messageDate,list_image.toString(),list_voice.toString(),list_video.toString(),typeId,messageTitle,userId,superMessageId,isReplay);
+        Integer insert_Message=messageMapper.insertMessage_2(messageContent,messageDate,imageUrl,voiceUrl,videoUrl,typeId,messageTitle,userId,superMessageId,isReplay);
         return insert_Message;
     }
     public List<MessageType> selectTypeName(){
@@ -138,6 +131,7 @@ public class MessageService {
 
         return pageEntity;
     }
+    //单文件上传
     public String up(MultipartFile file,String childFiled){
         // List<MultipartFile> files=(Mul)(request)
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
@@ -179,6 +173,53 @@ public class MessageService {
         }
         return "上传失败";
     }
+    //多文件上传
+    public String up2(List<MultipartFile> files,String childFiled) {
+        //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+        String fide_path="";
+        MultipartFile file = null;
+        BufferedOutputStream stream = null;
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        //  System.out.println("---------------------"+path);
+        String p=StringUtils.subString(path,"","MessageBoard");
+        //System.out.println("---------------------"+p);
+        path=p+"filed/"+childFiled;
+        File f = new File(path);
+        if(!f.exists()&&!f.isDirectory()){
+            f.mkdirs();
+            //System.out.println("创建文件");
+        }else {
+            //System.out.println("文件夹已经存在");
+        }
+        for (int i = 0; i < files.size(); ++i) {
+            file = files.get(i);
+            //String filePath = "E:/";
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            fileName=rid();
+            String filePath = path+"/";
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    stream = new BufferedOutputStream(new FileOutputStream(
+                            new File(filePath + fileName+suffixName)));//设置文件路径及名字
+                    stream.write(bytes);// 写入
+                    stream.close();
+                    String pp=(filePath + fileName+suffixName+",").substring(1);//截取字符串（从1下标开始）
+                    fide_path=fide_path+pp;
+                } catch (Exception e) {
+                    stream = null;
+                    return "第 " + i + " 个文件上传失败 ==> "
+                            + e.getMessage();
+                }
+            } else {
+                return "第 " + i
+                        + " 个文件上传失败因为文件为空";
+            }
+        }
+        return fide_path;
+    }
+
     //生成UUID
     public String tid(){
         Date date=new Date();
