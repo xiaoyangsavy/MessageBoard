@@ -10,16 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
-import java.io.File;
-import java.lang.reflect.Type;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -33,9 +23,9 @@ public class MessageController {
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> insertMessage(@RequestParam String messageContent,
-                                         @RequestParam(value="image_files", required=false) MultipartFile[] image_files,
-                                         @RequestParam(value="voice_files", required=false) MultipartFile[] voice_files,
-                                         @RequestParam(value="video_files", required=false) MultipartFile[] video_files,
+                                         @RequestParam(value="imageFile", required=false) MultipartFile[] imageFile,
+                                         @RequestParam(value="voiceFile", required=false) MultipartFile[] voiceFile,
+                                         @RequestParam(value="videoFile", required=false) MultipartFile[] videoFile,
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
                                          @RequestParam int typeId,
                                          @RequestParam String messageTitle,
@@ -46,14 +36,14 @@ public class MessageController {
         int superMessageId=0;
         boolean isReplay=false;
        try {
-           if(image_files.length>0){
-            imageUrl_2=messageService.up2(image_files,"image");
+           if(imageFile.length>0){
+            imageUrl_2=messageService.up2(imageFile,"image").toString();
         }
-        if(voice_files.length>0){
-            voiceUrl_2=messageService.up2(voice_files,"voice");
+        if(voiceFile.length>0){
+            voiceUrl_2=messageService.up2(voiceFile,"voice").toString();
         }
-        if(video_files.length>0){
-            videoUrl_2=messageService.up2(video_files,"video");
+        if(videoFile.length>0){
+            videoUrl_2=messageService.up2(videoFile,"video").toString();
         }
         }catch (Exception e){
             e.printStackTrace();

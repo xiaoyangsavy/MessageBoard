@@ -181,9 +181,9 @@ public class MessageService {
         return "上传失败";
     }
     //多文件上传
-    public String up2(MultipartFile[] files,String childFiled) {
+    public List up2(MultipartFile[] files,String childFiled) {
         //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-        String fide_path="";
+        List fide_path=new ArrayList();
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
@@ -212,16 +212,16 @@ public class MessageService {
                             new File(filePath + fileName+suffixName)));//设置文件路径及名字
                     stream.write(bytes);// 写入
                     stream.close();
-                    String pp=(filePath + fileName+suffixName+",").substring(1);//截取字符串（从1下标开始）
-                    fide_path=fide_path+pp;
+                    String pp=(filePath + fileName+suffixName).substring(1);//截取字符串（从1下标开始）
+                    fide_path.add(pp);
                 } catch (Exception e) {
                     stream = null;
-                    return "第 " + i + " 个文件上传失败 ==> "
-                            + e.getMessage();
+                    /*return "第 " + i + " 个文件上传失败 ==> "
+                            + e.getMessage();*/
                 }
             } else {
-                return "第 " + i
-                        + " 个文件上传失败因为文件为空";
+                /*return "第 " + i
+                        + " 个文件上传失败因为文件为空";*/
             }
         }
         return fide_path;
