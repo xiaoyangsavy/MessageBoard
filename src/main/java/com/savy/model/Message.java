@@ -2,16 +2,18 @@ package com.savy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Message {
     private int messageId;//消息编号
     private String typeName;
     private int superMessageId;//父消息编号
     private String messageContent;//消息内容
-    private String imageUrl;//图片地址
-    private String voiceUrl;//音频地址
-    private String videoUrl;//视频地址
+    private List imageUrl;//图片地址
+    private List voiceUrl;//音频地址
+    private List videoUrl;//视频地址
     private int userId;//用户编号
     private double messageGrade;//用户评分
     private boolean isReplay;//管理员是否回复
@@ -53,28 +55,28 @@ public class Message {
         this.messageDate = messageDate;
     }
 
-    public String getImageUrl() {
+    public List getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.imageUrl = Arrays.asList(imageUrl);
     }
 
-    public String getVoiceUrl() {
+    public List getVoiceUrl() {
         return voiceUrl;
     }
 
     public void setVoiceUrl(String voiceUrl) {
-        this.voiceUrl = voiceUrl;
+        this.voiceUrl = Arrays.asList(voiceUrl);
     }
 
-    public String getVideoUrl() {
+    public List getVideoUrl() {
         return videoUrl;
     }
 
     public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+        this.videoUrl =Arrays.asList(videoUrl);
     }
 
     public int getUserId() {
