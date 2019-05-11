@@ -180,13 +180,25 @@ if(!debug){
 				if(i==0){	//用户留言内容
 				var html = '';
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
-			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label>';
-			   	//for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				// }
-			   //	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				// }
-				//for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				// }
+			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
+				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
+			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
+				html += '<img src="'+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+				 }
+				}
+				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
+					 	html += '<p>视频:</p><br/>';
+				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				html += '<video src="'+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+				 }
+				 }
+				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
+				html += ' <p>音频:</p><br/>';
+			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+				 html += '<audio controls>  <source src="'+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 }
+				}
+				
 				document.getElementById("content-div").innerHTML = html;
 
 				isReplay = item.replay;	//是否回复
@@ -195,12 +207,18 @@ if(!debug){
 			   	var html = '';
 			   	html += '<h4 style="text-align:left">'+item.userName+'： </h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label>';
-				  	//for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				// }
-			   //	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				// }
-				//for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				// }
+				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
+			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
+				 }
+				}
+				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
+			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+				 }
+				}
+				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
+				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				 }
+				 }
 				 document.getElementById("reply-div").innerHTML = html;
 			}
 

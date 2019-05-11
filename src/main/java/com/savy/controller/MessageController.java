@@ -41,6 +41,7 @@ public class MessageController {
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
+        System.out.println("userId:"+userId);
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
