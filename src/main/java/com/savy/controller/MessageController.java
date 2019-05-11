@@ -13,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.List;
 
 @RequestMapping(value = "/message")
 @Controller
@@ -99,6 +102,25 @@ public class MessageController {
         result.setData(select_TypeName);
         return result;
     }
+
+
+    @RequestMapping(value = "/select_TypeName",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<MessageType> select_TypeName(@RequestParam Integer typeId){
+        System.out.println("call /message/selectTypeName");
+        Result<MessageType> result=new Result<>();
+        MessageType select_TypeName=messageService.select_TypeName(typeId);
+        result.setResultStatus(ResultStatus.SUCCESS);
+        result.setMessage("查询消息类型成功！");
+        result.setData(select_TypeName);
+        return result;
+    }
+
+
+
+
+
+
     @RequestMapping(value = "/addReply",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> addReply(@RequestBody Map<String,Object> myMap)
@@ -267,6 +289,7 @@ public class MessageController {
         }
         return result;
     }
+
 //采用分页插件实现
     @RequestMapping(value = "/queryMessageList",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody

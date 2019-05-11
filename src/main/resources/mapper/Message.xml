@@ -11,6 +11,12 @@
         select *
         from message_type
     </select>
+
+    <select id="selectType_Name" parameterType="java.lang.String" resultType="com.savy.model.MessageType">
+        select *
+        from message_type
+        where type_id=${typeId}
+    </select>
     <select id="select_Type" resultType="Integer">
         select count(*)
         from message_type
