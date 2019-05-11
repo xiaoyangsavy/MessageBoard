@@ -33,32 +33,25 @@ public class MessageController {
     @RequestMapping(value = "/insertMessage",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer> insertMessage(@RequestParam String messageContent,
-                                         //@RequestParam String messageDate,
-                                         //@RequestParam String imageUrl,
-                                         HttpServletRequest request1,
-                                         HttpServletRequest request2,
-                                         HttpServletRequest request3,
+                                         @RequestParam(value="image_files", required=false) MultipartFile[] image_files,
+                                         @RequestParam(value="voice_files", required=false) MultipartFile[] voice_files,
+                                         @RequestParam(value="video_files", required=false) MultipartFile[] video_files,
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
-                                        /* @RequestParam(name = "imageUrl",required = false) MultipartFile imageUrl,
-                                         @RequestParam(name = "voiceUrl",required = false) MultipartFile voiceUrl,
-                                         @RequestParam(name = "videoUrl",required = false) MultipartFile videoUrl,*/
                                          @RequestParam int typeId,
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
-        List<MultipartFile> image_files = ((MultipartHttpServletRequest) request1).getFiles("imageUrl");
-        List<MultipartFile> voice_files = ((MultipartHttpServletRequest) request2).getFiles("voiceUrl");
-        List<MultipartFile> video_files = ((MultipartHttpServletRequest) request3).getFiles("videoUrl");
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
-       try { if(!image_files.isEmpty()){
+       try {
+           if(image_files.length>0){
             imageUrl_2=messageService.up2(image_files,"image");
         }
-        if(!voice_files.isEmpty()){
+        if(voice_files.length>0){
             voiceUrl_2=messageService.up2(voice_files,"voice");
         }
-        if(!video_files.isEmpty()){
+        if(video_files.length>0){
             videoUrl_2=messageService.up2(video_files,"video");
         }
         }catch (Exception e){

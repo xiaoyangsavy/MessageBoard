@@ -181,7 +181,7 @@ public class MessageService {
         return "上传失败";
     }
     //多文件上传
-    public String up2(List<MultipartFile> files,String childFiled) {
+    public String up2(MultipartFile[] files,String childFiled) {
         //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         String fide_path="";
         MultipartFile file = null;
@@ -190,7 +190,7 @@ public class MessageService {
         //  System.out.println("---------------------"+path);
         String p=StringUtils.subString(path,"","MessageBoard");
         //System.out.println("---------------------"+p);
-        path=p+"filed/"+childFiled;
+        path=p+"Files/"+childFiled;
         File f = new File(path);
         if(!f.exists()&&!f.isDirectory()){
             f.mkdirs();
@@ -198,8 +198,8 @@ public class MessageService {
         }else {
             //System.out.println("文件夹已经存在");
         }
-        for (int i = 0; i < files.size(); ++i) {
-            file = files.get(i);
+        for (int i = 0; i < files.length; ++i) {
+            file = files[i];
             //String filePath = "E:/";
             String fileName = file.getOriginalFilename();
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
