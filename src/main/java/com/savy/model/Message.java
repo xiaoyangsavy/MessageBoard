@@ -2,6 +2,7 @@ package com.savy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +61,9 @@ public class Message {
     }
 
     public void setImageUrl(String imageUrl) {
+        if (imageUrl==""||imageUrl==null){
+            this.imageUrl=new ArrayList();
+        }
         this.imageUrl = Arrays.asList(imageUrl);
     }
 
@@ -68,6 +72,9 @@ public class Message {
     }
 
     public void setVoiceUrl(String voiceUrl) {
+        if(voiceUrl==""||voiceUrl==null){
+            this.voiceUrl=new ArrayList();
+        }
         this.voiceUrl = Arrays.asList(voiceUrl);
     }
 
@@ -76,6 +83,9 @@ public class Message {
     }
 
     public void setVideoUrl(String videoUrl) {
+        if (videoUrl==""||videoUrl==null){
+            this.videoUrl=new ArrayList();
+        }
         this.videoUrl =Arrays.asList(videoUrl);
     }
 
