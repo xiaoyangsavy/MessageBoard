@@ -356,8 +356,13 @@ public class MessageController {
     @RequestMapping(value="fileupload", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Result<Integer>  addPic(
-                       @RequestParam(value="file", required=false) MultipartFile file)  {
-        System.out.println(file.getOriginalFilename());
+                       @RequestParam(value="file", required=false) MultipartFile[] file)  {
+        //System.out.println(file.getOriginalFilename());
+        System.out.println(file.length);
+        for(int i=0;i<file.length;i++){
+
+            System.out.println(file[i].getOriginalFilename());
+        }
         Result<Integer> result=new Result<>();
 
         result.setResultStatus(ResultStatus.SUCCESS);
