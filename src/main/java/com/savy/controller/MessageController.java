@@ -13,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @RequestMapping(value = "/message")
@@ -323,6 +326,16 @@ public class MessageController {
     }
 
 
+
+
+    @RequestMapping(value="fileupload", method=RequestMethod.POST,produces="text/html;charset=utf-8")
+    public void addPic(HttpServletResponse response, HttpServletRequest request,
+                       @RequestParam(value="file", required=false) MultipartFile file) throws IOException {
+        System.out.println(file.getOriginalFilename());
+        response.getWriter().write("success");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+//        return "success";
+    }
 }
 
 
