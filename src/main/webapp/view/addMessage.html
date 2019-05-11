@@ -43,17 +43,17 @@
 
 	<div class="ui-field-contain">
 		 <label>上传图片</label>
-		 <input type="file" multiple accept="image/*" id="imageUrl"/>
+		 <input type="file" multiple accept="image/*" id="imageFile"/>
 	</div>
 
 	<div class="ui-field-contain">
 		<label>上传视频</label>
-		<input type="file"     name="videoUrl" id="videoUrl"  />
+		<input type="file"     name="videoUrl" id="videoFile"  />
 	</div>
 
 	<div class="ui-field-contain">
 		<label>上传语音</label>
-		<input type="file"     name="voiceUrl" id="voiceUrl"  />
+		<input type="file"     name="voiceUrl" id="voiceFile"  />
 	</div>
 
 
@@ -128,9 +128,10 @@ if(!debug){
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
 	var messageContent = $("#messageContent").val();
-	var imageUrls = $("#imageUrl").files;
-	var videoUrls = $("#videoUrl").files;
-	var voiceUrls = $("#voiceUrl").files;
+	console.log($("#imageFile")); 
+	var imageFile = document.getElementById("imageFile").files;	//此处不能用jquery获取数据
+	var videoFile = document.getElementById("videoFile").files;
+	var voiceFile = document.getElementById("voiceFile").files;
 	 
 	 console.log("values:");
 	console.log("messageTitle="+messageTitle);
@@ -148,25 +149,25 @@ if(!debug){
 	//formFile.append("voiceUrl", voiceUrl);
 	if(messageId != null && messageId != undefined && messageId != ''){
 	formFile.append("messageId", messageId); 	
+	}
 	
-	 
-for(var i=0; i< imageUrls.length; i++){
-console.log(imageUrls[i].name);
-formFile.append('imageUrl',imageUrls[i]);    //将文件转成二进制形式
+	//console.log(imageFile); 
+  
+for(var i=0; i< imageFile.length; i++){
+console.log(imageFile[i].name);
+formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
 }	
 
-for(var i=0; i< videoUrls.length; i++){
-console.log(videoUrls[i].name);
-formFile.append('videoUrl',videoUrls[i]);    //将文件转成二进制形式
+for(var i=0; i< videoFile.length; i++){
+console.log(videoFile[i].name);
+formFile.append('videoFile',videoFile[i]);    //将文件转成二进制形式
 }
 
-for(var i=0; i< voiceUrls.length; i++){
-console.log(voiceUrls[i].name);
-formFile.append('voiceUrl',voiceUrls[i]);    //将文件转成二进制形式
+for(var i=0; i< voiceFile.length; i++){
+console.log(voiceFile[i].name);
+formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
 }
 
-
-	}
 	//alert(formFile.get("messageTitle"));
 	
 	var items = formFile.entries();
