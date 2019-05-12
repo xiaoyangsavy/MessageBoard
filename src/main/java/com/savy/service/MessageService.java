@@ -223,7 +223,7 @@ public class MessageService {
                     stream.close();
                    // String pp=(filePath + fileName+suffixName).substring(1);//截取字符串（从1下标开始）
                    // System.out.println(StringUtils.subString(pp,"Files",pp.length()));
-                    String pp="/Files/"+childFiled+fileName+suffixName;
+                    String pp="Files/"+childFiled+fileName+suffixName;
                     fide_path=fide_path+pp+",";
                 } catch (Exception e) {
                     stream = null;

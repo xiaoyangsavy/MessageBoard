@@ -27,7 +27,7 @@ public class MessageController {
                                          @RequestParam(value="voiceFile", required=false) MultipartFile[] voiceFile,
                                          @RequestParam(value="videoFile", required=false) MultipartFile[] videoFile,
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
-                                         @RequestParam int typeId,
+                                         @RequestParam Integer typeId,
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
@@ -79,6 +79,9 @@ public class MessageController {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             //result.setData(r);
+        }
+        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null)){
+
         }
         return result;
     }
