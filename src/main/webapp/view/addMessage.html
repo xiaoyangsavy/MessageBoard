@@ -191,12 +191,12 @@ formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
                	success: function(result){
                		console.log("call message/insertMessage");
 					console.log(data);
-	 				if(data.status==200){	//调用成功
-					 openPopup("新增成功！");
+	 				//if(data.status==200){	//调用成功
+					// openPopup("新增成功！");
 					 window.location.href='message.html';
-					}else{
-					openPopup(data.message);
-				}
+					//}else{
+					//openPopup(data.message);
+					//}
                	},
                	error: function(result){
 					console.log(result);

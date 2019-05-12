@@ -173,8 +173,10 @@ if(!debug){
 				 
 				var len = data.data.length;
 				console.log("length:"+len);
+				console.log(len>0?"true":"false");
  			 for(var i = 0; i < len; i++){	//只遍历了一次
 				 console.log("i="+i);
+				 console.log(i < len?"true":"false");
 				console.log(data.data[i]);
 			 	var item = data.data[i];
 				 console.log(data.data[i].imageUrl);
@@ -192,20 +194,20 @@ if(!debug){
 					 
 					console.log(item.imageUrl.length);
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				console.log(item.imageUrl[j]);
-				html += '<img src="'+serverUrl+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+				console.log(fileUrl+item.imageUrl[j]);
+				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				html += '<video src="'+serverUrl+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>音频:</p><br/>';
 			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				 html += '<audio controls>  <source src="'+serverUrl+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
 				
@@ -220,19 +222,19 @@ if(!debug){
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				html += '<img src="'+serverUrl+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				html += '<video src="'+serverUrl+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>音频:</p><br/>';
 			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				 html += '<audio controls>  <source src="'+serverUrl+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
 				 document.getElementById("reply-div").innerHTML = html;
