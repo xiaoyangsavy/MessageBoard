@@ -71,6 +71,15 @@ public class MessageController {
             result.setMessage("添加信息失败！");
             result.setData(r);
         }
+        if(r>0){
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("添加信息成功！");
+            result.setData(r);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            result.setData(r);
+        }
         return result;
     }
 
