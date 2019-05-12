@@ -3,6 +3,7 @@ package com.savy.service;
 import com.alibaba.druid.util.StringUtils;
 import com.savy.dao.MessageMapper;
 import com.savy.model.Message;
+import com.savy.model.MessageDto;
 import com.savy.model.MessageEntity;
 import com.savy.model.MessageType;
 import com.savy.model.PageEntity;
@@ -82,8 +83,8 @@ public class MessageService {
 
 
 
-    public List<Message> viewProblem(int superMessageId){
-        List<Message> view_Problem=messageMapper.viewProblem(superMessageId);
+    public List<MessageDto> viewProblem(int superMessageId){
+        List<MessageDto> view_Problem=messageMapper.viewProblem(superMessageId);
         System.out.println(view_Problem);
         return view_Problem;
     }
@@ -114,10 +115,17 @@ public class MessageService {
     public PageEntity findItemByPage(String startDate,String endDate, Integer typeId, String isReplay, String userName,String messageTitle,Integer currentPage,Integer pageSize,int start,int end) {
         int Total=0;
         int count=messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle);
-        if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)%pageSize>0)
+        if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)%pageSize>=0)
         {
-            Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)/pageSize)+1;
+            if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)%pageSize==0){
+                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)/pageSize);
+            }
+            else {
+                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)/pageSize)+1;
+            }
+
         }
+        //System.out.println("-----------------------"+Total);
         if(currentPage>Total){
             currentPage=Total;
         }
@@ -181,9 +189,10 @@ public class MessageService {
         return "上传失败";
     }
     //多文件上传
-    public List up2(MultipartFile[] files,String childFiled) {
+    public String up2(MultipartFile[] files,String childFiled) {
         //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-        List fide_path=new ArrayList();
+        //List fide_path=new ArrayList();
+        String fide_path="";
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
@@ -213,7 +222,7 @@ public class MessageService {
                     stream.write(bytes);// 写入
                     stream.close();
                     String pp=(filePath + fileName+suffixName).substring(1);//截取字符串（从1下标开始）
-                    fide_path.add(pp);
+                    fide_path=fide_path+pp+",";
                 } catch (Exception e) {
                     stream = null;
                     /*return "第 " + i + " 个文件上传失败 ==> "
@@ -226,7 +235,10 @@ public class MessageService {
         }
         return fide_path;
     }
-
+    public Integer updateMessageGrade(double messageGrade,Integer messageId){
+        Integer update_MessageGrade=messageMapper.updateMessageGrade(messageGrade,messageId);
+        return update_MessageGrade;
+    }
     //生成UUID
     public String tid(){
         Date date=new Date();

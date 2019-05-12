@@ -2,17 +2,22 @@ package com.savy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Message {
+public class MessageDto {
     private int messageId;//消息编号
     private String typeName;
     private int superMessageId;//父消息编号
     private String messageContent;//消息内容
-    private String imageUrl;//图片地址
-    private String voiceUrl;//音频地址
-    private String videoUrl;//视频地址
+    private List imageUrl;//图片地址
+    private String image_url;
+    private List voiceUrl;//音频地址
+    private String voice_url;
+    private List videoUrl;//视频地址
+    private String video_url;
     private int userId;//用户编号
     private double messageGrade;//用户评分
     private boolean isReplay;//管理员是否回复
@@ -54,28 +59,55 @@ public class Message {
         this.messageDate = messageDate;
     }
 
-    public String getImageUrl() {
+    public List getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String image_url) {
+        String as[]=image_url.split(",");
+        this.imageUrl=Arrays.asList(as);
     }
 
-    public String getVoiceUrl() {
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public List getVoiceUrl() {
         return voiceUrl;
     }
 
-    public void setVoiceUrl(String voiceUrl) {
-        this.voiceUrl = voiceUrl;
+    public void setVoiceUrl(String voice_url) {
+        String as[]=voice_url.split(",");
+        this.voiceUrl = Arrays.asList(as);
     }
 
-    public String getVideoUrl() {
+    public String getVoice_url() {
+        return voice_url;
+    }
+
+    public void setVoice_url(String voice_url) {
+        this.voice_url = voice_url;
+    }
+
+    public List getVideoUrl() {
         return videoUrl;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setVideoUrl(String video_url) {
+        String as[]=video_url.split(",");
+        this.videoUrl =Arrays.asList(as);
+    }
+
+    public String getVideo_url() {
+        return video_url;
+    }
+
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
     }
 
     public int getUserId() {

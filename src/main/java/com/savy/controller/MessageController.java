@@ -36,13 +36,13 @@ public class MessageController {
         boolean isReplay=false;
        try {
            if(imageFile.length>0){
-            imageUrl_2=messageService.up2(imageFile,"image").toString();
+            imageUrl_2=messageService.up2(imageFile,"image");
         }
         if(voiceFile.length>0){
-            voiceUrl_2=messageService.up2(voiceFile,"voice").toString();
+            voiceUrl_2=messageService.up2(voiceFile,"voice");
         }
         if(videoFile.length>0){
-            videoUrl_2=messageService.up2(videoFile,"video").toString();
+            videoUrl_2=messageService.up2(videoFile,"video");
         }
         }catch (Exception e){
             e.printStackTrace();
@@ -131,7 +131,7 @@ public class MessageController {
         String imageUrl=String.valueOf(myMap.get("imageUrl"));
         String voiceUrl=String.valueOf(myMap.get("voiceUrl"));
         String videoUrl=String.valueOf(myMap.get("videoUrl"));
-        int userId=Integer.parseInt((String)myMap.get("userId"));
+        int userId=(Integer) myMap.get("userId");
         Date messageDate=new Date();
         Result<Integer> result=new Result<>();
         Integer r=0;
@@ -213,10 +213,10 @@ public class MessageController {
 
     @RequestMapping(value = "/viewProblem",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<List<Message>> viewProblem(@RequestParam int superMessageId){
+    public Result<List<MessageDto>> viewProblem(@RequestParam int superMessageId){
         System.out.println("call /message/viewProblem");
-        Result<List<Message>> result=new Result<>();
-        List<Message> view_Problem=messageService.viewProblem(superMessageId);
+        Result<List<MessageDto>> result=new Result<>();
+        List<MessageDto> view_Problem=messageService.viewProblem(superMessageId);
         if(view_Problem.size()> 0)
         {
             result.setResultStatus(ResultStatus.SUCCESS);
@@ -272,8 +272,8 @@ public class MessageController {
     @ResponseBody
     public Result<Integer> addMessageGrade(@RequestBody Map<String,Object> myMap){
         System.out.println("call /message/addMessageGrade");
-        double messageGrade=Double.valueOf((String)myMap.get("messageGrade"));
-        int messageId=Integer.parseInt((String)myMap.get("messageId"));
+        double messageGrade=(Double)myMap.get("messageGrade");
+        int messageId=(Integer)myMap.get("messageId");
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(messageId>0)
@@ -353,6 +353,25 @@ public class MessageController {
         result.setData(1);
         return result;
 //        return "success";
+    }
+    @RequestMapping(value = "/updateMessageGrade",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> updateMessageGrade(@RequestBody Map<String,Object> map){
+        System.out.println("call /message/updateMessageGrade");
+        double messageGrade=(Double) map.get("messageGrade");
+        int messageId=(Integer)map.get("messageId");
+        Result<Integer> result=new Result<>();
+        Integer update_MessageGrade=messageService.updateMessageGrade(messageGrade,messageId);
+        if (update_MessageGrade>0){
+            result.setResultStatus(ResultStatus.SUCCESS);
+            result.setMessage("更新评论成功！");
+            result.setData(update_MessageGrade);
+        }else {
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("更新评论失败");
+        }
+        return result;
+
     }
 }
 

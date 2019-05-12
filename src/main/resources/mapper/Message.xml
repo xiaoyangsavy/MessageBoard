@@ -76,7 +76,7 @@
         insert into message (super_message_id,message_content,message_date,image_url,voice_url,video_url,user_id,is_replay)
         values (#{superMessageId},#{messageContent},#{messageDate},#{imageUrl},#{voiceUrl},#{videoUrl},#{userId},#{isReplay})
     </insert>
-    <select id="viewProblem" parameterType="java.lang.String" resultType="com.savy.model.Message">
+    <select id="viewProblem" parameterType="java.lang.String" resultType="com.savy.model.MessageDto">
         select *
         from message,user,message_type
         where (message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
@@ -165,4 +165,9 @@
         from message
         where message_id=${messageId}
     </select>
+    <update id="updateMessageGrade">
+        update message
+        set message_grade=#{messageGrade}
+        where message_id=#{messageId}
+    </update>
 </mapper>

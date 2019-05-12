@@ -1,6 +1,7 @@
 package com.savy.dao;
 
 import com.savy.model.Message;
+import com.savy.model.MessageDto;
 import com.savy.model.MessageEntity;
 import com.savy.model.MessageType;
 import org.apache.ibatis.annotations.Param;
@@ -40,7 +41,7 @@ public interface MessageMapper {
 
 
             //查看问题
-    List<Message> viewProblem(@Param("superMessageId") int superMessageId);
+    List<MessageDto> viewProblem(@Param("superMessageId") int superMessageId);
     //删除问题
     Integer deleteProblem(@Param("messageId") int messageId);
     //删除回复
@@ -49,6 +50,8 @@ public interface MessageMapper {
     Integer addMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") int messageId);
     //查找评分
     Integer selectMessageGrade(@Param("messageId") Integer messageId);
+    //修改评分
+    Integer updateMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") Integer messageId);
 
     //查询问题个数
     Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
