@@ -91,26 +91,27 @@
  
 
 <br/>
- <div id="grade-div" class="stars stars-example-css">
+ <div id="grade-div"  >
  <span class="title">评分</span>
-                <select id="example-css" name="rating" autocomplete="off" data-role="none">
+                <select  name="rating"  id="rating-select" >
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                
-       <div id="update-grade-button" class="stars stars-example-css">
+                <div id="grade-submit-div"  >
+        
                  <table style="margin: 0 auto">
     <tr><td align="center">
       <input  type="submit" onclick="grade()" data-inline="true" value="确定评分">
       </td></tr>
      </table>
-      </div>
+      </div> </div>
   </div><br/>
 </div> 
 
+<!--
  <script>          
     $(document).on("mobileinit", function(){
       $.mobile.ignoreContentEnabled = true;
@@ -118,7 +119,7 @@
   </script>
     <script src="js/jquery.barrating.js"></script>
     <script src="js/examples.js"></script>
-    
+  -->  
     
 <script type="text/javascript">
 
@@ -173,20 +174,27 @@ if(!debug){
 				 
 				var len = data.data.length;
 				console.log("length:"+len);
-				console.log(len>0?"true":"false");
- 			 for(var i = 0; i < len; i++){	//只遍历了一次
+				//console.log(len>0?"true":"false");
+ 			 for(var i = 0; i < 2; i++){	//只遍历了一次,只能强行写死
 				 console.log("i="+i);
-				 console.log(i < len?"true":"false");
+				 //console.log(i < len?"true":"false");
 				console.log(data.data[i]);
 			 	var item = data.data[i];
-				 console.log(data.data[i].imageUrl);
-				//评分控件默认显示值
-				 var grade = item.messageGrade;
-				 $("#example-css").val(grade);	//TODO需要修改js文件逻辑
+				 //console.log(data.data[i].imageUrl);
+				
 				
 	 			//document.getElementById("content-div").innerHTML = '';
 	 			document.getElementById("reply-div").innerHTML = '<h4 id="messageTitle" align="center">无</h4>';
 				if(i==0){	//用户留言内容
+				
+				//评分控件默认显示值
+				 var grade = item.messageGrade;
+				 console.log("grade="+grade);
+				 if(grade==null || grade == undefined || grade == '' || grade == 0){
+					 grade = 5;
+					}
+				 $("#rating-select").val(grade);	//TODO需要修改js文件逻辑
+  
 				var html = '';
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
@@ -213,11 +221,13 @@ if(!debug){
 				
 				document.getElementById("content-div").innerHTML = html;
 
-				isReplay = item.replay;	//是否回复
-				
+	 
 			   }else{	//管理员回复内容
+			  
 			   console.log("reply:");
 			   console.log(item);
+			   if(item != null&&item != undefined && item != ''){//存在回复
+				    isReplay = true;	
 			   	var html = '';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
@@ -238,6 +248,7 @@ if(!debug){
 				 }
 				}
 				 document.getElementById("reply-div").innerHTML = html;
+			   }
 			}
 
 			   
@@ -248,7 +259,8 @@ if(!debug){
 				$("#replay-button").hide();//隐藏发布按钮
 			}else{
 				$("#replay-button").show();//显示发布按钮
-				$("#update-grade-button").hide();	//隐藏评分提交功能
+				$("#grade-submit-div").hide();	//隐藏评分提交功能
+				$("#rating-select").attr('disabled', true);	//下拉框不可点击
 			}
 			if(isReplay){
 				$("#grade-div").show();	//显示评分控件
@@ -273,6 +285,39 @@ if(!debug){
 //管理员回复
 function goReply(){
 	window.location.href='view/addMessage.html?messageId='+messageId;
+}
+
+
+//修改评分
+function grade(){
+	var messageGrade = $("#rating-select").val(); 
+		
+		var jsonObject = '{';
+	jsonObject+='"messageId":'+messageId;
+	jsonObject+=',"messageGrade":'+messageGrade+'';
+	jsonObject+='}'
+	console.log(jsonObject);
+		
+	$.ajax({
+        type: "POST",
+        url:  serverUrl+"message/updateMessageGrade",
+        contentType: "application/json",
+		data : jsonObject,
+        success: function (data) {
+			console.log("call user/updateMessageGrade");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			 openPopup("修改成功！");
+			 //window.location.href='message.html';
+			}else{
+				openPopup(data.message);
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("接口调用失败，请重试！");
+        }
+    });	 
 }
   </script>
 </body>
