@@ -397,7 +397,7 @@ public class MessageController {
     @ResponseBody
     public Result<Integer> updateMessageGrade(@RequestBody Map<String,Object> map){
         System.out.println("call /message/updateMessageGrade");
-        double messageGrade=(Double) map.get("messageGrade");
+        double messageGrade=Double.valueOf(map.get("messageGrade").toString());
         int messageId=(Integer)map.get("messageId");
         Result<Integer> result=new Result<>();
         Integer update_MessageGrade=messageService.updateMessageGrade(messageGrade,messageId);

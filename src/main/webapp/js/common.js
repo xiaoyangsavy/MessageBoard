@@ -4,7 +4,7 @@ var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
 var serverUrl = "http://127.0.0.1:80/message/"	//服务器地址
-var fileUrl = ""	//文件本地路径前缀
+var fileUrl = "http://127.0.0.1:8080/"	//服务器地址缀
 var userIdFlag = 'userId';
 
  
