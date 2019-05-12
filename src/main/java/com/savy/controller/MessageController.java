@@ -80,8 +80,10 @@ public class MessageController {
             result.setMessage("添加信息失败！");
             //result.setData(r);
         }
-        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null)){
-
+        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
         }
         return result;
     }
