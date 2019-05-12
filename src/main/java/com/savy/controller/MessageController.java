@@ -50,23 +50,37 @@ public class MessageController {
         }
         Result<Integer> result=new Result<Integer>();
         Integer r=0;
-        if(messageId!=null){//用户评论的插入
+        if((messageId!=null)&&(messageContent!="")&&(messageContent!=null)){//用户评论的插入
             superMessageId=messageId;
             isReplay=true;
             r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
-            result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加信息成功！");
-            result.setData(r);
+            if(r>0){
+                result.setResultStatus(ResultStatus.SUCCESS);
+                result.setMessage("添加信息成功！");
+                result.setData(r);
+
+            }else {
+                result.setResultStatus(ResultStatus.FAIL);
+                result.setMessage("添加信息失败！");
+            }
             return result;
         }
-        if(messageContent!=""&&messageContent!=null)//发布信息
+        if(((messageContent!="")||(messageContent!=null))&&((messageTitle!="")&&(messageTitle!=null)))//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
-            result.setResultStatus(ResultStatus.SUCCESS);
-            result.setMessage("添加信息成功！");
-            result.setData(r);
+            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
+            if(r>0){
+                result.setResultStatus(ResultStatus.SUCCESS);
+                result.setMessage("添加信息成功！");
+                result.setData(r);
+
+            }else {
+                result.setResultStatus(ResultStatus.FAIL);
+                result.setMessage("添加信息失败！");
+            }
+            return result;
         }
-        else {
+       else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             //result.setData(r);
@@ -81,6 +95,16 @@ public class MessageController {
             //result.setData(r);
         }
         if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
+        }
+        if((messageTitle==""||messageTitle==null)&&(messageContent==""||messageContent==null)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
+        }
+        if(r==0||r==null){
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             return result;
