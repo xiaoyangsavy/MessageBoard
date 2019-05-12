@@ -191,8 +191,27 @@ if(!debug){
 				 var grade = item.messageGrade;
 				 console.log("grade="+grade);
 				 if(grade==null || grade == undefined || grade == '' || grade == 0){
-					 grade = 5;
+					 grade = "5";
 					}
+				
+				switch(grade){
+					case 1:
+					grade = "1";
+					break;
+					case 2:
+					grade = "2";
+					break;
+					case 3:
+					grade = "3";
+					break;
+					case 4:
+					grade = "4";
+					break;
+					case 5:
+					grade = "5";
+					break;
+				}
+				
 				 $("#rating-select").val(grade);	//TODO需要修改js文件逻辑
   
 				var html = '';
@@ -270,6 +289,7 @@ if(!debug){
 			}else{
 				openPopup(data.message);
 			}
+			//window.location.reload();
         },
         error: function (e) {
 			console.log(e);

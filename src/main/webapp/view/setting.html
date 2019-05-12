@@ -27,8 +27,10 @@
   <img src="../images/name.png" width="30%" text-align="center" >
   </div>
    <p align="center">用户：admin</p>
+   <div id="admin-manager-div">
 	<button onclick="goWebpage('typeList.html')" class="ui-btn ui-corner-all ui-shadow">类别管理</button><br/>
 	<button onclick="goWebpage('userList.html')" class="ui-btn ui-corner-all ui-shadow">用户管理</button><br/>
+    </div>
       <button  class="ui-btn ui-corner-all ui-shadow" style="background-color: #FF0000;color: #FFFFFF""  onclick="logout()">退出登录</button>
   </div>
 
@@ -45,6 +47,44 @@
 
 
   <script type="text/javascript">
+  
+   var permission = 0;	//权限
+   
+  $(function(){
+if(!debug){
+ //查找用户权限
+   $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/getPermission?userName="+getUsername(),
+        contentType: "application/json",
+        success: function (data) {
+			console.log("call user/getPermission");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			console.log("getPermission:");
+			console.log(data.data);
+			permission = data.data;
+			if(permission==-1){	//用户
+				$("#admin-manager-div").show();//显示发布按钮
+			}else{
+				$("#admin-manager-div").hide();//隐藏钮
+			} 
+			
+			}else{
+				openPopup("权限获取失败，请重新登录！");
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("权限获取失败，请重新登录！");
+        }
+    });
+}else{
+	
+}
+  });
+  
+  
 //退出
 function logout() {
 	delCookie(isLoginFlag);	//删除缓存
