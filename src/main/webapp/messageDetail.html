@@ -101,12 +101,14 @@
                   <option value="5">5</option>
                 </select>
                 
+       <div id="update-grade-button" class="stars stars-example-css">
                  <table style="margin: 0 auto">
     <tr><td align="center">
-      <input type="submit" onclick="grade()" data-inline="true" value="确定评分">
+      <input  type="submit" onclick="grade()" data-inline="true" value="确定评分">
       </td></tr>
      </table>
-              </div><br/>
+      </div>
+  </div><br/>
 </div> 
 
  <script>          
@@ -168,17 +170,18 @@ if(!debug){
 				//if(data.data.length>1){
 				//	exitReply = true;
 				//}
-				
+				 
 				var len = data.data.length;
 				console.log("length:"+len);
  			 for(var i = 0; i < len; i++){	//只遍历了一次
 				 console.log("i="+i);
 				console.log(data.data[i]);
 			 	var item = data.data[i];
+				 console.log(data.data[i].imageUrl);
 				//评分控件默认显示值
 				 var grade = item.messageGrade;
 				 $("#example-css").val(grade);	//TODO需要修改js文件逻辑
-	 
+				
 	 			//document.getElementById("content-div").innerHTML = '';
 	 			document.getElementById("reply-div").innerHTML = '<h4 id="messageTitle" align="center">无</h4>';
 				if(i==0){	//用户留言内容
@@ -186,20 +189,23 @@ if(!debug){
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
+					 
+					console.log(item.imageUrl.length);
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				html += '<img src="'+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+				console.log(item.imageUrl[j]);
+				html += '<img src="'+serverUrl+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				html += '<video src="'+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+				html += '<video src="'+serverUrl+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>音频:</p><br/>';
 			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				 html += '<audio controls>  <source src="'+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 html += '<audio controls>  <source src="'+serverUrl+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
 				
@@ -214,19 +220,19 @@ if(!debug){
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				html += '<img src="'+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '<img src="'+serverUrl+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
-				html += '<video src="'+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+				html += '<video src="'+serverUrl+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>音频:</p><br/>';
 			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
-				 html += '<audio controls>  <source src="'+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 html += '<audio controls>  <source src="'+serverUrl+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
 				 document.getElementById("reply-div").innerHTML = html;
@@ -238,15 +244,15 @@ if(!debug){
 			 console.log("permission="+permission+"isReplay="+isReplay)
 			 if(permission==0){	//用户
 				$("#replay-button").hide();//隐藏发布按钮
-				if(isReplay){
+			}else{
+				$("#replay-button").show();//显示发布按钮
+				$("#update-grade-button").hide();	//隐藏评分提交功能
+			}
+			if(isReplay){
 				$("#grade-div").show();	//显示评分控件
 				}else{
 				$("#grade-div").hide();	//隐藏评分控	
 				}
-			}else{
-				$("#replay-button").show();//显示发布按钮
-				$("#grade-div").hide();	//隐藏评分控件
-			}
 			}else{
 				openPopup(data.message);
 			}
