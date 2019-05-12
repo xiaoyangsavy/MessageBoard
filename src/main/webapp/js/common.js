@@ -4,6 +4,7 @@ var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
 var serverUrl = "http://127.0.0.1:8080/message/"
+var userIdFlag = 'userId';
 
  
 
@@ -53,6 +54,13 @@ function getUsername(){
 var username = getCookie(usernameFlag);
 return username;
 }
+
+//获取用户编号
+function getUserId(){
+var userId = getCookie(userIdFlag);
+return userId;
+}
+ 
  
  
  //获取页面跳转时传递的值

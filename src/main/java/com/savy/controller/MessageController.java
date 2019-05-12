@@ -31,6 +31,7 @@ public class MessageController {
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId){
         System.out.println("call /message/insertMessage");
+        System.out.println("userId:"+userId);
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
@@ -104,15 +105,15 @@ public class MessageController {
     }
 
 
-    @RequestMapping(value = "/select_TypeName",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/selectTypeById",method = {RequestMethod.GET},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<MessageType> select_TypeName(@RequestParam Integer typeId){
+    public Result<MessageType> selectTypeById(@RequestParam Integer typeId){
         System.out.println("call /message/selectTypeName");
         Result<MessageType> result=new Result<>();
-        MessageType select_TypeName=messageService.select_TypeName(typeId);
+        MessageType messageType=messageService.select_TypeName(typeId);
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("查询消息类型成功！");
-        result.setData(select_TypeName);
+        result.setData(messageType);
         return result;
     }
 

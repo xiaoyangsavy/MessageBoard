@@ -43,17 +43,17 @@
 
 	<div class="ui-field-contain">
 		 <label>上传图片</label>
-		 <input type="file" multiple="multiple" accept="image/*" id="file_upload"/>
+		 <input type="file" multiple accept="image/*" id="imageFile"/>
 	</div>
 
 	<div class="ui-field-contain">
 		<label>上传视频</label>
-		<input type="file"     name="videoUrl" id="videoUrl"  />
+		<input type="file"     name="videoUrl" id="videoFile"  />
 	</div>
 
 	<div class="ui-field-contain">
 		<label>上传语音</label>
-		<input type="file"     name="voiceUrl" id="voiceUrl"  />
+		<input type="file"     name="voiceUrl" id="voiceFile"  />
 	</div>
 
 
@@ -123,41 +123,61 @@ if(!debug){
   
  
  //新增信息
- function addMessage1(){
+ function addMessage(){
+	var userId = getUserId();
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
 	var messageContent = $("#messageContent").val();
-	var imageUrl = $("#imageUrl").files;
-	var videoUrl = $("#videoUrl").files;
-	var voiceUrl = $("#voiceUrl").files;
+	console.log($("#imageFile")); 
+	var imageFile = document.getElementById("imageFile").files;	//此处不能用jquery获取数据
+	var videoFile = document.getElementById("videoFile").files;
+	var voiceFile = document.getElementById("voiceFile").files;
 	 
 	 console.log("values:");
 	console.log("messageTitle="+messageTitle);
 	 
 	// 构建form数据
 	var formFile = new FormData();
+	formFile.append("userId",userId);
     //formFile.append("action", "UploadPath");
 	formFile.append("messageTitle", messageTitle);
 	formFile.append("typeId", typeId);
 	formFile.append("messageContent", messageContent);
     //把文件放入form对象中  
-    formFile.append("imageUrl", imageUrl); 
-	formFile.append("videoUrl", videoUrl);
-	formFile.append("voiceUrl", voiceUrl);
+   // formFile.append("imageUrl", imageUrl); 
+	//formFile.append("videoUrl", videoUrl);
+	//formFile.append("voiceUrl", voiceUrl);
 	if(messageId != null && messageId != undefined && messageId != ''){
 	formFile.append("messageId", messageId); 	
 	}
-	alert(formFile.get("messageTitle"));
+	
+	//console.log(imageFile); 
+  
+for(var i=0; i< imageFile.length; i++){
+console.log(imageFile[i].name);
+formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
+}	
+
+for(var i=0; i< videoFile.length; i++){
+console.log(videoFile[i].name);
+formFile.append('videoFile',videoFile[i]);    //将文件转成二进制形式
+}
+
+for(var i=0; i< voiceFile.length; i++){
+console.log(voiceFile[i].name);
+formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
+}
+
+	//alert(formFile.get("messageTitle"));
 	
 	var items = formFile.entries();
 	var data = {};
   while(item = items.next()){
     if(item.done) break;
-    console.log(item);
+   console.log(item);
 }
-	
-	console.log("formFile:");
-	console.log(JSON.stringify(data));
+//	console.log("formFile:");
+//	console.log(JSON.stringify(data));
 
  	// ajax提交
             $.ajax({
@@ -165,14 +185,22 @@ if(!debug){
                	data: formFile,
                	type: "POST",
                	dataType: "json",
-               	cache: false,			//上传文件无需缓存
+               	async:false,			//上传文件无需缓存
                	processData: false,		//用于对data参数进行序列化处理 这里必须false
                	contentType: false, 	//必须	(multipart/form-data)
                	success: function(result){
-               		alert('上传成功');
+               		console.log("call message/insertMessage");
+					console.log(data);
+	 				if(data.status==200){	//调用成功
+					 openPopup("新增成功！");
+					 window.location.href='message.html';
+					}else{
+					openPopup(data.message);
+				}
                	},
                	error: function(result){
-               		alert('上传失败');
+					console.log(result);
+               		alert('接口调用错误，请重试！');
                	}
 
 			});
@@ -181,7 +209,7 @@ if(!debug){
  
  
  
-  function addMessage(){
+  function XXXaddMessage(){
  var formData = new FormData();
  var files = document.getElementById("file_upload").files;
 for(var i=0; i< files.length; i++){
