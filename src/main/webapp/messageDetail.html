@@ -25,7 +25,7 @@
   <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>内容详情</h1>
-    <a id="replay-button" onclick="goReply()"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">回复</a>
+    <a id="replay-button" onclick="goReply()"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-left">回复</a>
   </div>
 
   <div  data-role="main" class="ui-content">
@@ -168,7 +168,11 @@ if(!debug){
 				//if(data.data.length>1){
 				//	exitReply = true;
 				//}
- 			 for(var i = 0,len = data.data.length; i < len; i++){
+				
+				var len = data.data.length;
+				console.log("length:"+len);
+ 			 for(var i = 0; i < len; i++){	//只遍历了一次
+				 console.log("i="+i);
 				console.log(data.data[i]);
 			 	var item = data.data[i];
 				//评分控件默认显示值
@@ -204,21 +208,27 @@ if(!debug){
 				isReplay = item.replay;	//是否回复
 				
 			   }else{	//管理员回复内容
+			   console.log("reply:");
+			   console.log(item);
 			   	var html = '';
-			   	html += '<h4 style="text-align:left">'+item.userName+'： </h4>';
-			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label>';
+			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
-				 }
-				}
-				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
-			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+				html += '<img src="'+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
+					 	html += '<p>视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				html += '<video src="'+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
+				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
+				html += ' <p>音频:</p><br/>';
+			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+				 html += '<audio controls>  <source src="'+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+				 }
+				}
 				 document.getElementById("reply-div").innerHTML = html;
 			}
 

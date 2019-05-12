@@ -52,7 +52,28 @@
  $(function(){
 if(!debug){
 	
+  $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/selectTypeById?typeId="+typeId,
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/selectTypeById");
+            console.log(data);
+            if(data.status==200){	//调用成功
+			var myData = data.data;
+			var typeName = myData.typeName;
  
+			$("#typeName").val(typeName);
+ 
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
 	
 }else{
 //测试代码
