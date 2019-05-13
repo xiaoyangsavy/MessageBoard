@@ -39,7 +39,7 @@
         <h2>辽宁大学</h2>
         <p>  辽宁大学信息学院</p>
                     <p data-state="houQin" class="ui-li-aside">后勤管理</p>
-                    <p class="ui-li-aside noRead ">未 读</p>	//reply
+                    <p class="ui-li-aside noRead ">未回复</p>	
                 </a>
             </li>
       <li data-role="list-divider">用户2  </li>   
@@ -78,7 +78,8 @@
  var pageSize = 10;
  var maxPage = 1;
  
- 
+  var permission = 0;	//权限
+  
 $(function(){
 if(!debug){
  //查找用户权限
@@ -92,11 +93,14 @@ if(!debug){
 	 		if(data.status==200){	//调用成功
 			console.log("getPermission:");
 			console.log(data.data);
+			permission = data.data;
 			if(data.data==0){	//用户
 				$("#addmessage-button").show();//显示发布按钮
 			}else{
 				$("#addmessage-button").hide();//隐藏发布按钮
 			}
+			 //查询留言数据
+   getMessageList(currentPage,pageSize);
 			}else{
 				openPopup("权限获取失败，请重新登录！");
 			}
@@ -107,9 +111,6 @@ if(!debug){
         }
     });	 
  
- //查询留言数据
-   getMessageList(currentPage,pageSize);
-
 }else{
 //测试代码
 }
@@ -126,6 +127,11 @@ function getMessageList(currentPage,pageSize){
     console.log("typeId="+typeId);
 	var isReplay= getUrlParams("isReplay");
     console.log("isReplay="+isReplay);
+	
+	if(permission==0){
+		userName=  getUsername();
+	}
+	
 	
 var url = serverUrl+"message/queryMessageList";
 if((currentPage != null&&currentPage != undefined&&currentPage != 0)||(pageSize != null&&pageSize != undefined&&pageSize != 0)||(userName != null&&userName != undefined&&userName != '')||(typeId != null&&typeId != undefined&&typeId != 0)||(isReplay != null&&isReplay != undefined&&isReplay != '')){
@@ -179,7 +185,7 @@ if(isReplay != null&&isReplay != undefined&&isReplay != ''){
 				html += '<h2>'+item.messageTitle+'</h2>';
 				html += '<p>'+item.messageContent+'</p>';
 				html += '<p data-state="houQin" class="ui-li-aside">'+item.typeName+'</p>';
-				html += '<p class="ui-li-aside '+(item.isReplay==1?"reply":"noRead")+' ">'+(item.isReplay==1?"已回复":"未读")+'</p>';
+				html += '<p class="ui-li-aside '+(item.isReplay==1?"reply":"noRead")+' ">'+(item.isReplay==1?"已回复":"未回复")+'</p>';
 			 	html += '</a> </li>';
                 
            
