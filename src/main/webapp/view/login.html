@@ -14,29 +14,39 @@
  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="../js/common.js"></script>
+<link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
-<div data-role="page"> 
- 
-  <div data-role="header" data-position="fixed">
-    <h1>登录</h1>
-  </div>
+<div data-role="page">
 
- <div data-role="content" class="login-wrap ui-content" role="main">
+    <!--<div data-role="header" data-position="fixed">-->
+    <!--<h1>登录</h1>-->
+    <!--</div>-->
+    <img src="../images/liuyanban_bg.png" style="width: 100%;height: auto;position: absolute;left: 0;right: 0;top:0;margin: auto;opacity: 0.2">
+    <img src="../images/liuyanban.png" style="width: 50%;height: auto;position: absolute;left: 0;right: 0;top:25%;margin: auto">
+    <div data-role="content" class="login-wrap ui-content login-bg" role="main">
         <div class="login-input-box">
             
             <div class="line1">
-                <img src="../images/user.png">
-                <input id="username" type="text" class="user" value="用户名" onfocus="if(value=='用户名') {value=''}" onblur="if (value=='') {value='用户名'}" data-role="none">
+                <label>
+                    <img src="../images/用户.svg" class="login-icon">
+                </label>
+                <input id="username" type="text" class="user" value="用户名" onfocus="if(value=='用户名') {value=''}"
+                       onblur="if (value=='') {value='用户名'}" data-role="none">
             </div>
             <div class="line2">
-                <img src="../images/lock.png">
-                <input id="password" type="password" class="lock" value="密码" onfocus="if(value=='密码') {value=''}" onblur="if (value=='') {value='密码'}" data-role="none">
+                <label>
+                    <img src="../images/密码.svg" class="login-icon">
+                </label>
+                <input id="password" type="text" class="lock" value="密码" onfocus="if(value=='密码') {value=''}"
+                       onblur="if (value=='') {value='密码'}" data-role="none">
             </div>
             <div class="chose">
-                <a onclick="goWebpage('regist.html')" data-ajax="false" class="register" data-role="none" data-transition="slide">注册</a>
-               <!-- <a href="forget.html" data-ajax="false" class="forgive" data-role="none">忘记密码</a> -->
-                <a class="login"  onclick="login()"   data-ajax="false" data-role="none" data-transition="slide">登录</a>
+                <a onclick="goWebpage('regist.html')" data-ajax="false" class="register" data-role="none"
+                   data-transition="slide">新用户注册</a>
+                <!-- <a href="forget.html" data-ajax="false" class="forgive" data-role="none">忘记密码</a> -->
+                <a class="login" onclick="login()" data-ajax="false" data-role="none" data-transition="slide">用 户 登
+                    录</a>
             </div>
         </div>
     <div data-role="popup" id="myPopup" class="ui-content">

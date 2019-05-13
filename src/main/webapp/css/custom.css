@@ -1,0 +1,120 @@
+body {
+    box-sizing: border-box;
+}
+.cus-head{
+    background: linear-gradient(-7deg, #94f1ed, #003596);
+}
+.login-bg{
+    width: 100vw;
+    height:100vh;
+    background: linear-gradient(-7deg, #94f1ed, #003596);
+}
+.ui-li-aside a {
+    background-color: #ffffff;
+}
+
+.ui-li-aside[data-state='houQin'] {
+    background-color: #fbe8af;
+    text-shadow: none;
+}
+
+.ui-li-aside[data-state='jiaoWu'] {
+    background-color: #e4cdb6;
+    text-shadow: none;
+}
+
+.ui-li-aside[data-state='xueSheng'] {
+    background-color: #92d9e2;
+    text-shadow: none;
+}
+
+.ui-li-aside[data-state='shuJi'] {
+    background-color: #c2dca4;
+    text-shadow: none;
+}
+
+.ui-li-aside[data-state='xiaoZhang'] {
+    background-color: #f9b9b9;
+    text-shadow: none;
+}
+
+.user-logo {
+    width: 66px;
+    height: 66px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    padding: 0.5em;
+    border-right: 1px solid #e5edef;
+    color: #333 !important;
+    font-weight: 400;
+
+}
+
+.user-logo img {
+    width: 24px;
+    border-radius: 50%;
+    background-color: #49d097;
+    padding: 4px;
+}
+
+.user-logo img[data-online='false'] {
+    background-color: #b9b9b9;
+}
+
+.user-logo span {
+    display: block;
+    font-size: 0.75em;
+}
+
+.ui-li-aside.noRead, .ui-li-aside.reply {
+    right: 5.5em;
+}
+
+.ui-li-aside:last-child {
+    border-radius: 0 0 0 .5em;
+}
+
+.head-btn {
+    min-width: 4.41em;
+    min-height: 2em;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(14, 115, 208, 0) !important;
+    border-color: rgba(14, 115, 208, 0) !important;
+    box-shadow: none !important;
+    transform: scale(1.5);
+}
+
+.foot-btn {
+    padding-top: 3.2em !important;
+}
+
+.btn-bg {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+.btn2-bg {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+.date{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 0.75em;
+    text-align: center;
+    line-height: 0.75;
+}
+.login-icon{
+    width: 24px;
+    height:24px;
+}
+

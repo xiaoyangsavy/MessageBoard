@@ -13,6 +13,7 @@
  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="../js/common.js"></script>
+<link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
 <div data-role="page"> 
@@ -22,18 +23,15 @@
     <h1>注册</h1>
   </div>
 
- <div data-role="content" class="login-wrap ui-content" role="main">
-        <div class="login-input-box">
-            
-            
-                <img src="../images/user-black.png">&nbsp&nbsp&nbsp用户名
+ <div data-role="main" class="ui-content">
+               <img src="../images/user-black.png">&nbsp&nbsp&nbsp用户名
                <input type="text" name="userName" id="userName"  placeholder="请输入用户名">       
             
              
-                <img src="../images/lock-black.png">&nbsp&nbsp&nbsp密码
+                <img src="../images/lock-black.png">&nbsp&nbsp&nbsp输入密码
                <input type="text" name="password" id="password"  placeholder="请输入密码">       
              
-                <img src="../images/lock-black.png">&nbsp&nbsp&nbsp密码
+                <img src="../images/lock-black.png">&nbsp&nbsp&nbsp确认密码
                <input type="text" name="passwordAffirm" id="passwordAffirm"  placeholder="请确认密码">       
             
                 <img src="../images/phone-black.png">&nbsp&nbsp&nbsp手机号
@@ -51,8 +49,7 @@
 			 </fieldset>
 
              <input type="submit" data-inline="true" value="注册" onclick="regist()" />
-        </div>
-    
+       
  </div>
  </div>
  

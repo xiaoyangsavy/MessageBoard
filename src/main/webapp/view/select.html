@@ -2,18 +2,23 @@
 <html lang = "zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- 引入 jQuery Mobile 样式 -->
+<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.min.css">
+<!-- 引入 jQuery 库 -->
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- 引入 jQuery Mobile 库 -->
+ <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="../js/common.js"></script>
+<link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
 
 <div data-role="page">
   <div data-role="header" data-position="fixed">
-    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
+    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext head-btn">左箭头图标</a>
     <h1>选择</h1>
   </div>
 
@@ -21,7 +26,7 @@
     
 	  <div id="search-div" class="ui-field-contain">
         <label for="search">用户：</label>
-        <input type="userName" name="userName" id="userName" placeholder="请输入用户名...">
+        <input type="search" name="search" id="username"  placeholder="请输入用户名...">
       </div>
 
        <div class="ui-field-contain">

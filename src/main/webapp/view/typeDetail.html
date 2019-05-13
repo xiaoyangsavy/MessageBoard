@@ -13,13 +13,16 @@
  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
  <!-- 引入项目公共逻辑库 -->
  <script type="text/javascript" src="../js/common.js"></script>
+ <link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
 
 <div data-role="page">
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-position="fixed"  class="cus-head">
    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>类别管理</h1>
+ <a onclick="goWebpage('message.html')"
+         class="ui-btn ui-icon-home ui-btn-icon-notext head-btn"></a>
   </div>
 
   <div data-role="main" class="ui-content">
