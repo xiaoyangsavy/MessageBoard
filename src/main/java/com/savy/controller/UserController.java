@@ -81,7 +81,7 @@ public class UserController {
             return result;
         }
         if (userName!=""&&userName!=null&&user_id==null&&password!=""&&password!=null){
-            r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
+            r=userService.insertUser(userName,password,0,"普通管理员",sex,phone,email);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("注册成功！");
             result.setData(r);
