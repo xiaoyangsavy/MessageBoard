@@ -92,8 +92,8 @@
  
 
 <br/>
- <div id="grade-div"  >
- <span class="title">评分</span>
+ 		<div id="grade-div"  >
+				 <span class="title">评分</span>
                 <select  name="rating"  id="rating-select" >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -101,14 +101,16 @@
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                <div id="grade-submit-div"  >
+      		<div id="grade-submit-div"  >
         
                  <table style="margin: 0 auto">
-    <tr><td align="center">
-      <input  type="submit" onclick="grade()" data-inline="true" value="确定评分">
-      </td></tr>
-     </table>
-      </div> </div>
+   				 <tr><td align="center">
+     			 <input  type="submit" onclick="grade()" data-inline="true" value="确定评分">
+      			</td></tr>
+    			 </table>
+      		</div> 
+      
+    	 </div>
   </div><br/>
 </div> 
 
@@ -131,6 +133,8 @@
  var permission = 0;	//权限
  
  var isReplay = false; //是否回复
+ 
+ 
 
 
 $(function(){
@@ -189,32 +193,23 @@ if(!debug){
 				if(i==0){	//用户留言内容
 				
 				//评分控件默认显示值
-				 var grade = item.messageGrade;
+				 grade = item.messageGrade;
 				 console.log("grade="+grade);
 				 if(grade==null || grade == undefined || grade == '' || grade == 0){
-					 grade = "5";
+					 grade =  5;
 					}
 				
-				switch(grade){
-					case 1:
-					grade = "1";
-					break;
-					case 2:
-					grade = "2";
-					break;
-					case 3:
-					grade = "3";
-					break;
-					case 4:
-					grade = "4";
-					break;
-					case 5:
-					grade = "5";
-					break;
-				}
 				
+				 
+				 // var html = "";
+				 // for(var k=1;k<=5;k++){
+				 // 	html += '<option value="'+k+'">'+k+'</option>';
+				 // }
+				 // document.getElementById("rating-select").innerHTML = html;
 				 $("#rating-select").val(grade);	//TODO需要修改js文件逻辑
-  
+				 $("#rating-select").prev().text(grade);	//修改默认添加的span标签 
+				 
+				 
 				var html = '';
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
@@ -301,7 +296,12 @@ if(!debug){
 	}else{
 	//测试代码
 	}
+	
+ 
 });
+ 
+ 
+
 
 //管理员回复
 function goReply(){
@@ -341,5 +341,16 @@ function grade(){
     });	 
 }
   </script>
+  
+  
+  <!--<script>-->
+<!--$(function(){-->
+ <!--setInterval(aa,10);-->
+ <!--function aa(){-->
+   <!--console.log('grade='+grade);-->
+    <!--$("#rating-select").val(grade);	//TODO需要修改js文件逻辑-->
+ <!--}-->
+<!--})-->
+<!--</script>-->
 </body>
 </html>
