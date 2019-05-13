@@ -135,6 +135,14 @@ public class Message {
         this.userName = userName;
     }
 
+    public boolean isExitReplay() {
+        return exitReplay;
+    }
+
+    public void setExitReplay(boolean exitReplay) {
+        this.exitReplay = exitReplay;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -148,6 +156,7 @@ public class Message {
                 ", userId=" + userId +
                 ", messageGrade=" + messageGrade +
                 ", isReplay=" + isReplay +
+                ", exitReplay=" + exitReplay +
                 ", typeId=" + typeId +
                 ", messageTitle='" + messageTitle + '\'' +
                 ", userName='" + userName + '\'' +
