@@ -162,13 +162,27 @@ if(isReplay != null&&isReplay != undefined&&isReplay != ''){
    			 for(var i = 0,len = data.data.list.length; i < len; i++){
 				console.log(data.data.list[i]);
 			 	var item = data.data.list[i];
-			  	html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider">'+item.userId+'</li>';
-			  	html += '<li><a onclick="goMessageDetail('+item.messageId+')" class="ui-btn ui-btn-icon-right ui-icon-carat-r"> ';
-			  	html += '<h2>'+item.messageTitle+'</h2>'; 
-			  	html += '<p><b>'+item.messageDate+'</b></p>'; 
-        	  	html += '<p>'+item.messageContent+'</p>'; 
-       			html += '<p class="ui-li-aside">'+(item.isReplay==1?"已回复":"未回复")+'</p>'; 
-        		html += '</a></li>'; 
+			  	//html += '<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider">'+item.userId+'</li>';
+			  	// html += '<li><a onclick="goMessageDetail('+item.messageId+')" class="ui-btn ui-btn-icon-right ui-icon-carat-r"> ';
+			  	// html += '<h2>'+item.messageTitle+'</h2>';
+			  	// html += '<p><b>'+item.messageDate+'</b></p>';
+        	  	// html += '<p>'+item.messageContent+'</p>';
+       			// html += '<p class="ui-li-aside">'+(item.isReplay==1?"已回复":"未回复")+'</p>';
+        		// html += '</a></li>'; 
+				
+				html += '<li class="ui-li-has-thumb"><a onclick="goMessageDetail('+item.messageId+')" class="btn2-bg ui-btn">';
+				html += '<img src="../images/user_bg.png">';
+				html += ' <div class="user-logo">';
+				html += '<img data-online="true" src="../images/name.png">';
+				html += '<span>'+item.userId+'</span>';
+				html += '<span></span></div>';
+				html += '<h2>'+item.messageTitle+'</h2>';
+				html += '<p>'+item.messageContent+'</p>';
+				html += '<p data-state="houQin" class="ui-li-aside">'+item.typeName+'</p>';
+				html += '<p class="ui-li-aside '+(item.isReplay==1?"reply":"noRead")+' ">'+(item.isReplay==1?"已回复":"未读")+'</p>';
+			 	html += '</a> </li>';
+                
+           
 			 }
 				 document.getElementById("listview").innerHTML = html;
 				
