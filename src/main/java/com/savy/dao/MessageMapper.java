@@ -30,17 +30,16 @@ public interface MessageMapper {
 
     Integer searchPermission(@Param("userId") Integer userId);
 
+
+
     //新增问题
     Integer insertMessage(@Param("messageContent") String messageContent, @Param("messageDate") Date messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl, @Param("typeId") int typeId, @Param("messageTitle") String messageTitle , @Param("userId") Integer userId);
     Integer insertMessage_2(@Param("messageContent") String messageContent, @Param("messageDate") Date messageDate, @Param("imageUrl") String imageUrl, @Param("voiceUrl") String voiceUrl, @Param("videoUrl") String videoUrl, @Param("typeId") int typeId, @Param("messageTitle") String messageTitle , @Param("userId") Integer userId,@Param("superMessageId") Integer superMessageId,@Param("isReplay") boolean isReplay);
     //查询问题
     List<Message> selectMessage(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     //回复问题
-        Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") Date messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId,@Param("isReplay") boolean isReplay);
-
-
-
-            //查看问题
+    Integer addReply(@Param("superMessageId") int superMessageId,@Param("messageContent") String messageContent,@Param("messageDate") Date messageDate,@Param("imageUrl") String imageUrl,@Param("voiceUrl") String voiceUrl,@Param("videoUrl") String videoUrl,@Param("userId") int userId,@Param("isReplay") boolean isReplay);
+    //查看问题
     List<MessageDto> viewProblem(@Param("superMessageId") int superMessageId);
     //删除问题
     Integer deleteProblem(@Param("messageId") int messageId);
@@ -52,6 +51,8 @@ public interface MessageMapper {
     Integer selectMessageGrade(@Param("messageId") Integer messageId);
     //修改评分
     Integer updateMessageGrade(@Param("messageGrade") double messageGrade,@Param("messageId") Integer messageId);
+    //信息是否被回复
+    Integer updateExitReplay(@Param("exitReply") boolean exitReply,@Param("messageId") Integer messageId);
 
     //查询问题个数
     Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);

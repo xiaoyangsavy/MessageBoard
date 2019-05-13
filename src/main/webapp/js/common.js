@@ -3,9 +3,9 @@ var debug  = false	//测试模式
 var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
-var serverUrl = "http://127.0.0.1:80/message/"	//服务器地址
+var serverUrl = "http://127.0.0.1:8080/message/"	//服务器地址
 //var fileUrl = "http://127.0.0.1:8080/"	//文件地址
-var fileUrl = "http://127.0.0.1:80/"	//文件地址
+var fileUrl = "http://127.0.0.1:8080/"	//文件地址
 var userIdFlag = 'userId';
 
  

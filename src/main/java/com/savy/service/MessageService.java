@@ -252,6 +252,11 @@ public class MessageService {
         return uuid5;
     }
 
+    public Integer updateExitReplay(Integer messageId,boolean exitReply){
+        Integer update_ExitReplay=messageMapper.updateExitReplay(exitReply,messageId);
+        return update_ExitReplay;
+    }
+
 
 }
 
