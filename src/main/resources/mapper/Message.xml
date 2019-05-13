@@ -170,4 +170,9 @@
         set message_grade=#{messageGrade}
         where message_id=#{messageId}
     </update>
+    <update id="updateExitReplay">
+        update message
+        set exit_replay=#{exitReply}
+        where message_id=#{messageId}
+    </update>
 </mapper>

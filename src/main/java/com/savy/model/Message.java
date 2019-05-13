@@ -15,7 +15,8 @@ public class Message {
     private String videoUrl;//视频地址
     private int userId;//用户编号
     private double messageGrade;//用户评分
-    private boolean isReplay;//管理员是否回复
+    private boolean isReplay;//是否是管理员回复的内容
+    private boolean exitReplay;//是否被管理员回复
     private int typeId;
     private String messageTitle;
     private String userName;
@@ -134,6 +135,14 @@ public class Message {
         this.userName = userName;
     }
 
+    public boolean isExitReplay() {
+        return exitReplay;
+    }
+
+    public void setExitReplay(boolean exitReplay) {
+        this.exitReplay = exitReplay;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -147,6 +156,7 @@ public class Message {
                 ", userId=" + userId +
                 ", messageGrade=" + messageGrade +
                 ", isReplay=" + isReplay +
+                ", exitReplay=" + exitReplay +
                 ", typeId=" + typeId +
                 ", messageTitle='" + messageTitle + '\'' +
                 ", userName='" + userName + '\'' +

@@ -55,6 +55,8 @@ public class MessageController {
             isReplay=true;
             r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
             if(r>0){
+                boolean exitReply=true;
+                messageService.updateExitReplay(messageId,exitReply);
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");
                 result.setData(r);

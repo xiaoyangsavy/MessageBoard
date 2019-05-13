@@ -225,6 +225,7 @@ public class MessageService {
                    // System.out.println(StringUtils.subString(pp,"Files",pp.length()));
                     String pp="Files/"+childFiled+"/"+fileName+suffixName;
                     fide_path=fide_path+pp+",";
+                    System.out.println("-------------------------"+path+fileName+suffixName);
                 } catch (Exception e) {
                     stream = null;
                     /*return "第 " + i + " 个文件上传失败 ==> "
@@ -250,6 +251,11 @@ public class MessageService {
     public String rid(){
        String uuid5 = UUID.randomUUID().toString();
         return uuid5;
+    }
+
+    public Integer updateExitReplay(Integer messageId,boolean exitReply){
+        Integer update_ExitReplay=messageMapper.updateExitReplay(exitReply,messageId);
+        return update_ExitReplay;
     }
 
 
