@@ -49,6 +49,7 @@
             </if>
             <if test='permissionId != null and permissionId!="" '>
                 permission_id = #{permissionId},
+                name=#{name},
             </if>
         </set>
         where user_id = #{userId}
@@ -72,5 +73,10 @@
         select user_id
         from user
         where user_name=#{userName}
+    </select>
+    <select id="selectPermissionName" resultType="String">
+        select type_name
+        from message_type
+        where type_id=${typeId}
     </select>
 </mapper>

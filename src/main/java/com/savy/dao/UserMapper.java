@@ -19,7 +19,7 @@ public interface UserMapper {
     //用户管理——查询用户
     List<User> selectUser(@Param("start") Integer start,@Param("end") Integer end);
     //用户管理——修改用户
-    Integer updateUser(@Param("userName") String userName,@Param("userId") int userId,@Param("password") String password,@Param("permissionId") Integer permissionId);
+    Integer updateUser(@Param("userName") String userName,@Param("userId") int userId,@Param("password") String password,@Param("permissionId") Integer permissionId,@Param("name") String name);
     //用户管理——删除用户
     Integer deleteUser(@Param("userId") int userId);
     //查找用户权限
@@ -30,5 +30,7 @@ public interface UserMapper {
     Integer selectID(@Param("userName") String userName);
     //统计用户个数
     Integer userCount();
+    //查找权限的名称
+    String selectPermissionName(@Param("typeId") Integer typeId);
 
 }

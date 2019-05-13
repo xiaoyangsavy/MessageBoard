@@ -63,7 +63,15 @@ public class UserService {
         return pageEntity;
     }
     public Integer updateUser(String userName,int userId,String password,Integer permissionId){
-        Integer update_User=userMapper.updateUser(userName,userId,password,permissionId);
+        String name=null;
+        if(permissionId>0){
+            name=userMapper.selectPermissionName(permissionId);
+        }
+        else {
+            name="普通用户";
+        }
+        System.out.println("----------------------------"+permissionId);
+        Integer update_User=userMapper.updateUser(userName,userId,password,permissionId,name);
         return update_User;
     }
 

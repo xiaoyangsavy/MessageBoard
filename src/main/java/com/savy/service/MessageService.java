@@ -225,6 +225,7 @@ public class MessageService {
                    // System.out.println(StringUtils.subString(pp,"Files",pp.length()));
                     String pp="Files/"+childFiled+"/"+fileName+suffixName;
                     fide_path=fide_path+pp+",";
+                    System.out.println("-------------------------"+path+fileName+suffixName);
                 } catch (Exception e) {
                     stream = null;
                     /*return "第 " + i + " 个文件上传失败 ==> "
