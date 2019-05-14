@@ -115,6 +115,9 @@
             <if test="isReplay!='' and isReplay!=null">
                 and is_replay = ${isReplay}
             </if>
+            <if test="exitReplay!='' and exitReplay!=null">
+                and exit_replay = ${exitReplay}
+            </if>
             <if test="userName!='' and userName!=null">
                 and user.user_name=#{userName}
 
@@ -142,6 +145,9 @@
             </if>
             <if test="isReplay!='' and isReplay!=null">
                 and is_replay = ${isReplay}
+            </if>
+            <if test="exitReplay!='' and exitReplay!=null">
+                and exit_replay=${exitReplay}
             </if>
             <if test="userName!='' and userName!=null">
                 and user.user_name=#{userName}

@@ -113,16 +113,16 @@ public class MessageService {
         return select_MessageGrade;
     }
 
-    public PageEntity findItemByPage(String startDate,String endDate, Integer typeId, String isReplay, String userName,String messageTitle,Integer currentPage,Integer pageSize,int start,int end) {
+    public PageEntity findItemByPage(String startDate,String endDate, Integer typeId, String isReplay, String exitReplay ,String userName,String messageTitle,Integer currentPage,Integer pageSize,int start,int end) {
         int Total=0;
-        int count=messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle);
-        if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)%pageSize>=0)
+        int count=messageMapper.messageCount(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle);
+        if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle)%pageSize>=0)
         {
-            if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)%pageSize==0){
-                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)/pageSize);
+            if(messageMapper.messageCount(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle)%pageSize==0){
+                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle)/pageSize);
             }
             else {
-                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,userName,messageTitle)/pageSize)+1;
+                Total=(messageMapper.messageCount(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle)/pageSize)+1;
             }
 
         }
@@ -133,7 +133,7 @@ public class MessageService {
         if((count-currentPage*pageSize)<0){
             end=count-(currentPage-1)*pageSize;
         }
-        List<Message> messageEntityList = messageMapper.selectMessage_page(startDate,endDate,typeId,isReplay,userName,messageTitle,start,end);        //全部商品
+        List<Message> messageEntityList = messageMapper.selectMessage_page(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle,start,end);        //全部商品
         PageEntity<Message> pageEntity=new PageEntity<>(messageEntityList);
         if (currentPage==1){
             pageEntity.setIsFirstPage(true);

@@ -348,6 +348,7 @@ public class MessageController {
                                 @RequestParam(name = "endDate",required = false) String endDate,
                                 @RequestParam(name = "typeId", required = false) Integer typeId,
                                 @RequestParam(name = "isReplay", required = false) String isReplay,
+                                @RequestParam(name = "exitReplay",required = false) String exitReplay,
                                 @RequestParam(name = "userName", required = false) String userName,
                                 @RequestParam(name="messageTitle",required = false) String messageTitle,
                                 @RequestParam(name = "currentPage",required =false)  Integer currentPage,
@@ -364,7 +365,7 @@ public class MessageController {
         Result<PageEntity> result=new Result<>();
         result.setResultStatus(ResultStatus.SUCCESS);
         result.setMessage("接口调用成功！");
-        result.setData(messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end));
+        result.setData(messageService.findItemByPage(startDate,endDate,typeId,isReplay,exitReplay,userName,messageTitle,currentPage,pageSize,start,end));
         //PageEntity pageEntity=messageService.findItemByPage(startDate,endDate,typeId,isReplay,userName,messageTitle,currentPage,pageSize,start,end);
         return result;
     }
