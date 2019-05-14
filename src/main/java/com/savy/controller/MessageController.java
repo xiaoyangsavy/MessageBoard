@@ -35,6 +35,7 @@ public class MessageController {
                                          HttpServletRequest request){
         System.out.println("call /message/insertMessage");
         System.out.println("userId:"+userId);
+        String newPath=request.getRealPath("/");
 
         System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
@@ -42,13 +43,13 @@ public class MessageController {
         boolean isReplay=false;
        try {
            if(imageFile.length>0){
-            imageUrl_2=messageService.up2(imageFile,"image");
+            imageUrl_2=messageService.up2(imageFile,"image",newPath);
         }
         if(voiceFile.length>0){
-            voiceUrl_2=messageService.up2(voiceFile,"voice");
+            voiceUrl_2=messageService.up2(voiceFile,"voice",newPath);
         }
         if(videoFile.length>0){
-            videoUrl_2=messageService.up2(videoFile,"video");
+            videoUrl_2=messageService.up2(videoFile,"video",newPath);
         }
         }catch (Exception e){
             e.printStackTrace();

@@ -190,13 +190,13 @@ public class MessageService {
         return "上传失败";
     }
     //多文件上传
-    public String up2(MultipartFile[] files,String childFiled) {
+    public String up2(MultipartFile[] files,String childFiled,String newPath) {
         //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         //List fide_path=new ArrayList();
         String fide_path="";
         MultipartFile file = null;
         BufferedOutputStream stream = null;
-        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        /*String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
           System.out.println("0---------------------"+path);
 
         String myPath = "";
@@ -213,14 +213,15 @@ public class MessageService {
         URL xmlpath = this.getClass().getClassLoader().getResource("");
         System.out.println("3---------------------"+xmlpath);
 
-        System.out.println("4---------------------"+System.getProperty("java.class.path"));
+        System.out.println("4---------------------"+System.getProperty("java.class.path"));*/
 
 
 
-
-        String p=StringUtils.subString(path,"","MessageBoard");
-        System.out.println("---------------------"+p);
-        path=p+"Files/"+childFiled;
+         String p=StringUtils.subString(newPath,"","message");
+        //String p=StringUtils.subString(path,"","MessageBoard");
+       // System.out.println("---------------------"+p);
+        String path=p+"Files\\"+childFiled;
+        System.out.println("++++++++++++++++++++++++++++++++++++"+path);
         File f = new File(path);
         if(!f.exists()&&!f.isDirectory()){
             f.mkdirs();
@@ -246,7 +247,7 @@ public class MessageService {
                    // System.out.println(StringUtils.subString(pp,"Files",pp.length()));
                     String pp="Files/"+childFiled+"/"+fileName+suffixName;
                     fide_path=fide_path+pp+",";
-                    System.out.println("-------------------------"+path+fileName+suffixName);
+                    //System.out.println("-------------------------"+path+fileName+suffixName);
                 } catch (Exception e) {
                     stream = null;
                     /*return "第 " + i + " 个文件上传失败 ==> "
