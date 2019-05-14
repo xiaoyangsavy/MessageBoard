@@ -130,6 +130,8 @@ function getMessageList(currentPage,pageSize){
 	
 	if(permission==0){
 		userName=  getUsername();
+	}else if(permission>0){
+		typeId=permission;
 	}
 	
 	
