@@ -70,7 +70,7 @@ public class MessageController {
         if(((messageContent!="")||(messageContent!=null))&&((messageTitle!="")&&(messageTitle!=null)))//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
-            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
+           // System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
             if(r>0){
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");
@@ -94,22 +94,6 @@ public class MessageController {
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
-            //result.setData(r);
-        }
-        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
-            result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加信息失败！");
-            return result;
-        }
-        if((messageTitle==""||messageTitle==null)&&(messageContent==""||messageContent==null)){
-            result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加信息失败！");
-            return result;
-        }
-        if(r==0||r==null){
-            result.setResultStatus(ResultStatus.FAIL);
-            result.setMessage("添加信息失败！");
-            return result;
         }
         return result;
     }
