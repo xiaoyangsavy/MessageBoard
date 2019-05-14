@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.List;
 
@@ -29,9 +31,12 @@ public class MessageController {
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
                                          @RequestParam Integer typeId,
                                          @RequestParam String messageTitle,
-                                         @RequestParam Integer userId){
+                                         @RequestParam Integer userId,
+                                         HttpServletRequest request){
         System.out.println("call /message/insertMessage");
         System.out.println("userId:"+userId);
+
+        System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
@@ -70,7 +75,7 @@ public class MessageController {
         if(((messageContent!="")||(messageContent!=null))&&((messageTitle!="")&&(messageTitle!=null)))//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
-           // System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
+            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
             if(r>0){
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");
@@ -94,6 +99,22 @@ public class MessageController {
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
+            //result.setData(r);
+        }
+        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
+        }
+        if((messageTitle==""||messageTitle==null)&&(messageContent==""||messageContent==null)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
+        }
+        if(r==0||r==null){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("添加信息失败！");
+            return result;
         }
         return result;
     }
