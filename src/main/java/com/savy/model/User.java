@@ -18,6 +18,7 @@ public class User {
     private String email;   //邮箱
     private Integer permissionId;//用户权限
     private String permissionName;
+    private String typeName;
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date lastLoginDate;   //最后登录日期
 
@@ -110,6 +111,14 @@ public class User {
         this.permissionName = permissionName;
     }
 
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -122,6 +131,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", permissionId=" + permissionId +
                 ", permissionName='" + permissionName + '\'' +
+                ", typeName='" + typeName + '\'' +
                 ", lastLoginDate=" + lastLoginDate +
                 '}';
     }

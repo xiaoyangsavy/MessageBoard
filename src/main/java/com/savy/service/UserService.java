@@ -40,7 +40,13 @@ public class UserService {
 
         if(userMapper.userCount()%pageSize>=0)
         {
-            Total=(userMapper.userCount()/pageSize);
+            if(userMapper.userCount()%pageSize==0){
+                Total=(userMapper.userCount()/pageSize);
+            }
+            if(userMapper.userCount()%pageSize>0){
+                Total=(userMapper.userCount()/pageSize)+1;
+            }
+
         }
         if(currentPage>Total){
             currentPage=Total;
@@ -70,7 +76,7 @@ public class UserService {
         else {
             name="普通用户";
         }
-        System.out.println("----------------------------"+permissionId);
+      //  System.out.println("----------------------------"+permissionId+name);
         Integer update_User=userMapper.updateUser(userName,userId,password,permissionId,name);
         return update_User;
     }
