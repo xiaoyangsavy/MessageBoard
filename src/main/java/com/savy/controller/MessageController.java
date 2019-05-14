@@ -35,6 +35,7 @@ public class MessageController {
                                          HttpServletRequest request){
         System.out.println("call /message/insertMessage");
         System.out.println("userId:"+userId);
+        Result<Integer> result=new Result<Integer>();
         String newPath=request.getRealPath("/");
 
         System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
@@ -53,8 +54,10 @@ public class MessageController {
         }
         }catch (Exception e){
             e.printStackTrace();
+           result.setResultStatus(ResultStatus.FAIL);
+           result.setMessage("添加信息失败！");
+           return result;
         }
-        Result<Integer> result=new Result<Integer>();
         Integer r=0;
         if((messageId!=null)&&(messageContent!="")&&(messageContent!=null)){//用户评论的插入
             superMessageId=messageId;
