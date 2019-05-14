@@ -72,6 +72,7 @@ public class UserService {
         String name=null;
         if(permissionId>0){
             name=userMapper.selectPermissionName(permissionId);
+            name=name+"管理员";
         }
         else {
             name="普通用户";
