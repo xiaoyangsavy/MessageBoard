@@ -181,4 +181,10 @@
         set exit_replay=#{exitReply}
         where message_id=#{messageId}
     </update>
+    <select id="userPermissin" resultType="Integer">
+        select count(*)
+        from user,message_type
+        where user.permission_id=message_type.type_id
+        and user.permission_id = #{typeId}
+    </select>
 </mapper>

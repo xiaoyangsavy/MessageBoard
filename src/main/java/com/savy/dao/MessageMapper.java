@@ -54,6 +54,8 @@ public interface MessageMapper {
     //信息是否被回复
     Integer updateExitReplay(@Param("exitReply") boolean exitReply,@Param("messageId") Integer messageId);
 
+    Integer userPermissin(@Param("typeId") Integer typeId);
+
     //查询问题个数
     Integer messageCount(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay,@Param("exitReplay") String exitReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle);
     List<Message> selectMessage_page(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("typeId") Integer typeId, @Param("isReplay") String isReplay,@Param("exitReplay") String exitReplay, @Param("userName") String userName,@Param("messageTitle") String messageTitle,@Param("start") Integer start,@Param("end") Integer end);

@@ -300,6 +300,11 @@ public class MessageService {
         return update_ExitReplay;
     }
 
+    public Integer userPermissin(Integer typeId){
+        Integer user_Permissin=messageMapper.userPermissin(typeId);
+        return  user_Permissin;
+    }
+
 
 }
 

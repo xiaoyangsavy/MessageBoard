@@ -232,9 +232,15 @@ public class MessageController {
         System.out.println("call /message/deleteTypeName");
         Integer typeId=myMap.get("typeId");
         Result<Integer> result=new Result<>();
-        Integer r=0,count;
+        Integer r=0,count,userPermissin=0;
         count=messageService.countMessageType(typeId);
-        if(typeId > 0&&count==0)
+        userPermissin=messageService.userPermissin(typeId);
+        if(userPermissin>0){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("有相关类型的管理员，删除信息类型失败！");
+            return result;
+        }
+        if(typeId > 0&&count==0&&userPermissin==0)
         {
             r=messageService.deleteTypeName(typeId);
             result.setResultStatus(ResultStatus.SUCCESS);
@@ -243,7 +249,6 @@ public class MessageController {
         }else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("有相关类型的信息，删除信息类型失败！");
-            result.setData(r);
         }
         return  result;
     }
