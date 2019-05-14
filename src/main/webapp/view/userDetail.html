@@ -37,7 +37,7 @@
   </div>
   
   <div id="message-type-div" class="ui-field-contain">
-        <label for="messageType">管理类别</label>
+        <label for="messageType">身份</label>
         <select name="messageType" id="messageType">
 		 <option value="-1">请选择</option>
         </select>
@@ -85,7 +85,7 @@ if(!debug){
    			 for(var i = 0,len = data.data.length; i < len; i++){
 				console.log(data.data[i]);
 			 	var item = data.data[i];
-			  	html += '<option value="'+item.typeId+'">'+item.typeName+'</option>';
+			  	html += '<option value="'+item.typeId+'">'+item.typeName+'管理员</option>';
 			 }
 				 document.getElementById("messageType").innerHTML = html; 
 			 

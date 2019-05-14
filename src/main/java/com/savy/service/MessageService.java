@@ -18,6 +18,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -196,16 +197,36 @@ public class MessageService {
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-        //  System.out.println("---------------------"+path);
+          System.out.println("0---------------------"+path);
+
+        String myPath = "";
+        myPath = this.getClass().getResource("").getPath();
+        System.out.println("1---------------------"+myPath);
+
+        try {
+            myPath = new File("").getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("2---------------------"+myPath);
+
+        URL xmlpath = this.getClass().getClassLoader().getResource("");
+        System.out.println("3---------------------"+xmlpath);
+
+        System.out.println("4---------------------"+System.getProperty("java.class.path"));
+
+
+
+
         String p=StringUtils.subString(path,"","MessageBoard");
-        //System.out.println("---------------------"+p);
+        System.out.println("---------------------"+p);
         path=p+"Files/"+childFiled;
         File f = new File(path);
         if(!f.exists()&&!f.isDirectory()){
             f.mkdirs();
-            //System.out.println("创建文件");
+            System.out.println("创建文件");
         }else {
-            //System.out.println("文件夹已经存在");
+            System.out.println("文件夹已经存在");
         }
         for (int i = 0; i < files.length; ++i) {
             file = files[i];
