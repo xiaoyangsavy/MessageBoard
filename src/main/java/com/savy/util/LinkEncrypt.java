@@ -6,7 +6,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 /**
- * ¼ÓÃÜºÍ½âÃÜ
+ * åŠ å¯†å’Œè§£å¯†
  * @author chenqi
  *
  */
@@ -23,13 +23,13 @@ public class LinkEncrypt {
 	}
 
 	/**
-	 * Description:½«¼ÓÃÜ²ÎÊı½øĞĞ½âÃÜ,²¢·µ»Ø
+	 * Description:å°†åŠ å¯†å‚æ•°è¿›è¡Œè§£å¯†,å¹¶è¿”å›
 	 * 
 	 * @author chenqi
 	 * @version 1.0
 	 * @param token
-	 *            ¼ÓÃÜµÄ²ÎÊı
-	 * @return ½âÃÜºóµÄ²ÎÊı
+	 *            åŠ å¯†çš„å‚æ•°
+	 * @return è§£å¯†åçš„å‚æ•°
 	 * @throws IOException
 	 */
 	public static String[] unToken(String token) throws IOException {
@@ -45,8 +45,8 @@ public class LinkEncrypt {
 	 * @author chenqi
 	 * @version 1.0
 	 * @param key
-	 *            ÓÃ»§Ãû
-	 * @return ·µ»Ø [Ë«·½Ğ­¶¨µÄÁ¬½ÓÃÜÂë]+[:]+[ÏµÍ³Ê±¼ä]+[:]+[ÓÃ»§Ãû]
+	 *            ç”¨æˆ·å
+	 * @return è¿”å› [åŒæ–¹åå®šçš„è¿æ¥å¯†ç ]+[:]+[ç³»ç»Ÿæ—¶é—´]+[:]+[ç”¨æˆ·å]
 	 * @throws Exception
 	 */
 	public static String generateToken(String key)
@@ -63,13 +63,13 @@ public class LinkEncrypt {
 	}
 
 	/**
-	 * Description:¶Ô×Ö·û´®½øĞĞBASE64¼ÓÃÜ
+	 * Description:å¯¹å­—ç¬¦ä¸²è¿›è¡ŒBASE64åŠ å¯†
 	 * 
 	 * @author chenqi
 	 * @version 1.0
 	 * @param str
-	 *            Ğè¼ÓÃÜµÄ×Ö·û´®
-	 * @return ·µ»Ø¼ÓÃÜºóµÄ×Ö·û´®
+	 *            éœ€åŠ å¯†çš„å­—ç¬¦ä¸²
+	 * @return è¿”å›åŠ å¯†åçš„å­—ç¬¦ä¸²
 	 * @throws Exception
 	 */
 	private static String encrypt(String str) throws Exception {
@@ -81,13 +81,13 @@ public class LinkEncrypt {
 	}
 
 	/**
-	 * Description:¶ÔBASE64¼ÓÃÜºóµÄ×Ö·û´®½øĞĞ½âÃÜ
+	 * Description:å¯¹BASE64åŠ å¯†åçš„å­—ç¬¦ä¸²è¿›è¡Œè§£å¯†
 	 * 
 	 * @author chenqi
 	 * @version 1.0
 	 * @param str
-	 *            Ğè½âÃÜµÄ×Ö·û´®
-	 * @return ·µ»Ø½âÃÜºóµÄ×Ö·û´®
+	 *            éœ€è§£å¯†çš„å­—ç¬¦ä¸²
+	 * @return è¿”å›è§£å¯†åçš„å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	private static String unEncrypt(String str) throws IOException {

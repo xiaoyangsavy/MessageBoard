@@ -4,14 +4,14 @@ package com.savy.util;
 
 /**
  * 
- * 获取用户id
+ * 鑾峰彇鐢ㄦ埛id
  * @author chenqi
  *
  */
 public class UserUtil {
 
 	/**
-	 * 获取用户id
+	 * 鑾峰彇鐢ㄦ埛id
 	 * @param tokenId
 	 * @return
 	 * @throws Exception
