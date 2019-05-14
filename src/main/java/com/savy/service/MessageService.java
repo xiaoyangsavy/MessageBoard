@@ -270,12 +270,12 @@ public class MessageService {
                     //System.out.println("-------------------------"+path+fileName+suffixName);
                 } catch (Exception e) {
                     stream = null;
-                    /*return "第 " + i + " 个文件上传失败 ==> "
-                            + e.getMessage();*/
+                    return "第 " + i + " 个文件上传失败 ==> "
+                            + e.getMessage();
                 }
             } else {
-                /*return "第 " + i
-                        + " 个文件上传失败因为文件为空";*/
+                return "第 " + i
+                        + " 个文件上传失败因为文件为空";
             }
         }
         return fide_path;
