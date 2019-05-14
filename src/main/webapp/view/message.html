@@ -100,7 +100,7 @@ if(!debug){
 				$("#addmessage-button").hide();//隐藏发布按钮
 			}
 			 //查询留言数据
-   getMessageList(currentPage,pageSize);
+  			 getMessageList(currentPage,pageSize);
 			}else{
 				openPopup("权限获取失败，请重新登录！");
 			}
@@ -125,8 +125,8 @@ function getMessageList(currentPage,pageSize){
     console.log("userName="+userName);
 	var typeId= getUrlParams("typeId");
     console.log("typeId="+typeId);
-	var isReplay= getUrlParams("isReplay");
-    console.log("isReplay="+isReplay);
+	var exitReplay= getUrlParams("exitReplay");
+    console.log("exitReplay="+exitReplay);
 	
 	if(permission==0){
 		userName=  getUsername();
@@ -151,8 +151,8 @@ if(userName != null&&userName != undefined&&userName != ''){
 if(typeId != null&&typeId != undefined&&typeId != 0){
  url += "&typeId="+typeId;
 }
-if(isReplay != null&&isReplay != undefined&&isReplay != ''){
- url += "&isReplay="+isReplay;
+if(exitReplay != null&&exitReplay != undefined&&exitReplay != ''){
+ url += "&exitReplay="+exitReplay;
 }
  console.log("url="+url);
  

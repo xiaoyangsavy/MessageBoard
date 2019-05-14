@@ -165,7 +165,7 @@ public class UserController {
     @ResponseBody
     public Result<Integer> deleteUser(@RequestBody Map<String,Object> myMap){
         System.out.println("call /user/deleteUser");
-        int userId=(Integer)myMap.get("userId");
+        int userId=Integer.valueOf(myMap.get("userId").toString());
         Result<Integer> result=new Result<>();
         Integer r=0;
         if(userId>0){

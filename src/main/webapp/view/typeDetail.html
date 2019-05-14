@@ -86,6 +86,12 @@ if(!debug){
 	
 //删除数据 
 function deleteData(){
+	
+	var jsonObject = '{';
+	jsonObject+='"typeId":'+typeId;
+	jsonObject+='}'
+	console.log(jsonObject);
+	
 	 $.ajax({
         type: "POST",
         url:  serverUrl+"message/deleteTypeName",
@@ -98,7 +104,7 @@ function deleteData(){
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			 openPopup("删除成功！");
-			 //window.location.href='typeList.html';
+			 window.location.href='typeList.html';
 			}else{
 				openPopup(data.message);
 			}
@@ -135,7 +141,7 @@ function updateData(){
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			 openPopup("修改成功！");
-			 //window.location.href='typeList.html';
+			 window.location.href='typeList.html';
 			}else{
 				openPopup(data.message);
 			}

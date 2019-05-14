@@ -228,9 +228,9 @@ public class MessageController {
     }
     @RequestMapping(value = "/deleteTypeName",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public Result<Integer> deleteMessage_type(@RequestBody Map<String,Integer> myMap) {
+    public Result<Integer> deleteMessage_type(@RequestBody Map<String,Object> myMap) {
         System.out.println("call /message/deleteTypeName");
-        Integer typeId=myMap.get("typeId");
+        Integer typeId=Integer.valueOf(myMap.get("typeId").toString());
         Result<Integer> result=new Result<>();
         Integer r=0,count;
         count=messageService.countMessageType(typeId);
