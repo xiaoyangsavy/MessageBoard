@@ -180,12 +180,12 @@ if(isReplay != null&&isReplay != undefined&&isReplay != ''){
 				html += '<img src="../images/user_bg.png">';
 				html += ' <div class="user-logo">';
 				html += '<img data-online="true" src="../images/name.png">';
-				html += '<span>'+item.userId+'</span>';
+				html += '<span>'+item.userName+'</span>';
 				html += '<span></span></div>';
 				html += '<h2>'+item.messageTitle+'</h2>';
 				html += '<p>'+item.messageContent+'</p>';
-				html += '<p data-state="houQin" class="ui-li-aside">'+item.typeName+'</p>';
-				html += '<p class="ui-li-aside '+(item.isReplay==1?"reply":"noRead")+' ">'+(item.isReplay==1?"已回复":"未回复")+'</p>';
+				html += '<p data-state="'+getTypeColor(item.typeName)+'" class="ui-li-aside">'+item.typeName+'</p>';
+				html += '<p class="ui-li-aside '+(item.exitReplay?"reply":"noRead")+' ">'+(item.exitReplay?"已回复":"未回复")+'</p>';
 			 	html += '</a> </li>';
                 
            
@@ -228,6 +228,30 @@ if(isReplay != null&&isReplay != undefined&&isReplay != ''){
    getMessageList(currentPage,pageSize);
 		}
 		 
+	}
+	
+	function getTypeColor(typeName){
+		var color = "";
+		switch(typeName){
+		case "教务教学":
+		color = "jiaoWu";
+		break;	
+		case "后勤服务":
+		color = "houQin";
+		break;	
+		case "学生管理":
+		color = "xueSheng";
+		break;	
+		case "书记信箱":
+		color = "shuJi";
+		break;	
+		case "校长信箱":
+		color = "xiaoZhang";
+		break;	
+		default:
+		break;	
+		}
+		return color;
 	}
   </script>
 

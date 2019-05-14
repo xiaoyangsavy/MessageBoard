@@ -105,7 +105,7 @@
         
                  <table style="margin: 0 auto">
    				 <tr><td align="center">
-     			 <input  type="submit" onclick="grade()" data-inline="true" value="确定评分">
+     			 <input  type="submit" onclick="submitGrade()" data-inline="true" value="确定评分">
       			</td></tr>
     			 </table>
       		</div> 
@@ -309,9 +309,11 @@ function goReply(){
 	window.location.href='view/addMessage.html?messageId='+messageId;
 }
 
+ 
+ 
 
 //修改评分
-function grade(){
+function submitGrade(){
 	var messageGrade = $("#rating-select").val(); 
 		
 		var jsonObject = '{';
