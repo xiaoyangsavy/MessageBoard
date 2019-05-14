@@ -15,9 +15,9 @@
 
     <select id="getUserById" resultType="User">
         select *
-        from user,permission
-        where user_id = #{userId}
-        and user.permission_id=permission.permission_id
+        from user left join message_type
+        on user.permission_id=message_type.type_id
+        where user_id =#{userId}
     </select>
     <insert id="insertUser">
         insert into user(user_name,password,permission_id,name,sex,phone,email)
