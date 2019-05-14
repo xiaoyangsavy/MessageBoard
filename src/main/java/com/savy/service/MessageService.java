@@ -197,23 +197,23 @@ public class MessageService {
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-          System.out.println("0---------------------"+path);
+//          System.out.println("0---------------------"+path);
 
-        String myPath = "";
-        myPath = this.getClass().getResource("").getPath();
-        System.out.println("1---------------------"+myPath);
-
-        try {
-            myPath = new File("").getCanonicalPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("2---------------------"+myPath);
-
-        URL xmlpath = this.getClass().getClassLoader().getResource("");
-        System.out.println("3---------------------"+xmlpath);
-
-        System.out.println("4---------------------"+System.getProperty("java.class.path"));
+//        String myPath = "";
+//        myPath = this.getClass().getResource("").getPath();
+//        System.out.println("1---------------------"+myPath);
+//
+//        try {
+//            myPath = new File("").getCanonicalPath();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("2---------------------"+myPath);
+//
+//        URL xmlpath = this.getClass().getClassLoader().getResource("");
+//        System.out.println("3---------------------"+xmlpath);
+//
+//        System.out.println("4---------------------"+System.getProperty("java.class.path"));
 
 
 
