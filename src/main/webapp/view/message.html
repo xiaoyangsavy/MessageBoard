@@ -184,8 +184,8 @@ if(exitReplay != null&&exitReplay != undefined&&exitReplay != ''){
 				html += '<img data-online="true" src="../images/name.png">';
 				html += '<span>'+item.userName+'</span>';
 				html += '<span></span></div>';
-				html += '<h2>'+item.messageTitle+'</h2>';
-				html += '<p>'+item.messageContent+'</p>';
+				html += '<h2><br/>'+item.messageTitle+'</h2>';
+				html += '<p>'+item.messageContent+'<br/><br/></p>';
 				html += '<p data-state="'+getTypeColor(item.typeName)+'" class="ui-li-aside">'+item.typeName+'</p>';
 				html += '<p class="ui-li-aside '+(item.exitReplay?"reply":"noRead")+' ">'+(item.exitReplay?"已回复":"未回复")+'</p>';
 			 	html += '</a> </li>';

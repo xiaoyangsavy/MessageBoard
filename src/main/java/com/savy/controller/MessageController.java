@@ -35,6 +35,7 @@ public class MessageController {
                                          HttpServletRequest request){
         System.out.println("call /message/insertMessage");
         System.out.println("userId:"+userId);
+        System.out.println("================================================="+"messageContent"+messageContent+"++++++typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
         Result<Integer> result=new Result<Integer>();
         String newPath=request.getRealPath("/");
 
@@ -79,7 +80,7 @@ public class MessageController {
         if(((messageContent!="")||(messageContent!=null))&&((messageTitle!="")&&(messageTitle!=null)))//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
-            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId);
+            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
             if(r>0){
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");

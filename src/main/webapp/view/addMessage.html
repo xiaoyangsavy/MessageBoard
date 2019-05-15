@@ -20,17 +20,17 @@
 <div data-role="page">
   <div data-role="header" data-position="fixed">
     <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
-    <h1>发布内容</h1>
+    <h1 id="title-h">发布内容</h1>
   </div>
 
   <div data-role="main" class="ui-content">
   
-	<div class="ui-field-contain">
+	<div id="messageTitleDiv" class="ui-field-contain">
         <label>标题</label>
        <input type="text" name="messageTitle" id="messageTitle">
       </div>
   
-   <div class="ui-field-contain">
+   <div id="messageTypeDiv" class="ui-field-contain">
         <label for="messageType">选择类别</label>
         <select name="messageType" id="messageType">
          <option value="0">请选择</option>
@@ -92,6 +92,36 @@
  $(function(){
 if(!debug){
  
+  //查找用户权限
+   $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/getPermission?userName="+getUsername(),
+        contentType: "application/json",
+        success: function (data) {
+			console.log("call user/getPermission");
+			console.log(data);
+	 		if(data.status==200){	//调用成功
+			console.log("getPermission:");
+			console.log(data.data);
+			permission = data.data;
+			if(permission!=0){	//用户
+				$("#messageTitleDiv").hide();//隐藏
+				$("#messageTypeDiv").hide();//隐藏
+			}else{
+				$("#messageTitle").show();//显示
+				$("#messageTypeDiv").show();
+			}
+			 
+			}else{
+				openPopup("权限获取失败，请重新登录！");
+			}
+        },
+        error: function (e) {
+			console.log(e);
+            openPopup("权限获取失败，请重新登录！");
+        }
+    });	 
+	
  //获取选项列表数
   $.ajax({
         type: "GET",
@@ -157,7 +187,7 @@ if(!debug){
 	//formFile.append("voiceUrl", voiceUrl);
 	if(messageId != null && messageId != undefined && messageId != ''){
 	formFile.append("messageId", messageId); 	
-	}
+	}             
 	
 	//console.log(imageFile); 
   
@@ -216,32 +246,7 @@ formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
 }
  
  
- 
-  function XXXaddMessage(){
- var formData = new FormData();
- var files = document.getElementById("file_upload").files;
-for(var i=0; i< files.length; i++){
-console.log(files[i].name);
-formData.append('file',files[i]);    //将文件转成二进制形式
-}	
-
-       // formData.append('file',files[0]);    //将文件转成二进制形式
-        $.ajax({
-            type:"post",
-            url:serverUrl+"message/fileupload",
-            async:false,
-            contentType: false,    //这个一定要写
-            processData: false, //这个也一定要写，不然会报错
-            data:formData,
-            dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
-            success:function(data){
-                console.log(data);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown, data){
-                console.log(errorThrown);
-            }            
-        });
-  }
+  
  </script>
 </body>
 </html>
