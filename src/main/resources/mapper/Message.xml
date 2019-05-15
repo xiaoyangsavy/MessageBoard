@@ -81,6 +81,7 @@
         from message,user,message_type
         where (message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
         or (super_message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
+        order by message_id asc 
     </select>
     <delete id="deleteProblem" parameterType="com.savy.model.Message">
         delete
