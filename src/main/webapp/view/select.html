@@ -26,10 +26,10 @@
     
 	  <div id="search-div" class="ui-field-contain">
         <label for="search">用户：</label>
-        <input type="search" name="search" id="username"  placeholder="请输入用户名...">
+        <input type="search" name="search" id="userName"  placeholder="请输入用户名...">
       </div>
 
-       <div class="ui-field-contain">
+       <div id="type-div" class="ui-field-contain">
         <label for="messageType">选择类别</label>
         <select name="messageType" id="messageType">
 		 <option value="-1">全部</option>
@@ -38,7 +38,7 @@
 
 	  <div class="ui-field-contain">
         <label for="day">选择状态</label>
-        <select name="isReplay" id="isReplay" >
+        <select name="exitReplay" id="exitReplay" >
 		 <option value="-1">全部</option>
          <option value="0">未回复</option>
          <option value="1">已回复</option>
@@ -58,6 +58,8 @@
 
 
  <script type="text/javascript">
+ var permission = 0;	//权限 
+ 
 $(function(){
 if(!debug){
  //查找用户权限
@@ -71,10 +73,14 @@ if(!debug){
 	 		if(data.status==200){	//调用成功
 			console.log("getPermission:");
 			console.log(data.data);
-			if(data.data==0){	//用户
+			permission = data.data;
+			if(permission==0){	//用户
 				$("#search-div").hide();//隐藏
 			}else{
 				$("#search-div").show();//显示
+			}
+			if(permission>0){	//普通管理员
+				$("#type-div").hide();//隐藏
 			}
 			}else{
 				openPopup("权限获取失败，请重新登录！");
@@ -136,9 +142,9 @@ function goMessage(){
 	if(typeId!="-1"){
 		url += "&typeId="+typeId;
 	}
-	var isReplay = $("#isReplay").val();
-	if(isReplay!="-1"){
-		url += "&isReplay="+isReplay;
+	var exitReplay = $("#exitReplay").val();
+	if(exitReplay!="-1"){
+		url += "&exitReplay="+exitReplay;
 	}
 	window.location.href=url;
 	}
