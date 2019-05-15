@@ -32,6 +32,7 @@
         select *
         from user left join message_type
         on user.permission_id=message_type.type_id
+        order by user_id asc 
         limit ${start},${end}
     </select>
     <select id="userCount" resultType="Integer">

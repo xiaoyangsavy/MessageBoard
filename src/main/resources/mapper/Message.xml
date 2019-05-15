@@ -158,6 +158,7 @@
             and message.type_id=message_type.type_id
             and message.user_id =user.user_id
         </where>
+        order by message_date desc
         limit ${start},${end}
     </select>
     <select id="searchPermission" resultType="Integer">
