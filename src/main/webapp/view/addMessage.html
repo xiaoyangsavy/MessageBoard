@@ -162,7 +162,7 @@ if(!debug){
  
  //新增信息
  function addMessage(){
-	 openPopup('数据提交中......');
+	
 	var userId = getUserId();
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
@@ -191,20 +191,23 @@ if(!debug){
 	}             
 	
 	//console.log(imageFile); 
-  
+  var size = 0;
 for(var i=0; i< imageFile.length; i++){
 console.log(imageFile[i].name);
 formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
+ size += imageFile[i].size;
 }	
 
 for(var i=0; i< videoFile.length; i++){
 console.log(videoFile[i].name);
 formFile.append('videoFile',videoFile[i]);    //将文件转成二进制形式
+size += videoFile[i].size;
 }
 
 for(var i=0; i< voiceFile.length; i++){
 console.log(voiceFile[i].name);
 formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
+size += voiceFile[i].size;
 }
 
 	//alert(formFile.get("messageTitle"));
@@ -218,6 +221,16 @@ formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
 //	console.log("formFile:");
 //	console.log(JSON.stringify(data));
 
+ 
+ console.log(size);
+  var filesize = (size / 1024 /1024).toFixed(2);
+ console.log(filesize);
+ if(filesize>10){
+	 openPopup("文件过大，请选择较小文件！");
+	}else{
+		
+	 openPopup('数据提交中......');
+ 
  	// ajax提交
             $.ajax({
             	url: serverUrl+"message/insertMessage",
@@ -239,10 +252,11 @@ formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
                	},
                	error: function(result){
 					console.log(result);
-               		openPopup('接口调用错误，文件可能过大！');
+               		openPopup('接口调用错误，请重试！');
                	}
 
 			});
+			}
 
 }
  

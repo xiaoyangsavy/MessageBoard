@@ -81,6 +81,8 @@ if(username == null || username == undefined || username == ''|| username == '�
 			}),
         success: function (data) {
 			console.log("call user/login");
+			console.log("userName: "+username);
+			console.log("password: "+password);
 			console.log(data);
 	 		if(data.status==200){	//调用成功
 			setCookie(isLoginFlag,1);	//已登录
