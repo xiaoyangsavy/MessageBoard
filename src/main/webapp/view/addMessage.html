@@ -88,14 +88,17 @@
  //获取页面跳转时传递的参数
 	var messageId= getUrlParams("messageId");	//留言编号
     console.log("messageId="+messageId);
+	var returnUrl ='';
 	if(messageId != null && messageId != undefined && messageId != ''){
 	$("#messageTitleDiv").hide();//隐藏
 	$("#messageTypeDiv").hide();//隐藏	
 	$("#title-h").text("回复内容");
+	returnUrl = '../messageDetail.html?messageId='+messageId;
 	}else{
 		$("#messageTitle").show();//显示
 		$("#messageTypeDiv").show();
 		$("#title-h").text("发布内容");
+		returnUrl = 'message.html';
 	}
  
  $(function(){
@@ -254,7 +257,7 @@ size += voiceFile[i].size;
 					console.log(data);
 	 				//if(data.status==200){	//调用成功
 					// openPopup("新增成功！");
-					 window.location.href='message.html';
+					 window.location.href=returnUrl;
 					//}else{
 					//openPopup(data.message);
 					//}
