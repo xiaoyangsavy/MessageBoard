@@ -88,6 +88,15 @@
  //获取页面跳转时传递的参数
 	var messageId= getUrlParams("messageId");	//留言编号
     console.log("messageId="+messageId);
+	if(messageId != null && messageId != undefined && messageId != ''){
+	$("#messageTitleDiv").hide();//隐藏
+	$("#messageTypeDiv").hide();//隐藏	
+	$("#title-h").text("回复内容");
+	}else{
+		$("#messageTitle").show();//显示
+		$("#messageTypeDiv").show();
+		$("#title-h").text("发布内容");
+	}
  
  $(function(){
 if(!debug){
@@ -104,13 +113,13 @@ if(!debug){
 			console.log("getPermission:");
 			console.log(data.data);
 			permission = data.data;
-			if(permission!=0){	//用户
-				$("#messageTitleDiv").hide();//隐藏
-				$("#messageTypeDiv").hide();//隐藏
-			}else{
-				$("#messageTitle").show();//显示
-				$("#messageTypeDiv").show();
-			}
+			// if(permission!=0){	//用户
+			// 	$("#messageTitleDiv").hide();//隐藏
+			// 	$("#messageTypeDiv").hide();//隐藏
+			// }else{
+			// 	$("#messageTitle").show();//显示
+			// 	$("#messageTypeDiv").show();
+			// }
 			 
 			}else{
 				openPopup("权限获取失败，请重新登录！");
