@@ -69,26 +69,26 @@
 <div id="reply-div" >
      
      
-    <label>回复内容
-    </label>
-    
-    
- <!--  图片显示 -->
-    <br/><img src="images/test01.jpg" width="100%" > 
-    <!--  视频播放 -->
-    <p>视频:</p>
-	<br/><video src="images/test.mp4" width="100%"  align="center" controls autoplay></video>
-	<!--  音频播放
-	<audio src="../files/sound.mp3" id="audio" width="100%"  align="center" controls autoplay></audio> -->
-    <p>音频:</p>
- <audio controls style="width: 100%">
-  <source src="files/sound.mp3" type="audio/mpeg">
-您的浏览器不支持 audio 元素。
-</audio>
+    <!--<label>用户名：</label><label>&nbsp;&nbsp;&nbsp;&nbsp;回复内容</label>-->
+    <!---->
+    <!---->
+ <!--&lt;!&ndash;  图片显示 &ndash;&gt;-->
+    <!--<br/><img src="images/test01.jpg" width="100%" > -->
+    <!--&lt;!&ndash;  视频播放 &ndash;&gt;-->
+    <!--<p>视频:</p>-->
+	<!--<br/><video src="images/test.mp4" width="100%"  align="center" controls autoplay></video>-->
+	<!--&lt;!&ndash;  音频播放-->
+	<!--<audio src="../files/sound.mp3" id="audio" width="100%"  align="center" controls autoplay></audio> &ndash;&gt;-->
+    <!--<p>音频:</p>-->
+ <!--<audio controls style="width: 100%">-->
+  <!--<source src="files/sound.mp3" type="audio/mpeg">-->
+<!--您的浏览器不支持 audio 元素。-->
+<!--</audio>-->
 
-    
+    <h4>无回复内容</h4>
+     <hr />
   </div>
-  <hr />
+ 
  
  		<div id="grade-div"  >
 				 <span class="title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评分</span>
@@ -177,8 +177,9 @@ if(!debug){
 				 
 				var len = data.data.length;
 				console.log("length:"+len);
+				var html = '';	//待插入UI内容
 				//console.log(len>0?"true":"false");
- 			 for(var i = 0; i < 2; i++){	//只遍历了一次,只能强行写死
+ 			 for(var i = 0; i < 5; i++){	//只遍历了一次,只能强行写死
 				 console.log("i="+i);
 				 //console.log(i < len?"true":"false");
 				console.log(data.data[i]);
@@ -187,7 +188,7 @@ if(!debug){
 				
 				
 	 			//document.getElementById("content-div").innerHTML = '';
-	 			document.getElementById("reply-div").innerHTML = '<h4 id="messageTitle" align="center">无</h4>';
+	 			//html += '<h4 id="messageTitle" align="center">无回复内容</h4>';
 				if(i==0){	//用户留言内容
 				
 				//评分控件默认显示值
@@ -208,7 +209,7 @@ if(!debug){
 				 $("#rating-select").prev().text(grade);	//修改默认添加的span标签 
 				 
 				 
-				var html = '';
+				html = '';
 			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
@@ -233,15 +234,16 @@ if(!debug){
 				}
 				
 				document.getElementById("content-div").innerHTML = html;
-
+				html = '';
 	 
-			   }else{	//管理员回复内容
+			   }else{	//回复内容
 			  
 			   console.log("reply:");
 			   console.log(item);
 			   if(item != null&&item != undefined && item != ''){//存在回复
-				    isReplay = true;	
-			   	var html = '';
+				isReplay = true;	
+			   	//var html = '';
+				html += ' <div >&nbsp;<img src="images/用户.svg" class="login-icon">&nbsp;<span>'+item.userName+':</span></div><br/>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
 			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
@@ -249,27 +251,27 @@ if(!debug){
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
-					 	html += '<p>视频:</p><br/>';
+					 	html += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视频:</p><br/>';
 				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
 				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
-				html += ' <p>音频:</p><br/>';
+				html += ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;音频:</p><br/>';
 			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
 				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
-				 document.getElementById("reply-div").innerHTML = html;
+                   html += '<hr />';
 			   }
 			}
-
+ 			document.getElementById("reply-div").innerHTML = html;
 			   
 				 
 			 }
 			 console.log("permission="+permission+"isReplay="+isReplay)
 			 if(permission==0){	//用户
-				$("#replay-button").hide();//隐藏发布按钮
+				//$("#replay-button").hide();//隐藏发布按钮
 			}else{
 				$("#replay-button").show();//显示发布按钮
 				$("#grade-submit-div").hide();	//隐藏评分提交功能
@@ -277,7 +279,7 @@ if(!debug){
 			}
 			if(isReplay){
 				$("#grade-div").show();	//显示评分控件
-				$("#replay-button").hide();//隐藏发布按钮
+				//$("#replay-button").hide();//隐藏发布按钮
 				}else{
 				$("#grade-div").hide();	//隐藏评分控	
 				}
