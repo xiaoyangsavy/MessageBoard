@@ -163,7 +163,7 @@
         limit ${start},${end}
     </select>
     <select id="searchPermission" resultType="Integer">
-        select permisssion_id
+        select permission_id
         from user
         where user_id=${userId}
 
