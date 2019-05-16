@@ -162,6 +162,7 @@ if(!debug){
  
  //新增信息
  function addMessage(){
+	 openPopup('数据提交中......');
 	var userId = getUserId();
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
@@ -238,7 +239,7 @@ formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
                	},
                	error: function(result){
 					console.log(result);
-               		alert('接口调用错误，请重试！');
+               		openPopup('接口调用错误，文件可能过大！');
                	}
 
 			});
