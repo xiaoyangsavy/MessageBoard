@@ -148,13 +148,15 @@ public class MessageService {
         return pageEntity;
     }
     //单文件上传
-    public String up(MultipartFile file,String childFiled){
+    public String up(MultipartFile file,String childFiled,String newPath){
         // List<MultipartFile> files=(Mul)(request)
-        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+       // String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
         //  System.out.println("---------------------"+path);
-        String p=StringUtils.subString(path,"","MessageBoard");
+        //String p=StringUtils.subString(path,"","MessageBoard");
         //System.out.println("---------------------"+p);
-        path=p+"\\filed\\"+childFiled;
+        String p=StringUtils.subString(newPath,"","message");
+       // path=p+"\\filed\\"+childFiled;
+        String path=p+"Files\\"+childFiled;
         File f = new File(path);
         if(!f.exists()&&!f.isDirectory()){
             f.mkdirs();
@@ -247,7 +249,7 @@ public class MessageService {
             f.mkdirs();
             System.out.println("创建文件");
         }else {
-            System.out.println("文件夹已经存在");
+            //System.out.println("文件夹已经存在");
         }
         for (int i = 0; i < files.length; ++i) {
             file = files[i];
@@ -269,13 +271,13 @@ public class MessageService {
                     fide_path=fide_path+pp+",";
                     //System.out.println("-------------------------"+path+fileName+suffixName);
                 } catch (Exception e) {
-                    stream = null;
+                   /* stream = null;
                     return "第 " + i + " 个文件上传失败 ==> "
-                            + e.getMessage();
+                            + e.getMessage();*/
                 }
             } else {
-                return "第 " + i
-                        + " 个文件上传失败因为文件为空";
+              /*  return "第 " + i
+                        + " 个文件上传失败因为文件为空";*/
             }
         }
         return fide_path;
