@@ -313,6 +313,16 @@ public class MessageService {
         return  up_message;
     }
 
+    public Integer selectUserPermission(Integer userId){
+        Integer selectUserPermission=messageMapper.selectUserPermission(userId);
+        return selectUserPermission;
+    }
+
+    public Integer updateExitReply(String exitReplay,Integer messageId){
+        Integer updateExitReply=messageMapper.updateExitReply(exitReplay,messageId);
+        return updateExitReply;
+    }
+
 
 }
 

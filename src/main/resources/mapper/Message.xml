@@ -204,4 +204,14 @@
         </set>
         where message_id=#{messageId}
     </update>
+    <update id="updateExitReply">
+        update message
+        set exit_replay=#{exitReplay}
+        where message_id=#{messageId}
+    </update>
+    <select id="selectUserPermission" resultType="Integer">
+        select permission_id
+        from user
+        where user_id=#{userId}
+    </select>
 </mapper>

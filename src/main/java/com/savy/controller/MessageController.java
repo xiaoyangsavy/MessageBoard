@@ -64,6 +64,8 @@ public class MessageController {
         if((messageId!=null)&&(messageContent!="")&&(messageContent!=null)){//用户评论的插入
             superMessageId=messageId;
             isReplay=true;
+            boolean exitReplay=true;
+            messageService.updateExitReplay(messageId,exitReplay);
             r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
             if(r>0){
                 boolean exitReply=true;
@@ -133,7 +135,7 @@ public class MessageController {
         String newPath=request.getRealPath("/");
         String imagUrl=null,voiceUrl=null ,videoUrl=null;
         System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
-        String path=messageService.up(file,"",newPath);
+        String path=messageService.up(file,"",newPath);//image//voice//video
         messageService.up_message(imagUrl,voiceUrl,videoUrl,messageId);
         return result;
     }
@@ -200,13 +202,15 @@ public class MessageController {
         Date messageDate=new Date();
         Result<Integer> result=new Result<>();
         Integer r=0;
-        boolean isReplay=false;
+        boolean isReplay=true;
+        boolean exitReplay=true;
         int permisstion=messageService.searchPermission(userId);
-        if(permisstion!=0){
+        /*if(permisstion!=0){
             isReplay=true;
-        }
+        }*/
         if(messageContent!=""&&messageContent!=null)
         {
+            messageService.updateExitReplay(superMessageId,exitReplay);
             r=messageService.addReply(superMessageId,messageContent,messageDate,imageUrl,voiceUrl,videoUrl,userId,isReplay);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("回复成功！");
