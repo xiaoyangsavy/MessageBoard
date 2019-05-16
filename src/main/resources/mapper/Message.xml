@@ -189,4 +189,19 @@
         where user.permission_id=message_type.type_id
         and user.permission_id = #{typeId}
     </select>
+    <update id="up_message">
+        update message
+        <set>
+            <if test="imagUrl!='' and imagUrl!=null">
+                image_url=#{imagUrl}
+            </if>
+            <if test="voiceUrl!='' and voiceUrl!=null">
+                voice_url=#{voiceUrl}
+            </if>
+            <if test="videoUrl!='' and videoUrl!=null">
+                video_url=#{videoUrl}
+            </if>
+        </set>
+        where message_id=#{messageId}
+    </update>
 </mapper>

@@ -29,7 +29,6 @@ public class MessageController {
                                          @RequestParam(value="voiceFile", required=false) MultipartFile[] voiceFile,
                                          @RequestParam(value="videoFile", required=false) MultipartFile[] videoFile,
                                          @RequestParam(name = "messageId",required= false) Integer messageId,
-                                         @RequestParam("file") MultipartFile file,
                                          @RequestParam Integer typeId,
                                          @RequestParam String messageTitle,
                                          @RequestParam Integer userId,
@@ -44,7 +43,7 @@ public class MessageController {
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
-        messageService.up(file,"",newPath);
+
        try {
            if(imageFile.length>0){
             imageUrl_2=messageService.up2(imageFile,"image",newPath);
@@ -123,6 +122,19 @@ public class MessageController {
             result.setMessage("添加信息失败！");
             return result;
         }*/
+        return result;
+    }
+    @RequestMapping(value = "/insert_Message_2",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> insert_Message_2(@RequestParam("file") MultipartFile file,
+                                            HttpServletRequest request,
+                                            @RequestParam("messageId") Integer messageId){
+        Result<Integer> result=new Result<Integer>();
+        String newPath=request.getRealPath("/");
+        String imagUrl=null,voiceUrl=null ,videoUrl=null;
+        System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
+        String path=messageService.up(file,"",newPath);
+        messageService.up_message(imagUrl,voiceUrl,videoUrl,messageId);
         return result;
     }
 

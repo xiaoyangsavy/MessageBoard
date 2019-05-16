@@ -307,6 +307,12 @@ public class MessageService {
         return  user_Permissin;
     }
 
+    public Integer up_message(String imagUrl ,String voiceUrl ,String videoUrl ,Integer messageId)
+    {
+        Integer up_message=messageMapper.up_message(imagUrl,voiceUrl,videoUrl,messageId);
+        return  up_message;
+    }
+
 
 }
 
