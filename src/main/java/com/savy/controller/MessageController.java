@@ -35,7 +35,7 @@ public class MessageController {
                                          HttpServletRequest request){
         System.out.println("call /message/insertMessage");
         System.out.println("userId:"+userId);
-        System.out.println("================================================="+"messageContent"+messageContent+"++++++typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
+       // System.out.println("================================================="+"messageContent"+messageContent+"++++++typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
         Result<Integer> result=new Result<Integer>();
         String newPath=request.getRealPath("/");
 
@@ -43,6 +43,7 @@ public class MessageController {
         String imageUrl_2="",voiceUrl_2="",videoUrl_2="";
         int superMessageId=0;
         boolean isReplay=false;
+
        try {
            if(imageFile.length>0){
             imageUrl_2=messageService.up2(imageFile,"image",newPath);
@@ -80,7 +81,7 @@ public class MessageController {
         if(((messageContent!="")||(messageContent!=null))&&((messageTitle!="")&&(messageTitle!=null)))//发布信息
         {
             r=messageService.insertMessage(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId);
-            System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
+            //System.out.println("================================================="+r+"messageContent"+messageContent+"++++++"+"imageUrl_2"+imageUrl_2+"voiceUrl_2"+voiceUrl_2+"videoUrl_2"+videoUrl_2+"typeId"+typeId+"messageTitle"+messageTitle+"userId"+userId+"messageId:"+messageId);
             if(r>0){
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");
@@ -92,12 +93,12 @@ public class MessageController {
             }
             return result;
         }
-       else {
+      /*   else {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             //result.setData(r);
         }
-        if(r>0){
+       if(r>0){
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("添加信息成功！");
             //result.setData(r);
@@ -106,7 +107,7 @@ public class MessageController {
             result.setMessage("添加信息失败！");
             //result.setData(r);
         }
-        if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
+       if((messageContent==null ||messageContent=="")&&(messageId==null)&&(typeId==null)&&(messageTitle==null||messageTitle=="")&&(userId==null)&&(imageFile.length==0)&&(videoFile.length==0)&&(voiceFile.length==0)){
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             return result;
@@ -120,7 +121,20 @@ public class MessageController {
             result.setResultStatus(ResultStatus.FAIL);
             result.setMessage("添加信息失败！");
             return result;
-        }
+        }*/
+        return result;
+    }
+    @RequestMapping(value = "/insert_Message_2",method = {RequestMethod.POST},produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Result<Integer> insert_Message_2(@RequestParam("file") MultipartFile file,
+                                            HttpServletRequest request,
+                                            @RequestParam("messageId") Integer messageId){
+        Result<Integer> result=new Result<Integer>();
+        String newPath=request.getRealPath("/");
+        String imagUrl=null,voiceUrl=null ,videoUrl=null;
+        System.out.println(request.getRealPath("/"));  //1.8已使用   request.getServletContext().getRealPath("/")
+        String path=messageService.up(file,"",newPath);
+        messageService.up_message(imagUrl,voiceUrl,videoUrl,messageId);
         return result;
     }
 

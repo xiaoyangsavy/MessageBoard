@@ -81,7 +81,7 @@
         from message,user,message_type
         where (message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
         or (super_message_id=${superMessageId} and message.user_id =user.user_id and message.type_id=message_type.type_id)
-        order by message_id asc 
+        order by message_id asc
     </select>
     <delete id="deleteProblem" parameterType="com.savy.model.Message">
         delete
@@ -189,4 +189,19 @@
         where user.permission_id=message_type.type_id
         and user.permission_id = #{typeId}
     </select>
+    <update id="up_message">
+        update message
+        <set>
+            <if test="imagUrl!='' and imagUrl!=null">
+                image_url=#{imagUrl}
+            </if>
+            <if test="voiceUrl!='' and voiceUrl!=null">
+                voice_url=#{voiceUrl}
+            </if>
+            <if test="videoUrl!='' and videoUrl!=null">
+                video_url=#{videoUrl}
+            </if>
+        </set>
+        where message_id=#{messageId}
+    </update>
 </mapper>
