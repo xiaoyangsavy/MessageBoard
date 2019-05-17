@@ -64,14 +64,15 @@ public class MessageController {
         if((messageId!=null)&&(messageContent!="")&&(messageContent!=null)){//用户评论的插入
             superMessageId=messageId;
             isReplay=true;
+            boolean exitReply=false;
           //  boolean exitReplay=true;
             //messageService.updateExitReplay(messageId,exitReplay);
             r=messageService.insertMessage_2(messageContent,imageUrl_2,voiceUrl_2,videoUrl_2,typeId,messageTitle,userId,superMessageId,isReplay);
-            boolean exitReply=true;
             int uid=messageService.searchPermission(userId);
             if(uid!=0){
-                messageService.updateExitReplay(messageId,exitReply);
+                exitReply=true;
             }
+            messageService.updateExitReplay(messageId,exitReply);
             if(r>0){
                 result.setResultStatus(ResultStatus.SUCCESS);
                 result.setMessage("添加信息成功！");
