@@ -24,7 +24,7 @@
 
 <div data-role="page">
   <div data-role="header" data-position="fixed" class="cus-head">
-    <a href="javascript:history.back(-1)" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
+    <a href="goWebpage('message.html')" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">左箭头图标</a>
     <h1>内容详情</h1>
     <a id="replay-button" onclick="goReply()"class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext  head-btn"></a>
   </div>
@@ -174,12 +174,12 @@ if(!debug){
 				//if(data.data.length>1){
 				//	exitReply = true;
 				//}
-				 
-				var len = data.data.length;
-				console.log("length:"+len);
+				var dateLen = 0;
+				dateLen = data.data.length;
+				console.log("length:"+dateLen);
 				var html = '';	//待插入UI内容
 				//console.log(len>0?"true":"false");
- 			 for(var i = 0; i < len; i++){	//只遍历了一次,只能强行写死
+ 			 for(var i = 0; i < dateLen; i++){	//只遍历了一次,只能强行写死
 				 console.log("i="+i);
 				 //console.log(i < len?"true":"false");
 				console.log(data.data[i]);
@@ -215,20 +215,20 @@ if(!debug){
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
 					 
 					console.log(item.imageUrl.length);
-			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
+			   	for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
 				console.log(fileUrl+item.imageUrl[j]);
 				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>视频:</p><br/>';
-				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
 				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>音频:</p><br/>';
-			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+			   	for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
 				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
@@ -246,19 +246,19 @@ if(!debug){
 				html += ' <div >&nbsp;<img src="images/用户.svg" class="login-icon">&nbsp;<span>'+item.userName+':</span></div><br/>';
 			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
 				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
-			   	for(var j = 0,len = item.imageUrl.length; j < len; j++){	//图片
+			   	for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
 				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
 				 }
 				}
 				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
 					 	html += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视频:</p><br/>';
-				for(var j = 0,len = item.videoUrl.length; j < len; j++){	//视频
+				for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
 				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
 				 }
 				 }
 				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
 				html += ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;音频:</p><br/>';
-			   	for(var j = 0,len = item.voiceUrl.length; j < len; j++){	//音频
+			   	for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
 				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
 				 }
 				}
