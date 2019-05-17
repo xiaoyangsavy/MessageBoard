@@ -183,7 +183,8 @@ if(exitReplay != null&&exitReplay != undefined&&exitReplay != ''){
 				html += ' <div class="user-logo">';
 				html += '<img data-online="true" src="../images/name.png">';
 				html += '<span>'+item.userName+'</span>';
-				html += '<span>'+item.messageDate+'</span></div>';
+				html += '<span>'+item.messageDate+'</span>';
+				html += '<span>'+item.messageTime+'</span></div>';
 				html += '<h2><br/>'+item.messageTitle+'</h2>';
 				html += '<p>'+item.messageContent+'<br/><br/></p>';
 				html += '<p data-state="'+getTypeColor(item.typeName)+'" class="ui-li-aside">'+item.typeName+'</p>';

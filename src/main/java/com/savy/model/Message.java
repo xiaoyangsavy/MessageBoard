@@ -21,7 +21,8 @@ public class Message {
     private String messageTitle;
     private String userName;
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
-    private Date messageDate;//消息发布时间
+    private Date messageDate;//消息发布日期
+    //private Date messageTime;//消息发布时间
 
     public int getMessageId() {
         return messageId;
@@ -47,6 +48,7 @@ public class Message {
         this.messageContent = messageContent;
     }
 
+    @JsonFormat(pattern="yy-MM-dd",timezone = "GMT+8")
     public Date getMessageDate() {
         return messageDate;
     }
@@ -54,6 +56,15 @@ public class Message {
     public void setMessageDate(Date messageDate) {
         this.messageDate = messageDate;
     }
+
+    @JsonFormat(pattern="HH:mm:ss",timezone = "GMT+8")
+    public Date getMessageTime() {
+        return messageDate;
+    }
+
+    //public void setMessageTime(Date messageTime) {
+    //    this.messageTime = messageTime;
+   // }
 
     public String getImageUrl() {
         return imageUrl;
