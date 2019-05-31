@@ -126,11 +126,13 @@ if(!debug){
 			 
 			}else{
 				openPopup("权限获取失败，请重新登录！");
+                window.location.href='login.html';
 			}
         },
         error: function (e) {
 			console.log(e);
             openPopup("权限获取失败，请重新登录！");
+            window.location.href='login.html';
         }
     });	 
 	
@@ -174,7 +176,8 @@ if(!debug){
  
  //新增信息
  function addMessage(){
-	
+
+    var invalidContent = true;  //无效内容
 	var userId = getUserId();
 	var messageTitle = $("#messageTitle").val();
 	var typeId = $("#messageType").val();
@@ -186,6 +189,11 @@ if(!debug){
 	 
 	 console.log("values:");
 	console.log("messageTitle="+messageTitle);
+
+     if(messageContent != null && messageContent != undefined && messageContent != ''){
+         invalidContent = false;    //有效内容
+     }
+
 	 
 	// 构建form数据
 	var formFile = new FormData();
@@ -205,18 +213,23 @@ if(!debug){
 	//console.log(imageFile); 
   var size = 0;
 for(var i=0; i< imageFile.length; i++){
+    invalidContent = false;
 console.log(imageFile[i].name);
 formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
  size += imageFile[i].size;
+
 }	
 
 for(var i=0; i< videoFile.length; i++){
+    invalidContent = false;
 console.log(videoFile[i].name);
 formFile.append('videoFile',videoFile[i]);    //将文件转成二进制形式
 size += videoFile[i].size;
+
 }
 
 for(var i=0; i< voiceFile.length; i++){
+    invalidContent = false;
 console.log(voiceFile[i].name);
 formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
 size += voiceFile[i].size;
@@ -237,12 +250,14 @@ size += voiceFile[i].size;
  console.log(size);
   var filesize = (size / 1024 /1024).toFixed(2);
  console.log(filesize);
- if(filesize>10){
+ if(filesize>5){
 	 openPopup("文件过大，请选择较小文件！");
-	}else{
-		
-	 openPopup('数据提交中......');
- 
+	}else  if(invalidContent){
+     console.log("未填写有效内容");
+     sleep(1000);
+     openPopup("请填写内容！");
+ }else{
+     openPopup('数据提交中......');
  	// ajax提交
             $.ajax({
             	url: serverUrl+"message/insertMessage",
@@ -264,8 +279,9 @@ size += voiceFile[i].size;
 					//}
                	},
                	error: function(result){
+                    closePopup();	//关闭对话框
 					console.log(result);
-               		openPopup('接口调用错误，请重试！');
+               		alert('接口调用错误，请重试！'+result);
                	}
 
 			});
