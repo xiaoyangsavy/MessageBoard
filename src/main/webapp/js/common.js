@@ -5,10 +5,10 @@ var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
 //var serverUrl = "http://192.168.191.5:8080/message/"	//服务器地址
 //var fileUrl = "http://192.168.191.5:8080/"	//文件地址
-var serverUrl = "http://210.30.128.69:8080/message/"	//服务器地址
-var fileUrl = "http://210.30.128.69:8080/"	//文件地址
-//var serverUrl = "http://127.0.0.1:8080/message/"	//服务器地址
-//var fileUrl = "http://127.0.0.1:8080/"	//文件地址
+//var serverUrl = "http://210.30.128.69:8080/message/"	//服务器地址
+//var fileUrl = "http://210.30.128.69:8080/"	//文件地址
+var serverUrl = "http://192.168.191.4:8080/message/"	//服务器地址
+var fileUrl = "http://192.168.191.4:8080/"	//文件地址
 
 var userIdFlag = 'userId';
 
@@ -44,8 +44,8 @@ return ""
 //删除用户缓存
  function delCookie(name)
 {
-var expdate = new Date();   //初始化时间
-    expdate.setTime(expdate.getTime() + 30 * 60 * 1000);   //时间
+    var expdate = new Date();   //初始化时间
+    expdate.setTime(expdate.getTime()-1);   //时间
     document.cookie = name+"="+""+";expires="+expdate.toGMTString()+";path=/";
 }
 
