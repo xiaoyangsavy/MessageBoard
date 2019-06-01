@@ -36,20 +36,20 @@
             
                 <img src="../images/phone-black.png">&nbsp&nbsp&nbsp手机号
                 <input type="text" name="phone" id="phone"  placeholder="请输入手机号">
-     <!--
-                      <img src="../images/mail-black.png">&nbsp&nbsp&nbsp姓名
+
+                      <img src="../images/user-black.png">&nbsp&nbsp&nbsp姓名
                       <input type="text" name="realName" id="realName" placeholder="请输入姓名">
 
-                      <img src="../images/mail-black.png">&nbsp&nbsp&nbsp学号
+                      <img src="../images/gear-black.png">&nbsp&nbsp&nbsp学号
                       <input type="text" name="sno" id="sno" placeholder="请输入学号">
 
-                      <img src="../images/mail-black.png">&nbsp&nbsp&nbsp学院
+                      <img src="../images/gear-black.png">&nbsp&nbsp&nbsp学院
                       <input type="text" name="college" id="college" placeholder="请输入学院">
 
-
-                       <img src="../images/mail-black.png">&nbsp&nbsp&nbsp邮箱
-                      <input type="email" name="email" id="email" placeholder="请输入邮箱">
-      -->
+     <!--
+                         <img src="../images/mail-black.png">&nbsp&nbsp&nbsp邮箱
+                        <input type="email" name="email" id="email" placeholder="请输入邮箱">
+        -->
              
 			  <fieldset data-role="controlgroup" data-type="horizontal">
 			 <legend>请选择您的性别：</legend>
@@ -73,6 +73,9 @@ function regist(){
 	var passwordAffirm = $("#passwordAffirm").val();
 	var phone = $("#phone").val();
 	var email = $("#email").val();
+    var sno = $("#sno").val();
+    var realName = $("#realName").val();
+    var college = $("#college").val();
 	var sex = $("input[name='sex']:checked").val();
 	
 	console.log("userName:"+userName);
@@ -93,6 +96,9 @@ function regist(){
 				"password": password,
 				"phone": phone,
 				"email": email,
+                "sno": sno,
+                "realName": realName,
+                "college": college,
 				"sex": sex
 			}),
         success: function (data) {
