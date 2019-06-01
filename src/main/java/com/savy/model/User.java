@@ -19,6 +19,9 @@ public class User {
     private Integer permissionId;//用户权限
     private String permissionName;
     private String typeName;
+    private String sno;//学号
+    private String realName;//学生姓名
+    private String college;//学院
     @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
     private Date lastLoginDate;   //最后登录日期
 
@@ -119,6 +122,30 @@ public class User {
         this.typeName = typeName;
     }
 
+    public String getSno() {
+        return sno;
+    }
+
+    public void setSno(String sno) {
+        this.sno = sno;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -132,6 +159,9 @@ public class User {
                 ", permissionId=" + permissionId +
                 ", permissionName='" + permissionName + '\'' +
                 ", typeName='" + typeName + '\'' +
+                ", sno='" + sno + '\'' +
+                ", realName='" + realName + '\'' +
+                ", college='" + college + '\'' +
                 ", lastLoginDate=" + lastLoginDate +
                 '}';
     }

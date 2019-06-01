@@ -59,6 +59,9 @@ public class UserController {
         String sex=myMap.get("sex");
         String phone=myMap.get("phone");
         String email=myMap.get("email");
+        String sno=myMap.get("sno");
+        String realName=myMap.get("realName");
+        String college=myMap.get("college");
         Integer r=0;
         Result<Integer> result=new Result<Integer>();
         Integer user_id=userService.selectID(userName);
@@ -81,7 +84,7 @@ public class UserController {
             return result;
         }
         if (userName!=""&&userName!=null&&user_id==null&&password!=""&&password!=null){
-            r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email);
+            r=userService.insertUser(userName,password,0,"普通用户",sex,phone,email,sno,realName,college);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("注册成功！");
             result.setData(r);

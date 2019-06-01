@@ -25,8 +25,8 @@ public class UserService {
         return user;
     }
 
-    public Integer insertUser(String userName,String password,int permissionId,String name,String sex,String phone,String email){
-        Integer insert_user=userMapper.insertUser(userName,password,permissionId,name,sex,phone,email);
+    public Integer insertUser(String userName,String password,int permissionId,String name,String sex,String phone,String email,String sno,String realName,String college){
+        Integer insert_user=userMapper.insertUser(userName,password,permissionId,name,sex,phone,email,sno,realName,college);
         return insert_user;
     }
 

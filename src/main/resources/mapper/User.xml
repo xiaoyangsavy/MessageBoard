@@ -20,8 +20,8 @@
         where user_id =#{userId}
     </select>
     <insert id="insertUser">
-        insert into user(user_name,password,permission_id,name,sex,phone,email)
-        values (#{userName},#{password},#{permissionId},#{name},#{sex},#{phone},#{email})
+        insert into user(user_name,password,permission_id,name,sex,phone,email,sno,real_name,college)
+        values (#{userName},#{password},#{permissionId},#{name},#{sex},#{phone},#{email},#{sno},#{realName},#{college})
 
     </insert>
     <insert id="addUser">

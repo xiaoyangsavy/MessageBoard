@@ -13,7 +13,7 @@ public interface UserMapper {
     //根据id获取用户信息
     User getUserById(@Param("userId") int userId);
     //注册用户
-    Integer insertUser(@Param("userName") String userName,@Param("password") String password,@Param("permissionId") Integer permissionid,@Param("name") String name,@Param("sex") String sex,@Param("phone") String phone,@Param("email") String email);
+    Integer insertUser(@Param("userName") String userName,@Param("password") String password,@Param("permissionId") Integer permissionid,@Param("name") String name,@Param("sex") String sex,@Param("phone") String phone,@Param("email") String email,@Param("sno") String sno,@Param("realName") String realName,@Param("college") String college);
     //用户管理——添加用户
     Integer addUser(@Param("userName") String userName,@Param("password") String password,@Param("permissionId") Integer permissionId);
     //用户管理——查询用户
