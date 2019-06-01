@@ -250,11 +250,11 @@ size += voiceFile[i].size;
  console.log(size);
   var filesize = (size / 1024 /1024).toFixed(2);
  console.log(filesize);
- if(filesize>5){
+ if(filesize>7){
 	 openPopup("文件过大，请选择较小文件！");
 	}else  if(invalidContent){
      console.log("未填写有效内容");
-     sleep(1000);
+     //sleep(1000);
      openPopup("请填写内容！");
  }else{
      openPopup('数据提交中......');
