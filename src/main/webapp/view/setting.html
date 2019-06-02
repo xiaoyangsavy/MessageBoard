@@ -88,7 +88,9 @@ if(!debug){
   
 //退出
 function logout() {
-	delCookie(isLoginFlag);	//删除缓存
+	delCookie(usernameFlag);	//用户名，根据此值获取权限
+    delCookie(isLoginFlag);	//登录标记
+    delCookie(userIdFlag);	//用户编号
 	window.location.href="login.html";
 } 
   </script>
