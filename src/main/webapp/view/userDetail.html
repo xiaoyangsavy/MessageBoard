@@ -26,11 +26,39 @@
   </div>
 
   <div data-role="main" class="ui-content">
+
     <div class="login-input-box">
     <div class="ui-field-contain">
   <lable>用户名：</lable> <lable id="userName"></lable> 
   </div>
-  
+
+
+        <!-- 用户专属内容 -->
+        <div id="user-div">
+            <div class="ui-field-contain">
+                <lable>真实姓名：</lable> <lable id="realName"></lable>
+            </div>
+            <div class="ui-field-contain">
+                <lable>学号：</lable> <lable id="sno"></lable>
+            </div>
+            <div class="ui-field-contain">
+                <lable>性别：</lable> <lable id="sex"></lable>
+            </div>
+            <div class="ui-field-contain">
+                <lable>所属学院：</lable> <lable id="college"></lable>
+            </div>
+            <div class="ui-field-contain">
+                <lable>手机号：</lable> <lable id="phone"></lable>
+            </div>
+            <div class="ui-field-contain">
+                <lable>邮箱：</lable> <lable id="email"></lable>
+            </div>
+        </div>
+
+        <div class="ui-field-contain">
+            <lable>最后登录日期：</lable> <lable id="lastLoginDate"></lable>
+        </div>
+
    <div class="ui-field-contain">
    <lable for="password">密码</lable>
  <input type="password" name="password" id="password" placeholder="待修改的密码">
@@ -44,7 +72,8 @@
      </div>
 
 
- <table style="margin: 0 auto">
+
+                <table style="margin: 0 auto">
     <tr align="center"><td >
     <div id="delete-button" style="display: inline-block">
      <input type="submit" onclick="deleteData()" data-inline="true" value="删除"></div></td>
@@ -71,7 +100,39 @@
  
  $(function(){
 if(!debug){
-	
+
+    //查找用户权限
+    $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/getPermission?userName="+getUsername(),
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call user/getPermission");
+            console.log(data);
+            if(data.status==200){	//调用成功
+                console.log("getPermission:");
+                console.log(data.data);
+                var permission = data.data;
+          if(permission!=-1){
+              console.log("不为管理员，跳转到系统设置页面");
+              window.location.href='setting.html';
+          }else{
+
+          }
+            }else{
+                console.log("权限获取失败，请重新登录！");
+                window.location.href='login.html';
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            console.log("权限获取失败，请重新登录！");
+            window.location.href='login.html';
+        }
+    });
+
+
+
 	//获取选项列表数
   $.ajax({
         type: "GET",
@@ -89,8 +150,10 @@ if(!debug){
 			 	var item = data.data[i];
 			  	html += '<option value="'+item.typeId+'">'+item.typeName+'管理员</option>';
 			 }
-				 document.getElementById("messageType").innerHTML = html; 
-			 
+				 document.getElementById("messageType").innerHTML = html;
+
+                getUserInfo();//获取用户信息（必须在类别数据获取之后调用，不然无法默认填充）
+
             }else{
                 openPopup("获取数据失败，请重试！");
             }
@@ -103,46 +166,7 @@ if(!debug){
 
 	
 	
- //获取用户信息
-	 $.ajax({
-        type: "GET",
-        url:  serverUrl+"user/getUser?userId="+userId,
-        contentType: "application/json",
-        success: function (data) {
-            console.log("call user/getUser");
-            console.log(data);
-            if(data.status==200){	//调用成功
-			var myData = data.data;
-			var userId = myData.userId;
-			var userName = myData.userName;
-			var password = myData.password;
-			var permissionId = myData.permissionId;
-		 	
-			$("#userName").text(userName);
-			//修改下拉框显示样式
-			$("#messageType").val(permissionId);
-			var text = $("#messageType").find("option:selected").text();
-			//console.log(text);
-			$("#messageType").prev().text(text);	//修改默认添加的span标签
-			 
-			
-			if(permissionId != null && permissionId != undefined && permissionId != ''&&permissionId==-1){	//超级管理员
-				$("#message-type-div").hide();	//隐藏类别选择控件
-				$("#delete-button").hide();		
-			}else{
-				$("#message-type-div").show();
-			}
-                 
-   			 
-            }else{
-                openPopup("获取数据失败，请重试！");
-            }
-        },
-        error: function (e) {
-            console.log(e);
-            openPopup("获取数据失败，请重试！");
-        }
-    });
+
  
 	
 }else{
@@ -150,7 +174,112 @@ if(!debug){
 }
 
 });	
-	
+
+//获取用户信息
+ function getUserInfo() {
+
+     //获取用户信息
+     $.ajax({
+         type: "GET",
+         url:  serverUrl+"user/getUser?userId="+userId,
+         contentType: "application/json",
+         success: function (data) {
+             console.log("call user/getUser");
+             console.log(data);
+             if(data.status==200){	//调用成功
+                 var myData = data.data;
+                 var userId = myData.userId;
+                 var userName = myData.userName;
+                 var password = myData.password;
+                 var permissionId = myData.permissionId;
+                 var phone = myData.phone;
+                 var email = myData.email;
+                 var sno = myData.sno;
+                 var realName = myData.realName;
+                 var college = myData.college;
+                 var lastLoginDate = myData.lastLoginDate;
+                 var sex = myData.sex;
+
+
+                 $("#userName").text(userName);
+
+
+
+                 //修改下拉框显示样式
+                 $("#messageType").val(permissionId);
+                 var text = $("#messageType").find("option:selected").text();
+                 //console.log(text);
+                 $("#messageType").prev().text(text);	//修改默认添加的span标签
+
+
+                 if (lastLoginDate == null || lastLoginDate == undefined || lastLoginDate == '') {
+                     lastLoginDate='未登录过';
+                 }
+                 if (realName == null || realName == undefined || realName == '') {
+                     realName='未记录';
+                 }
+                 if (phone == null || phone == undefined || phone == '') {
+                     phone='未记录';
+                 }
+                 if (email == null || email == undefined || email == '') {
+                     email='未记录';
+                 }
+                 if (sno == null || sno == undefined || sno == '') {
+                     sno='未记录';
+                 }
+                 if (college == null || college == undefined || college == '') {
+                     college='未记录';
+                 }
+                 if (sex == null || sex == undefined || sex == '') {
+                     sex='未记录';
+                 }
+
+
+                 $("#realName").text(realName);  //真实姓名
+                 $("#lastLoginDate").text(lastLoginDate);    //最后登录时间
+                 $("#phone").text(phone);    //手机号
+                 $("#email").text(email);    //邮箱
+
+                 //0==''，取消权限非空判断
+                 // if(permissionId != null && permissionId != undefined && permissionId != '') {
+                 if(permissionId==0){    //普通用户
+                     console.log("该用户权限为普通用户:"+permissionId);
+                     $("#user-div").show();
+                     //普通用户专有信息
+                     $("#sno").text(sno);    //学号
+                     $("#college").text(college);    //学院
+                     $("#sex").text(sex);    //性别
+                 }else {
+                     console.log("该用户权限不为普通用户:" + permissionId);
+                     $("#user-div").hide();
+                 }
+
+                 if(permissionId==-1){	//超级管理员
+                     $("#message-type-div").hide();	//隐藏类别选择控件
+                     $("#delete-button").hide();     //不允许删除
+                 }else{
+                     $("#message-type-div").show();
+                 }
+                 //  }else{
+                 //       console.log(permissionId!= null);
+                 //       console.log(permissionId != undefined);
+                 //       console.log(permissionId != '');
+                 //       console.log("未获取到权限" + permissionId);
+                 //  }
+
+
+             }else{
+                 openPopup("获取数据失败，请重试！");
+             }
+         },
+         error: function (e) {
+             console.log(e);
+             openPopup("获取数据失败，请重试！");
+         }
+     });
+
+ }
+
 //删除数据 
 function deleteData(){
 	

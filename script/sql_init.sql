@@ -84,20 +84,20 @@ create table message_type
 
 /*插入正式数据==============================================================*/
 
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)  
-VALUES (1,'admin','admin','-1','超级管理员','男','15111111101','admin@qq.com','2006-08-10 17:32:50');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (1,'admin','admin','-1','超级管理员');
 INSERT INTO user (user_id,user_name,password,permission_id,name,sno,real_name,college,sex,phone,email,last_login_date)
 VALUES (2,'user','user','0','普通用户','001','小明','信息学院','男','15111111110','user@qq.com','2006-08-10 17:32:50');
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)  
-VALUES (3,'jiaowujiaoxue','jiaowujiaoxue','1','普通管理员','男','15111111111','admin1@qq.com','2006-08-10 17:32:50');
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)
-VALUES (4,'houqinfuwu','houqinfuwu','2','普通管理员','男','15111111111','admin1@qq.com','2006-08-10 17:32:50');
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)
-VALUES (5,'xueshengguanli','xueshengguanli','3','普通管理员','男','15111111111','admin1@qq.com','2006-08-10 17:32:50');
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)
-VALUES (6,'shujixinxiang','shujixinxiang','4','普通管理员','男','15111111111','admin1@qq.com','2006-08-10 17:32:50');
-INSERT INTO user (user_id,user_name,password,permission_id,name,sex,phone,email,last_login_date)
-VALUES (7,'xiaozhangxinxiang','xiaozhangxinxiang','5','普通管理员','男','15111111111','admin1@qq.com','2006-08-10 17:32:50');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (3,'jiaowujiaoxue','jiaowujiaoxue','1','普通管理员');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (4,'houqinfuwu','houqinfuwu','2','普通管理员');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (5,'xueshengguanli','xueshengguanli','3','普通管理员');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (6,'shujixinxiang','shujixinxiang','4','普通管理员');
+INSERT INTO user (user_id,user_name,password,permission_id,name)
+VALUES (7,'xiaozhangxinxiang','xiaozhangxinxiang','5','普通管理员');
  
 
 INSERT INTO permission (permission_id,permission_name,description)  VALUES (-1,'超级管理员权限','可以回复全部板块的留言、管理数据');

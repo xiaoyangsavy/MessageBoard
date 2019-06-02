@@ -110,13 +110,13 @@ if(!debug){
 			 //查询留言数据
   			 getMessageList(currentPage,pageSize);
 			}else{
-				openPopup("权限获取失败，请重新登录！");
+                console.log("权限获取失败，请重新登录！");
                 window.location.href='login.html';
 			}
         },
         error: function (e) {
 			console.log(e);
-            openPopup("权限获取失败，请重新登录！");
+            console.log("权限获取失败，请重新登录！");
             window.location.href='login.html';
         }
     });	 
