@@ -279,9 +279,9 @@ size += voiceFile[i].size;
                	async:false,			//上传文件无需缓存
                	processData: false,		//用于对data参数进行序列化处理 这里必须false
                	contentType: false, 	//必须	(multipart/form-data)
-               	success: function(result){
+               	success: function(data){
                		console.log("call message/insertMessage");
-					console.log(result);
+					console.log(data);
 	 				//if(data.status==200){	//调用成功
 					// openPopup("新增成功！");
 					//closePopup();	//关闭对话框
