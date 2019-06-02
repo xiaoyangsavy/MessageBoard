@@ -5,6 +5,7 @@
     <!-- 手机浏览器调试代码
     <script src="http://192.168.191.4:7521/target/target-script-min.js#anonymous"></script>
     -->
+
 <!-- meta使用viewport以确保页面可自由缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 引入 jQuery Mobile 样式 -->
@@ -192,12 +193,13 @@ if(!debug){
 	 
 	 console.log("values:");
 	console.log("messageTitle="+messageTitle);
+     console.log("messageContent="+messageContent);
 
      if(messageContent != null && messageContent != undefined && messageContent != ''){
          invalidContent = false;    //有效内容
      }
 
-	 
+     console.log("开始生成表单数据");
 	// 构建form数据
 	var formFile = new FormData();
 	formFile.append("userId",userId);
@@ -213,7 +215,8 @@ if(!debug){
 	formFile.append("messageId", messageId); 	
 	}             
 	
-	//console.log(imageFile); 
+	//console.log(imageFile);
+     console.log("解析图片数据");
   var size = 0;
 for(var i=0; i< imageFile.length; i++){
     invalidContent = false;
@@ -221,8 +224,9 @@ console.log(imageFile[i].name);
 formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
  size += imageFile[i].size;
 
-}	
+}
 
+     console.log("解析视频数据");
 for(var i=0; i< videoFile.length; i++){
     invalidContent = false;
 console.log(videoFile[i].name);
@@ -231,6 +235,7 @@ size += videoFile[i].size;
 
 }
 
+     console.log("解析声音数据");
 for(var i=0; i< voiceFile.length; i++){
     invalidContent = false;
 console.log(voiceFile[i].name);
@@ -239,21 +244,24 @@ size += voiceFile[i].size;
 }
 
 	//alert(formFile.get("messageTitle"));
-	
-	var items = formFile.entries();
-	var data = {};
-  while(item = items.next()){
-    if(item.done) break;
-   console.log(item);
-}
+
+//      console.log("表单数据为：");
+// 	var items = formFile.entries();
+// 	var data = {};
+//   while(item = items.next()){
+//     if(item.done) break;
+//    console.log(item);
+// }
+
 //	console.log("formFile:");
 //	console.log(JSON.stringify(data));
 
- 
+     console.log("开始计算所传数据大小");
  console.log(size);
   var filesize = (size / 1024 /1024).toFixed(2);
  console.log(filesize);
  if(filesize>7){
+     console.log("文件超过最大上限");
 	 openPopup("文件过大，请选择较小文件！");
 	}else  if(invalidContent){
      console.log("未填写有效内容");
@@ -261,6 +269,7 @@ size += voiceFile[i].size;
      openPopup("请填写内容！");
  }else{
      openPopup('数据提交中......');
+     console.log("开始提交数据");
  	// ajax提交
             $.ajax({
             	url: serverUrl+"message/insertMessage",
@@ -272,7 +281,7 @@ size += voiceFile[i].size;
                	contentType: false, 	//必须	(multipart/form-data)
                	success: function(result){
                		console.log("call message/insertMessage");
-					console.log(data);
+					console.log(result);
 	 				//if(data.status==200){	//调用成功
 					// openPopup("新增成功！");
 					//closePopup();	//关闭对话框
