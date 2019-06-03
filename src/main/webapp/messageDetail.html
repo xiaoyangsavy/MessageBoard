@@ -30,6 +30,16 @@
   </div>
 
   <div  data-role="main" class="ui-content">
+
+      <div  id="user-div">
+
+              <lable style="font-size:10px;">学生手机号：</lable> <lable id="phone" style="font-size:10px;"></lable>
+                <br/>
+              <lable style="font-size:10px;">学生邮箱：</lable> <lable id="email" style="font-size:10px;"></lable>
+
+
+      </div>
+
   <div id="content-div">
  
     <h4 id="messageTitle" align="center">用户留言</h4>
@@ -198,7 +208,7 @@ if(!debug){
 				 if(grade==null || grade == undefined || grade == '' || grade == 0){
 					 grade =  5;
 					}
-				
+                    getUserInfo(item.userId);
 				
 				 
 				 // var html = "";
@@ -346,9 +356,56 @@ function submitGrade(){
         }
     });	 
 }
+
+
+//获取用户信息
+function getUserInfo(userId) {
+
+    //获取用户信息
+    $.ajax({
+        type: "GET",
+        url:  serverUrl+"user/getUser?userId="+userId,
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call user/getUser");
+            console.log(data);
+            if(data.status==200){	//调用成功
+                var myData = data.data;
+
+
+                var phone = myData.phone;
+                var email = myData.email;
+
+                if (phone == null || phone == undefined || phone == '') {
+                    phone='未记录';
+                }
+                if (email == null || email == undefined || email == '') {
+                    email='未记录';
+                }
+
+                $("#phone").text(phone);    //手机号
+                $("#email").text(email);    //邮箱
+
+                if(permission==0){    //普通用户
+                    console.log("该用户权限为普通用户:"+permission);
+                    $("#user-div").hide();
+                }else {
+                    $("#user-div").show();
+                }
+            }else{
+                openPopup("获取数据失败，请重试！");
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("获取数据失败，请重试！");
+        }
+    });
+
+}
   </script>
-  
-  
+
+
   <!--<script>-->
 <!--$(function(){-->
  <!--setInterval(aa,10);-->
