@@ -64,11 +64,13 @@
  </div>
  
    <script type="text/javascript">
+       var userName ;
+       var password;
   //登录
 function regist(){
 	
-	var userName = $("#userName").val();
-	var password = $("#password").val();
+	userName = $("#userName").val();
+	password = $("#password").val();
 	var passwordAffirm = $("#passwordAffirm").val();
 	var phone = $("#phone").val();
 	var email = $("#email").val();
@@ -104,9 +106,7 @@ function regist(){
 			console.log("call user/register");
 			console.log(data);
 	 		if(data.status==200){	//调用成功
-			setCookie(isLoginFlag,1);	//已登录
-			setCookie(usernameFlag,userName);	//用户名
-			window.location.href='message.html';
+            login();    //调用登录方法
 			}else{
 				openPopup(data.message);
 			}
@@ -123,7 +123,39 @@ function regist(){
 	
  
 }
- 
-  </script>
+
+//登录
+function login(){
+  $.ajax({
+      type: "POST",
+      url:  serverUrl+"user/login",
+      contentType: "application/json",
+      data : JSON.stringify({
+          "userName": userName,
+          "password": password
+      }),
+      success: function (data) {
+          console.log("call user/login");
+          console.log("userName: "+userName);
+          console.log("password: "+password);
+          console.log(data);
+          if(data.status==200){	//调用成功
+              setCookie(isLoginFlag,1);	//已登录
+              setCookie(usernameFlag,userName);	//用户名
+              setCookie(userIdFlag,data.data.userId);	//用户编号
+              window.location.href='message.html';
+          }else{
+              console.log("登录失败，请重新登录！");
+              window.location.href='login.html';
+          }
+      },
+      error: function (e) {
+          console.log(e);
+          console.log("登录失败，请重新登录！");
+          window.location.href='login.html';
+      }
+  });
+  }
+   </script>
 </body>
 </html>
