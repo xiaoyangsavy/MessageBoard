@@ -78,4 +78,19 @@
         from message_type
         where type_id=${typeId}
     </select>
+    <select id="user_count" resultType="Integer">
+        select count(*)
+        from user
+        where user_name=#{userName}
+    </select>
+    <select id="userPass" resultType="String">
+        select password
+        from user
+        where user_name=#{userName}
+    </select>
+    <update id="lastLoginDate">
+        update user
+        set last_login_date=#{lastLoginDate}
+        where user_id=#{userId}
+    </update>
 </mapper>

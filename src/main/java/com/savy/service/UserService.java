@@ -6,6 +6,7 @@ import com.savy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 //用户
@@ -101,6 +102,20 @@ public class UserService {
     public Integer selectID(String userName){
         Integer select_ID=userMapper.selectID(userName);
         return select_ID;
+    }
+    public Integer user_count(String userName){
+        Integer user_count=userMapper.user_count(userName);
+        return  user_count;
+    }
+    public String userPass( String userName){
+        String userPass=userMapper.userPass(userName);
+        return userPass;
+    }
+    public Integer lastLoginDate(Integer userId)
+    {
+        Date lastLoginDate=new Date();
+        Integer last_LoginDate=userMapper.lastLoginDate(lastLoginDate,userId);
+        return  last_LoginDate;
     }
 
 }

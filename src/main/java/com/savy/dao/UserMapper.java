@@ -3,6 +3,7 @@ package com.savy.dao;
 import com.savy.model.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 //用户
@@ -32,5 +33,11 @@ public interface UserMapper {
     Integer userCount();
     //查找权限的名称
     String selectPermissionName(@Param("typeId") Integer typeId);
+    //查找用户是否存在
+    Integer user_count(@Param("userName") String userName);
+    //查找用户密码
+    String userPass(@Param("userName") String userName);
+    //设置最后登录时间
+    Integer lastLoginDate(@Param("lastLoginDate") Date lastLoginDate,@Param("userId") Integer userId);
 
 }

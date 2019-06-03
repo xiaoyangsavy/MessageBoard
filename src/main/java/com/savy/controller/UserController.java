@@ -212,9 +212,24 @@ public class UserController {
         String password = myMap.get("password");
         Result<Map> result=new Result<>();
         Map map=new HashMap();
+        int user_count=userService.user_count(userName);
+        if(user_count<=0){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("用户名不存在！");
+            result.setData(map);
+            return result;
+        }
+        String userPass=userService.userPass(userName);
+        if(!userPass.equals(password)){
+            result.setResultStatus(ResultStatus.FAIL);
+            result.setMessage("密码错误！");
+            result.setData(map);
+            return result;
+        }
         boolean flag=userService.login(userName,password);
         if(flag){
             Integer userId=userService.selectID(userName);
+            Integer lastLoginDate=userService.lastLoginDate(userId);
             map.put("userId",userId);
             result.setResultStatus(ResultStatus.SUCCESS);
             result.setMessage("用户登录成功！");
