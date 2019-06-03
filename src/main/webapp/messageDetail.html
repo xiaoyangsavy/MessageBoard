@@ -158,7 +158,7 @@ if(!debug){
 			console.log("getPermission:");
 			console.log(data.data);
 			permission = data.data;
-			
+            loadPage();//获取完权限之后，才能加载页面
 			}else{
 				openPopup("权限获取失败，请重新登录！");
                 window.location.href='view/login.html';
@@ -171,141 +171,7 @@ if(!debug){
         }
     });
 
-   //获取页面数据
- $.ajax({
-        type: "GET",
-        url:  serverUrl+"message/viewProblem?superMessageId="+messageId,
-        contentType: "application/json",
-        success: function (data) {
-			console.log("call message/viewProblem");
-			console.log(data);
-	 		if(data.status==200){	//调用成功	
- 
- 				//var exitReply = false;
-				//if(data.data.length>1){
-				//	exitReply = true;
-				//}
-				var dateLen = 0;
-				dateLen = data.data.length;
-				console.log("length:"+dateLen);
-				var html = '';	//待插入UI内容
-				//console.log(len>0?"true":"false");
- 			 for(var i = 0; i < dateLen; i++){	//只遍历了一次,只能强行写死
-				 console.log("i="+i);
-				 //console.log(i < len?"true":"false");
-				console.log(data.data[i]);
-			 	var item = data.data[i];
-				 //console.log(data.data[i].imageUrl);
-				
-				
-	 			//document.getElementById("content-div").innerHTML = '';
-	 			//html += '<h4 id="messageTitle" align="center">无回复内容</h4>';
-				if(i==0){	//用户留言内容
-				
-				//评分控件默认显示值
-				 grade = item.messageGrade;
-				 console.log("grade="+grade);
-				 if(grade==null || grade == undefined || grade == '' || grade == 0){
-					 grade =  5;
-					}
-                    getUserInfo(item.userId);
-				
-				 
-				 // var html = "";
-				 // for(var k=1;k<=5;k++){
-				 // 	html += '<option value="'+k+'">'+k+'</option>';
-				 // }
-				 // document.getElementById("rating-select").innerHTML = html;
-				 $("#rating-select").val(grade);	//TODO需要修改js文件逻辑
-				 $("#rating-select").prev().text(grade);	//修改默认添加的span标签 
-				 
-				 
-				html = '';
-			   	html += '<h4 align="center">'+item.messageTitle+'</h4>';
-			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
-				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
-					 
-					console.log(item.imageUrl.length);
-			   	for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
-				console.log(fileUrl+item.imageUrl[j]);
-				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
-				 }
-				}
-				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
-					 	html += '<p>视频:</p><br/>';
-				for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
-				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
-				 }
-				 }
-				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
-				html += ' <p>音频:</p><br/>';
-			   	for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
-				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
-				 }
-				}
-				
-				document.getElementById("content-div").innerHTML = html;
-				html = '';
-	 
-			   }else{	//回复内容
-			  
-			   console.log("reply:");
-			   console.log(item);
-			   if(item != null&&item != undefined && item != ''){//存在回复
-				isReplay = true;	
-			   	//var html = '';
-				html += ' <div >&nbsp;<img src="images/用户.svg" class="login-icon">&nbsp;<span>'+item.userName+':</span></div><br/>';
-			   	html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
-				if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
-			   	for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
-				html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
-				 }
-				}
-				 if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
-					 	html += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视频:</p><br/>';
-				for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
-				html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
-				 }
-				 }
-				if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
-				html += ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;音频:</p><br/>';
-			   	for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
-				 html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
-				 }
-				}
-                   html += '<hr />';
-			   }
-			}
-			if(html!=''){
- 			document.getElementById("reply-div").innerHTML = html;
-			}
-			   
-				 
-			 }
-			 console.log("permission="+permission+"isReplay="+isReplay)
-			 if(permission==0){	//用户
-				//$("#replay-button").hide();//隐藏发布按钮
-			}else{
-				$("#replay-button").show();//显示发布按钮
-				$("#grade-submit-div").hide();	//隐藏评分提交功能
-				$("#rating-select").attr('disabled', true);	//下拉框不可点击
-			}
-			if(isReplay){
-				$("#grade-div").show();	//显示评分控件
-				//$("#replay-button").hide();//隐藏发布按钮
-				}else{
-				$("#grade-div").hide();	//隐藏评分控	
-				}
-			}else{
-				openPopup(data.message);
-			}
-			//window.location.reload();
-        },
-        error: function (e) {
-			console.log(e);
-            openPopup("权限获取失败，请重新登录！");
-        }
-    });
+
 
 	}else{
 	//测试代码
@@ -314,7 +180,146 @@ if(!debug){
  
 });
  
- 
+
+//加载页面
+function loadPage() {
+    //获取页面数据
+    $.ajax({
+        type: "GET",
+        url:  serverUrl+"message/viewProblem?superMessageId="+messageId,
+        contentType: "application/json",
+        success: function (data) {
+            console.log("call message/viewProblem");
+            console.log(data);
+            if(data.status==200){	//调用成功
+
+                //var exitReply = false;
+                //if(data.data.length>1){
+                //	exitReply = true;
+                //}
+                var dateLen = 0;
+                dateLen = data.data.length;
+                console.log("length:"+dateLen);
+                var html = '';	//待插入UI内容
+                //console.log(len>0?"true":"false");
+                for(var i = 0; i < dateLen; i++){	//只遍历了一次,只能强行写死
+                    console.log("i="+i);
+                    //console.log(i < len?"true":"false");
+                    console.log(data.data[i]);
+                    var item = data.data[i];
+                    //console.log(data.data[i].imageUrl);
+
+
+                    //document.getElementById("content-div").innerHTML = '';
+                    //html += '<h4 id="messageTitle" align="center">无回复内容</h4>';
+                    if(i==0){	//用户留言内容
+
+                        //评分控件默认显示值
+                        grade = item.messageGrade;
+                        console.log("grade="+grade);
+                        if(grade==null || grade == undefined || grade == '' || grade == 0){
+                            grade =  5;
+                        }
+                        getUserInfo(item.userId);
+
+
+                        // var html = "";
+                        // for(var k=1;k<=5;k++){
+                        // 	html += '<option value="'+k+'">'+k+'</option>';
+                        // }
+                        // document.getElementById("rating-select").innerHTML = html;
+                        $("#rating-select").val(grade);	//TODO需要修改js文件逻辑
+                        $("#rating-select").prev().text(grade);	//修改默认添加的span标签
+
+
+                        html = '';
+                        html += '<h4 align="center">'+item.messageTitle+'</h4>';
+                        html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
+                        if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
+
+                            console.log(item.imageUrl.length);
+                            for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
+                                console.log(fileUrl+item.imageUrl[j]);
+                                html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+                            }
+                        }
+                        if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
+                            html += '<p>视频:</p><br/>';
+                            for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
+                                html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+                            }
+                        }
+                        if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
+                            html += ' <p>音频:</p><br/>';
+                            for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
+                                html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+                            }
+                        }
+
+                        document.getElementById("content-div").innerHTML = html;
+                        html = '';
+
+                    }else{	//回复内容
+
+                        console.log("reply:");
+                        console.log(item);
+                        if(item != null&&item != undefined && item != ''){//存在回复
+                            isReplay = true;
+                            //var html = '';
+                            html += ' <div >&nbsp;<img src="images/用户.svg" class="login-icon">&nbsp;<span>'+item.userName+':</span></div><br/>';
+                            html += '<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.messageContent+'</label><br/>';
+                            if(item.imageUrl != null&&item.imageUrl != undefined && item.imageUrl != ''){
+                                for(var j = 0,imageLen = item.imageUrl.length; j < imageLen; j++){	//图片
+                                    html += '<img src="'+fileUrl+item.imageUrl[j]+'" width="100%" >&nbsp;&nbsp;&nbsp;&nbsp;';
+                                }
+                            }
+                            if(item.videoUrl!=null&&item.videoUrl != undefined && item.videoUrl != ''){
+                                html += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视频:</p><br/>';
+                                for(var j = 0,videoLen = item.videoUrl.length; j < videoLen; j++){	//视频
+                                    html += '<video src="'+fileUrl+item.videoUrl[j]+'" width="100%"  align="center" controls autoplay></video>&nbsp;<br/>';
+                                }
+                            }
+                            if(item.voiceUrl!=null&&item.voiceUrl != undefined && item.voiceUrl != ''){
+                                html += ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;音频:</p><br/>';
+                                for(var j = 0,voiceLen = item.voiceUrl.length; j < voiceLen; j++){	//音频
+                                    html += '<audio controls>  <source src="'+fileUrl+item.voiceUrl[j]+'" type="audio/mpeg"> 您的浏览器不支持 audio 元素。</audio>';
+                                }
+                            }
+                            html += '<hr />';
+                        }
+                    }
+                    if(html!=''){
+                        document.getElementById("reply-div").innerHTML = html;
+                    }
+
+                }
+                console.log("permission="+permission+"isReplay="+isReplay);
+                if(permission==0){	//用户
+                    //$("#replay-button").hide();//隐藏发布按钮
+                    $("#grade-submit-div").show();	//显示评分提交功能
+                }else{
+                    $("#replay-button").show();//显示发布按钮
+                    $("#grade-submit-div").hide();	//隐藏评分提交功能
+                    $("#rating-select").attr('disabled', true);	//下拉框不可点击
+                }
+                if(isReplay){
+                    $("#grade-div").show();	//显示评分控件
+                    //$("#replay-button").hide();//隐藏发布按钮
+                }else{
+                    $("#grade-div").hide();	//隐藏评分控
+                }
+            }else{
+                openPopup(data.message);
+            }
+            //window.location.reload();
+        },
+        error: function (e) {
+            console.log(e);
+            openPopup("权限获取失败，请重新登录！");
+        }
+    });
+}
+
 
 
 //管理员回复
