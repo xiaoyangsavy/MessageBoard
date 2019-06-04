@@ -22,7 +22,8 @@ public class User {
     private String sno;//学号
     private String realName;//学生姓名
     private String college;//学院
-    @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss")
+    //需要指定时区为东八区，不然相差时差8小时
+    @JsonFormat(pattern="yyyy-MM-dd  HH:mm:ss",timezone="GMT+8")
     private Date lastLoginDate;   //最后登录日期
 
 
