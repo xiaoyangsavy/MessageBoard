@@ -33,11 +33,14 @@
 
       <div  id="user-div">
 
-              <lable style="font-size:10px;">学生手机号：</lable> <lable id="phone" style="font-size:10px;"></lable>
+              <lable style="font-size:10px;">学生姓名：</lable> <lable id="realName" style="font-size:10px;"></lable>
                 <br/>
-              <lable style="font-size:10px;">学生邮箱：</lable> <lable id="email" style="font-size:10px;"></lable>
-
-
+              <lable style="font-size:10px;">学院：</lable> <lable id="college" style="font-size:10px;"></lable>
+              <br/>
+              <lable style="font-size:10px;">手机号：</lable> <lable id="phone" style="font-size:10px;"></lable>
+              <br/>
+              <lable style="font-size:10px;">邮箱：</lable> <lable id="email" style="font-size:10px;"></lable>
+               <hr/>
       </div>
 
   <div id="content-div">
@@ -378,9 +381,17 @@ function getUserInfo(userId) {
                 var myData = data.data;
 
 
+                var realName = myData.realName;
+                var college = myData.college;
                 var phone = myData.phone;
                 var email = myData.email;
 
+                if (realName == null || realName == undefined || realName == '') {
+                    realName='未记录';
+                }
+                if (college == null || college == undefined || college == '') {
+                    college='未记录';
+                }
                 if (phone == null || phone == undefined || phone == '') {
                     phone='未记录';
                 }
@@ -388,6 +399,8 @@ function getUserInfo(userId) {
                     email='未记录';
                 }
 
+                $("#realName").text(realName);    //姓名
+                $("#college").text(college);    //学院
                 $("#phone").text(phone);    //手机号
                 $("#email").text(email);    //邮箱
 

@@ -92,7 +92,7 @@ if(username == null || username == undefined || username == ''|| username == '�
 			setCookie(userIdFlag,data.data.userId);	//用户编号
 			window.location.href='message.html';
 			}else{
-				openPopup("登录失败，请重新登录！");
+				openPopup(data.message);
 			}
         },
         error: function (e) {
