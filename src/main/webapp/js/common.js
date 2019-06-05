@@ -1,4 +1,4 @@
-var version = '1.0.22'	//版本号
+var version = '1.0.24'	//版本号
 var debug  = false	//测试模式
 var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
