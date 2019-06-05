@@ -37,7 +37,7 @@
    <div id="messageTypeDiv" class="ui-field-contain">
         <label for="messageType">选择类别</label>
         <select name="messageType" id="messageType">
-         <option value="0">请选择</option>
+         <option value="-1">请选择</option>
         </select>
      </div>
 
@@ -151,7 +151,7 @@ if(!debug){
             if(data.status==200){	//调用成功
 			console.log("接口数据长度："+data.data.length);
                  var html = "";
-				 //html += '<option value="-1">全部</option>';
+				 html += '<option value="-1">请选择</option>';
    			 for(var i = 0,len = data.data.length; i < len; i++){
 				console.log(data.data[i]);
 			 	var item = data.data[i];
@@ -196,7 +196,9 @@ if(!debug){
      console.log("messageContent="+messageContent);
 
      if(messageContent != null && messageContent != undefined && messageContent != ''){
+         if(invalidContent){
          invalidContent = false;    //有效内容
+         }
      }
 
      console.log("开始生成表单数据");
@@ -205,7 +207,7 @@ if(!debug){
 	formFile.append("userId",userId);
     //formFile.append("action", "UploadPath");
 	formFile.append("messageTitle", messageTitle);
-	formFile.append("typeId", typeId);
+
 	formFile.append("messageContent", messageContent);
     //把文件放入form对象中  
    // formFile.append("imageUrl", imageUrl); 
@@ -219,7 +221,9 @@ if(!debug){
      console.log("解析图片数据");
   var size = 0;
 for(var i=0; i< imageFile.length; i++){
-    invalidContent = false;
+    if(invalidContent) {
+        invalidContent = false;
+    }
 console.log(imageFile[i].name);
 formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
  size += imageFile[i].size;
@@ -228,7 +232,9 @@ formFile.append('imageFile',imageFile[i]);    //将文件转成二进制形式
 
      console.log("解析视频数据");
 for(var i=0; i< videoFile.length; i++){
-    invalidContent = false;
+    if(invalidContent) {
+        invalidContent = false;
+    }
 console.log(videoFile[i].name);
 formFile.append('videoFile',videoFile[i]);    //将文件转成二进制形式
 size += videoFile[i].size;
@@ -237,7 +243,9 @@ size += videoFile[i].size;
 
      console.log("解析声音数据");
 for(var i=0; i< voiceFile.length; i++){
-    invalidContent = false;
+    if(invalidContent) {
+        invalidContent = false;
+    }
 console.log(voiceFile[i].name);
 formFile.append('voiceFile',voiceFile[i]);    //将文件转成二进制形式
 size += voiceFile[i].size;
@@ -260,13 +268,22 @@ size += voiceFile[i].size;
  console.log(size);
   var filesize = (size / 1024 /1024).toFixed(2);
  console.log(filesize);
+
+
+ //判断类别是否选择
+     if(typeId!=-1){
+         formFile.append("typeId", typeId);
+     }else{  //未选择类别
+         invalidContent = true;  //需填写留言类别
+     }
+
  if(filesize>7){
      console.log("文件超过最大上限");
 	 openPopup("文件过大，请选择较小文件！");
 	}else  if(invalidContent){
      console.log("未填写有效内容");
      //sleep(1000);
-     openPopup("请填写内容！");
+     openPopup("请填写必要内容！");
  }else{
      openPopup('数据提交中......');
      console.log("开始提交数据");
