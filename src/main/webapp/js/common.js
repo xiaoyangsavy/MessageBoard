@@ -1,12 +1,12 @@
-var version = '1.0.24'	//版本号
+var version = '1.0.25'	//版本号
 var debug  = false	//测试模式
 var permission = '0';	//权限
 var isLoginFlag = 'isLogin';	//是否已登录
 var usernameFlag = 'username';	//用户名
 //var serverUrl = "http://192.168.191.2:8080/message/"	//服务器地址
 //var fileUrl = "http://192.168.191.2:8080/"	//文件地址
-var serverUrl = "http://210.30.128.69:8080/message/"	//服务器地址
-var fileUrl = "http://210.30.128.69:8080/"	//文件地址
+var serverUrl = "http://localhost:8080/message/"	//服务器地址
+var fileUrl = "http://localhost:8080/"	//文件地址
 //var serverUrl = "http://10.0.2.11:8080/message/"	//服务器地址
 //var fileUrl = "http://10.0.2.11:8080/"	//文件地址
 
